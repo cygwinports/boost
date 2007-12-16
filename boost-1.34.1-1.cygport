@@ -1,0 +1,73 @@
+DESCRIPTION="Boost C++ libraries"
+HOMEPAGE="http://www.boost.org/"
+SRC_URI="mirror://sourceforge/boost/${PN}_${PV//./_}.tar.bz2"
+SRC_DIR="${PN}_${PV//./_}"
+
+n=0
+
+PKG_NAMES="${PN} lib${PN}-devel"
+PKG_HINTS="setup devel"
+PKG_CONTENTS[$((n++))]='usr/share/doc/'
+PKG_CONTENTS[$((n++))]='usr/include/ usr/lib/'
+
+for l in date-time filesystem graph iostreams program-options python \
+         regex serialization signals thread wave
+do
+	PKG_NAMES+=" lib${PN}_${l}${PV//./_}"
+	PKG_HINTS+=" ${l}"
+	PKG_CONTENTS[$((n++))]="usr/bin/cyg${PN}_${l//-/_}-*.dll"
+done
+unset l n
+
+DIFF_EXCLUDES="boostbook boost html *.test"
+
+src_compile() {
+	lndirs
+
+	export BOOST_ROOT=${B}
+
+	cd ${B}
+	./configure \
+		--prefix=/usr \
+		--with-icu=/usr \
+		--with-toolset=gcc \
+		|| error "configure failed"
+
+	cygmake LIBS="release"
+
+#	cd ${B}/tools
+#	./jam/src/bin.cygwinx86/bjam.exe \
+#		-sICU_PATH=/usr --toolset=gcc --prefix=/usr release \
+#		|| error "tools compile failed"
+}
+
+src_install() {
+	cd ${B}
+	dobin $(find bin.v2/libs/ -name '*.dll')
+	dolib $(find bin.v2/libs/ -name '*.a')
+
+	dodir /usr/include
+	cp -r ${S}/boost ${D}/usr/include
+
+	# Unit test DLLs broken on Cygwin; results in _WinMain@16 linker errors
+	rm -f ${D}/usr/bin/cygboost_{prg_exec_monitor,unit_test}*.dll \
+	      ${D}/usr/lib/libboost_{prg_exec_monitor,unit_test}*.dll.a
+
+	(
+		cd ${D}/usr/lib
+		for lib in libboost_*
+		do
+			short=${lib/-gcc34}
+			vext=${PV//./_}
+			short=${short/-${vext}}
+			ln -sf ${lib} ${short}
+
+			case $lib in
+				libboost_thread*)
+					ln -sf ${lib} ${short/-mt} ;;
+			esac
+		done
+	)
+
+	dodoc README LICENSE_1_0.txt
+}
