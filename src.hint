@@ -1,7 +1,5 @@
-category: Libs
-requires: cygwin
-external-source: boost
-sdesc: "Boost serialization library (runtime)"
+category: _source
+sdesc: "Boost C++ libraries (source)"
 ldesc: "Boost provides free peer-reviewed portable C++ source libraries.
 
 We emphasize libraries that work well with the C++ Standard Library. 

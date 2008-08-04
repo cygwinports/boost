@@ -1,6 +1,7 @@
 category: Libs
 requires: cygwin
-sdesc: "Boost C++ libraries (docs)"
+external-source: boost
+sdesc: "Boost system library (runtime)"
 ldesc: "Boost provides free peer-reviewed portable C++ source libraries.
 
 We emphasize libraries that work well with the C++ Standard Library. 
