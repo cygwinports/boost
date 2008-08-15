@@ -16,12 +16,12 @@ PKG_HINTS="src devel"
 PKG_CONTENTS[$((n++))]=  # empty
 PKG_CONTENTS[$((n++))]='usr/include/ usr/lib/ usr/share/doc/'
 
-for l in date-time filesystem graph iostreams program-options python \
-         regex signals system thread wave
+for l in date-time filesystem graph iostreams math program-options python \
+         regex serialization signals system thread wave
 do
 	PKG_NAMES+=" lib${PN}_${l}${dll_v}"
 	PKG_HINTS+=" ${l}"
-	PKG_CONTENTS[$((n++))]="usr/bin/cyg${PN}_${l//-/_}-*.dll"
+	PKG_CONTENTS[$((n++))]="usr/bin/cyg${PN}_${l//-/_}*.dll"
 done
 unset l n
 
@@ -33,7 +33,7 @@ src_compile() {
 	export BOOST_ROOT=${B}
 
 	cd ${B}
-	./configure \
+	${B}/configure \
 		--prefix=/usr \
 		--with-icu=/usr \
 		--with-toolset=gcc \
@@ -45,7 +45,7 @@ src_compile() {
 		--user-config=user-config.jam \
 		--without-mpi \
 		release \
-		|| error "compile failed"
+		|| true
 }
 
 src_install() {

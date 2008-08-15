@@ -1,7 +1,7 @@
 category: Libs
-requires: cygwin libboost_system1.36
+requires: cygwin
 external-source: boost
-sdesc: "Boost filesystem library (runtime)"
+sdesc: "Boost math libraries (runtime)"
 ldesc: "Boost provides free peer-reviewed portable C++ source libraries.
 
 We emphasize libraries that work well with the C++ Standard Library. 
