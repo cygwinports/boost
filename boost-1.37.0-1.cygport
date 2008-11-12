@@ -1,7 +1,7 @@
 DESCRIPTION="Boost C++ libraries"
 HOMEPAGE="http://www.boost.org/"
 SRC_URI="mirror://sourceforge/boost/${PN}_${PV//./_}.tar.bz2"
-PATCH_URI="1.35.0-dll.patch"
+PATCH_URI="1.37.0-dll.patch"
 
 SRC_DIR="${PN}_${PV//./_}"
 case ${PV} in
@@ -9,19 +9,17 @@ case ${PV} in
 	*)		dll_v=${PV} ;;
 esac
 
-n=0
-
 PKG_NAMES="${PN} lib${PN}-devel"
 PKG_HINTS="src devel"
-PKG_CONTENTS[$((n++))]=  # empty
-PKG_CONTENTS[$((n++))]='usr/include/ usr/lib/ usr/share/doc/'
+boost_CONTENTS=  # empty
+libboost_devel_CONTENTS='usr/include/ usr/lib/ usr/share/doc/'
 
 for l in date-time filesystem graph iostreams math program-options python \
          regex serialization signals system thread wave
 do
 	PKG_NAMES+=" lib${PN}_${l}${dll_v}"
 	PKG_HINTS+=" ${l}"
-	PKG_CONTENTS[$((n++))]="usr/bin/cyg${PN}_${l//-/_}*.dll"
+	declare libboost_${l//-/_}${dll_v//./_}_CONTENTS="usr/bin/cyg${PN}_${l//-/_}*.dll"
 done
 unset l n
 

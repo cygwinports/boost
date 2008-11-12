@@ -31,154 +31,157 @@ Canonical download:
 -------------------------------------------
 
 Build instructions:
-  unpack boost-1.36.0-X-src.tar.bz2
+  unpack boost-1.37.0-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./boost-1.36.0-X.cygport all
+  cygport ./boost-1.37.0-X.cygport all
 
 This will create:
-  /usr/src/boost-1.36.0-X-src.tar.bz2
-  /usr/src/boost-1.36.0-X.tar.bz2
-  /usr/src/libboost_date-time1.36-1.36.0-X.tar.bz2
-  /usr/src/libboost-devel-1.36.0-X.tar.bz2
-  /usr/src/libboost_filesystem1.36-1.36.0-X.tar.bz2
-  /usr/src/libboost_graph1.36-1.36.0-X.tar.bz2
-  /usr/src/libboost_iostreams1.36-1.36.0-X.tar.bz2
-  /usr/src/libboost_math1.36-1.36.0-X.tar.bz2
-  /usr/src/libboost_program-options1.36-1.36.0-X.tar.bz2
-  /usr/src/libboost_python1.36-1.36.0-X.tar.bz2
-  /usr/src/libboost_regex1.36-1.36.0-X.tar.bz2
-  /usr/src/libboost_serialization1.36-1.36.0-X.tar.bz2
-  /usr/src/libboost_signals1.36-1.36.0-X.tar.bz2
-  /usr/src/libboost_system1.36-1.36.0-X.tar.bz2
-  /usr/src/libboost_thread1.36-1.36.0-X.tar.bz2
-  /usr/src/libboost_wave1.36-1.36.0-X.tar.bz2
+  /usr/src/boost-1.37.0-X-src.tar.bz2
+  /usr/src/boost-1.37.0-X.tar.bz2
+  /usr/src/libboost_date-time1.37-1.37.0-X.tar.bz2
+  /usr/src/libboost-devel-1.37.0-X.tar.bz2
+  /usr/src/libboost_filesystem1.37-1.37.0-X.tar.bz2
+  /usr/src/libboost_graph1.37-1.37.0-X.tar.bz2
+  /usr/src/libboost_iostreams1.37-1.37.0-X.tar.bz2
+  /usr/src/libboost_math1.37-1.37.0-X.tar.bz2
+  /usr/src/libboost_program-options1.37-1.37.0-X.tar.bz2
+  /usr/src/libboost_python1.37-1.37.0-X.tar.bz2
+  /usr/src/libboost_regex1.37-1.37.0-X.tar.bz2
+  /usr/src/libboost_serialization1.37-1.37.0-X.tar.bz2
+  /usr/src/libboost_signals1.37-1.37.0-X.tar.bz2
+  /usr/src/libboost_system1.37-1.37.0-X.tar.bz2
+  /usr/src/libboost_thread1.37-1.37.0-X.tar.bz2
+  /usr/src/libboost_wave1.37-1.37.0-X.tar.bz2
 
 -------------------------------------------
 
 Files included in the binary packages:
 
-(libboost_date_time1.36)
-  /usr/bin/cygboost_date_time-gcc34-mt-1_36.dll
+(libboost_date_time1.37)
+  /usr/bin/cygboost_date_time-gcc34-mt-1_37.dll
 
-(libboost-filesystem1.36)
-  /usr/bin/cygboost_filesystem-gcc34-mt-1_36.dll
+(libboost-filesystem1.37)
+  /usr/bin/cygboost_filesystem-gcc34-mt-1_37.dll
 
-(libboost-graph1.36)
-  /usr/bin/cygboost_graph-gcc34-mt-1_36.dll
+(libboost-graph1.37)
+  /usr/bin/cygboost_graph-gcc34-mt-1_37.dll
 
-(libboost-iostreams1.36)
-  /usr/bin/cygboost_iostreams-gcc34-mt-1_36.dll
+(libboost-iostreams1.37)
+  /usr/bin/cygboost_iostreams-gcc34-mt-1_37.dll
 
-(libboost-math1.36)
-  /usr/bin/cygboost_math_c99-gcc34-mt-1_36.dll
-  /usr/bin/cygboost_math_c99f-gcc34-mt-1_36.dll
-  /usr/bin/cygboost_math_tr1-gcc34-mt-1_36.dll
-  /usr/bin/cygboost_math_tr1f-gcc34-mt-1_36.dll
+(libboost-math1.37)
+  /usr/bin/cygboost_math_c99-gcc34-mt-1_37.dll
+  /usr/bin/cygboost_math_c99f-gcc34-mt-1_37.dll
+  /usr/bin/cygboost_math_tr1-gcc34-mt-1_37.dll
+  /usr/bin/cygboost_math_tr1f-gcc34-mt-1_37.dll
 
-(libboost_program_options1.36)
-  /usr/bin/cygboost_program_options-gcc34-mt-1_36.dll
+(libboost_program_options1.37)
+  /usr/bin/cygboost_program_options-gcc34-mt-1_37.dll
 
-(libboost_python1.36)
-  /usr/bin/cygboost_python-gcc34-mt-1_36.dll
+(libboost_python1.37)
+  /usr/bin/cygboost_python-gcc34-mt-1_37.dll
 
-(libboost_regex1.36)
-  /usr/bin/cygboost_regex-gcc34-mt-1_36.dll
+(libboost_regex1.37)
+  /usr/bin/cygboost_regex-gcc34-mt-1_37.dll
 
-(libboost_serialization1.36)
-  /usr/bin/cygboost_serialization-gcc34-mt-1_36.dll
+(libboost_serialization1.37)
+  /usr/bin/cygboost_serialization-gcc34-mt-1_37.dll
 
-(libboost_signals1.36)
-  /usr/bin/cygboost_signals-gcc34-mt-1_36.dll
+(libboost_signals1.37)
+  /usr/bin/cygboost_signals-gcc34-mt-1_37.dll
 
-(libboost_system1.36)
-  /usr/bin/cygboost_system-gcc34-mt-1_36.dll
+(libboost_system1.37)
+  /usr/bin/cygboost_system-gcc34-mt-1_37.dll
 
-(libboost_thread1.36)
-  /usr/bin/cygboost_thread-gcc34-mt-1_36.dll
+(libboost_thread1.37)
+  /usr/bin/cygboost_thread-gcc34-mt-1_37.dll
 
-(libboost_wave1.36)
-  /usr/bin/cygboost_wave-gcc34-mt-1_36.dll
+(libboost_wave1.37)
+  /usr/bin/cygboost_wave-gcc34-mt-1_37.dll
 
 (libboost-devel)
   /usr/include/boost/*/*
-  /usr/lib/libboost_date_time-gcc34-mt-1_36.a
-  /usr/lib/libboost_date_time-gcc34-mt-1_36.dll.a
+  /usr/lib/libboost_date_time-gcc34-mt-1_37.a
+  /usr/lib/libboost_date_time-gcc34-mt-1_37.dll.a
   /usr/lib/libboost_date_time-mt.a
   /usr/lib/libboost_date_time-mt.dll.a
-  /usr/lib/libboost_filesystem-gcc34-mt-1_36.a
-  /usr/lib/libboost_filesystem-gcc34-mt-1_36.dll.a
+  /usr/lib/libboost_filesystem-gcc34-mt-1_37.a
+  /usr/lib/libboost_filesystem-gcc34-mt-1_37.dll.a
   /usr/lib/libboost_filesystem-mt.a
   /usr/lib/libboost_filesystem-mt.dll.a
-  /usr/lib/libboost_graph-gcc34-mt-1_36.a
-  /usr/lib/libboost_graph-gcc34-mt-1_36.dll.a
+  /usr/lib/libboost_graph-gcc34-mt-1_37.a
+  /usr/lib/libboost_graph-gcc34-mt-1_37.dll.a
   /usr/lib/libboost_graph-mt.a
   /usr/lib/libboost_graph-mt.dll.a
-  /usr/lib/libboost_iostreams-gcc34-mt-1_36.a
-  /usr/lib/libboost_iostreams-gcc34-mt-1_36.dll.a
+  /usr/lib/libboost_iostreams-gcc34-mt-1_37.a
+  /usr/lib/libboost_iostreams-gcc34-mt-1_37.dll.a
   /usr/lib/libboost_iostreams-mt.a
   /usr/lib/libboost_iostreams-mt.dll.a
-  /usr/lib/libboost_math_c99-gcc34-mt-1_36.a
-  /usr/lib/libboost_math_c99-gcc34-mt-1_36.dll.a
+  /usr/lib/libboost_math_c99-gcc34-mt-1_37.a
+  /usr/lib/libboost_math_c99-gcc34-mt-1_37.dll.a
   /usr/lib/libboost_math_c99-mt.a
   /usr/lib/libboost_math_c99-mt.dll.a
-  /usr/lib/libboost_math_c99f-gcc34-mt-1_36.a
-  /usr/lib/libboost_math_c99f-gcc34-mt-1_36.dll.a
+  /usr/lib/libboost_math_c99f-gcc34-mt-1_37.a
+  /usr/lib/libboost_math_c99f-gcc34-mt-1_37.dll.a
   /usr/lib/libboost_math_c99f-mt.a
   /usr/lib/libboost_math_c99f-mt.dll.a
-  /usr/lib/libboost_math_tr1-gcc34-mt-1_36.a
-  /usr/lib/libboost_math_tr1-gcc34-mt-1_36.dll.a
+  /usr/lib/libboost_math_tr1-gcc34-mt-1_37.a
+  /usr/lib/libboost_math_tr1-gcc34-mt-1_37.dll.a
   /usr/lib/libboost_math_tr1-mt.a
   /usr/lib/libboost_math_tr1-mt.dll.a
-  /usr/lib/libboost_math_tr1f-gcc34-mt-1_36.a
-  /usr/lib/libboost_math_tr1f-gcc34-mt-1_36.dll.a
+  /usr/lib/libboost_math_tr1f-gcc34-mt-1_37.a
+  /usr/lib/libboost_math_tr1f-gcc34-mt-1_37.dll.a
   /usr/lib/libboost_math_tr1f-mt.a
   /usr/lib/libboost_math_tr1f-mt.dll.a
-  /usr/lib/libboost_prg_exec_monitor-gcc34-mt-1_36.a
+  /usr/lib/libboost_prg_exec_monitor-gcc34-mt-1_37.a
   /usr/lib/libboost_prg_exec_monitor-mt.a
-  /usr/lib/libboost_program_options-gcc34-mt-1_36.a
-  /usr/lib/libboost_program_options-gcc34-mt-1_36.dll.a
+  /usr/lib/libboost_program_options-gcc34-mt-1_37.a
+  /usr/lib/libboost_program_options-gcc34-mt-1_37.dll.a
   /usr/lib/libboost_program_options-mt.a
   /usr/lib/libboost_program_options-mt.dll.a
-  /usr/lib/libboost_python-gcc34-mt-1_36.a
-  /usr/lib/libboost_python-gcc34-mt-1_36.dll.a
+  /usr/lib/libboost_python-gcc34-mt-1_37.a
+  /usr/lib/libboost_python-gcc34-mt-1_37.dll.a
   /usr/lib/libboost_python-mt.a
   /usr/lib/libboost_python-mt.dll.a
-  /usr/lib/libboost_regex-gcc34-mt-1_36.a
-  /usr/lib/libboost_regex-gcc34-mt-1_36.dll.a
+  /usr/lib/libboost_regex-gcc34-mt-1_37.a
+  /usr/lib/libboost_regex-gcc34-mt-1_37.dll.a
   /usr/lib/libboost_regex-mt.a
   /usr/lib/libboost_regex-mt.dll.a
-  /usr/lib/libboost_serialization-gcc34-mt-1_36.a
-  /usr/lib/libboost_serialization-gcc34-mt-1_36.dll.a
+  /usr/lib/libboost_serialization-gcc34-mt-1_37.a
+  /usr/lib/libboost_serialization-gcc34-mt-1_37.dll.a
   /usr/lib/libboost_serialization-mt.a
   /usr/lib/libboost_serialization-mt.dll.a
-  /usr/lib/libboost_signals-gcc34-mt-1_36.a
-  /usr/lib/libboost_signals-gcc34-mt-1_36.dll.a
+  /usr/lib/libboost_signals-gcc34-mt-1_37.a
+  /usr/lib/libboost_signals-gcc34-mt-1_37.dll.a
   /usr/lib/libboost_signals-mt.a
   /usr/lib/libboost_signals-mt.dll.a
-  /usr/lib/libboost_system-gcc34-mt-1_36.a
-  /usr/lib/libboost_system-gcc34-mt-1_36.dll.a
+  /usr/lib/libboost_system-gcc34-mt-1_37.a
+  /usr/lib/libboost_system-gcc34-mt-1_37.dll.a
   /usr/lib/libboost_system-mt.a
   /usr/lib/libboost_system-mt.dll.a
-  /usr/lib/libboost_test_exec_monitor-gcc34-mt-1_36.a
+  /usr/lib/libboost_test_exec_monitor-gcc34-mt-1_37.a
   /usr/lib/libboost_test_exec_monitor-mt.a
-  /usr/lib/libboost_thread-gcc34-mt-1_36.a
-  /usr/lib/libboost_thread-gcc34-mt-1_36.dll.a
+  /usr/lib/libboost_thread-gcc34-mt-1_37.a
+  /usr/lib/libboost_thread-gcc34-mt-1_37.dll.a
   /usr/lib/libboost_thread-mt.a
   /usr/lib/libboost_thread-mt.dll.a
-  /usr/lib/libboost_unit_test_framework-gcc34-mt-1_36.a
+  /usr/lib/libboost_unit_test_framework-gcc34-mt-1_37.a
   /usr/lib/libboost_unit_test_framework-mt.a
-  /usr/lib/libboost_wave-gcc34-mt-1_36.a
-  /usr/lib/libboost_wave-gcc34-mt-1_36.dll.a
+  /usr/lib/libboost_wave-gcc34-mt-1_37.a
+  /usr/lib/libboost_wave-gcc34-mt-1_37.dll.a
   /usr/lib/libboost_wave-mt.a
   /usr/lib/libboost_wave-mt.dll.a
-  /usr/share/doc/boost-1.36.0/INSTALL
-  /usr/share/doc/boost-1.36.0/LICENSE_1_0.txt
+  /usr/share/doc/boost-1.37.0/INSTALL
+  /usr/share/doc/boost-1.37.0/LICENSE_1_0.txt
 
 ------------------
 
 Port Notes:
+
+----- version 1.37.0-1 -----
+Version bump.
 
 ----- version 1.36.0-1 -----
 Version bump.
