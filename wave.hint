@@ -1,5 +1,5 @@
 category: Libs
-requires: cygwin libboost_thread1.37
+requires: libboost_thread1.37
 external-source: boost
 sdesc: "Boost wave library (runtime)"
 ldesc: "Boost provides free peer-reviewed portable C++ source libraries.

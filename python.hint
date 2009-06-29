@@ -1,5 +1,5 @@
 category: Libs Python
-requires: cygwin python
+requires: python
 external-source: boost
 sdesc: "Boost python library (runtime)"
 ldesc: "Boost provides free peer-reviewed portable C++ source libraries.

@@ -1,5 +1,5 @@
 category: Libs
-requires: cygwin libboost_system1.37
+requires: libboost_system1.37
 external-source: boost
 sdesc: "Boost filesystem library (runtime)"
 ldesc: "Boost provides free peer-reviewed portable C++ source libraries.
