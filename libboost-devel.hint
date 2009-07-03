@@ -1,7 +1,7 @@
 category: Libs
-requires: cygwin
+requires: libboost1.37 libbz2-devel libicu-devel libstdc++6-devel python zlib-devel
 external-source: boost
-sdesc: "Boost program_options library (runtime)"
+sdesc: "Boost includes and link libraries"
 ldesc: "Boost provides free peer-reviewed portable C++ source libraries.
 
 We emphasize libraries that work well with the C++ Standard Library. 

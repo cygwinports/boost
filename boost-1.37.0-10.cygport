@@ -1,7 +1,13 @@
+inherit python
+
 DESCRIPTION="Boost C++ libraries"
 HOMEPAGE="http://www.boost.org/"
 SRC_URI="mirror://sourceforge/boost/${PN}_${PV//./_}.tar.bz2"
-PATCH_URI="1.37.0-dll.patch"
+
+PATCH_URI="mirror://portage/dev-libs/${PN}/files/remove_toolset_from_targetname.patch
+           mirror://portage/dev-libs/${PN}/files/buildid-fix.patch
+           1.37.0-dll.patch
+           1.37.0-jam-cygwin.patch"
 
 SRC_DIR="${PN}_${PV//./_}"
 case ${PV} in
@@ -9,19 +15,20 @@ case ${PV} in
 	*)		dll_v=${PV} ;;
 esac
 
-PKG_NAMES="${PN} lib${PN}-devel"
-PKG_HINTS="src devel"
+PKG_NAMES="${PN} lib${PN}${dll_v} lib${PN}-devel"
+PKG_HINTS="src libboost libboost-devel"
 boost_CONTENTS=  # empty
 libboost_devel_CONTENTS='usr/include/ usr/lib/ usr/share/doc/'
+declare libboost${dll_v//./_}_CONTENTS="usr/bin/*-${dll_v//./_}.dll"
 
-for l in date-time filesystem graph iostreams math program-options python \
-         regex serialization signals system thread wave
-do
-	PKG_NAMES+=" lib${PN}_${l}${dll_v}"
-	PKG_HINTS+=" ${l}"
-	declare libboost_${l//-/_}${dll_v//./_}_CONTENTS="usr/bin/cyg${PN}_${l//-/_}*.dll"
-done
-unset l n
+#for l in date-time filesystem graph iostreams math program-options python \
+#         regex serialization signals system thread wave
+#do
+#	PKG_NAMES+=" lib${PN}_${l}${dll_v}"
+#	PKG_HINTS+=" ${l}"
+#	declare libboost_${l//-/_}${dll_v//./_}_CONTENTS="usr/bin/cyg${PN}_${l//-/_}*.dll"
+#done
+#unset l n
 
 DIFF_EXCLUDES="boostbook boost html *.test"
 
@@ -34,8 +41,17 @@ src_compile() {
 	${B}/configure \
 		--prefix=/usr \
 		--with-icu=/usr \
+		--with-python=${PYTHON} \
 		--with-toolset=gcc \
 		|| error "configure failed"
+
+	cat > user-config.jam <<-_EOF
+	# Compiler configuration
+	using gcc : $(${CXX} -dumpversion) : ${CXX} : <cxxflags>"${CXXFLAGS}" <linkflags>"${LDFLAGS}" ;
+
+	# Python configuration
+	using python : ${PYTHON_VERSION} : /usr ;
+	_EOF
 
 	./tools/jam/src/bin.cygwinx86/bjam.exe \
 		-sICU_PATH=/usr \
@@ -43,6 +59,7 @@ src_compile() {
 		--user-config=user-config.jam \
 		--without-mpi \
 		release \
+		threading=single,multi link=shared,static \
 		|| true
 }
 
@@ -62,10 +79,8 @@ src_install() {
 		cd ${D}/usr/lib
 		for lib in libboost_*
 		do
-			short=${lib/-gcc34}
 			vext=${dll_v//./_}
-			short=${short/-${vext}}
-			ln -sf ${lib} ${short}
+			ln -sf ${lib} ${lib/-${vext}}
 		done
 	)
 
