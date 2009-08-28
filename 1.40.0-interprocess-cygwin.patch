@@ -1,0 +1,21 @@
+--- origsrc/boost_1_40_0/boost/interprocess/detail/workaround.hpp	2009-08-11 16:44:18.000000000 -0500
++++ src/boost_1_40_0/boost/interprocess/detail/workaround.hpp	2009-08-27 23:41:34.077544500 -0500
+@@ -32,7 +32,7 @@
+    #if ((_POSIX_THREAD_PROCESS_SHARED - 0) > 0)
+    //Cygwin defines _POSIX_THREAD_PROCESS_SHARED but does not implement it.
+    //Mac Os X >= Leopard defines _POSIX_THREAD_PROCESS_SHARED but does not seems to work.
+-   #  if !defined(__CYGWIN__) && !defined(__APPLE__)
++   #  if !defined(__APPLE__)
+    #  define BOOST_INTERPROCESS_POSIX_PROCESS_SHARED
+    #  endif
+    #endif
+@@ -43,9 +43,6 @@
+ 
+    #if ((_POSIX_SEMAPHORES - 0) > 0)
+    # define BOOST_INTERPROCESS_POSIX_NAMED_SEMAPHORES
+-   #  if defined(__CYGWIN__)
+-      #define BOOST_INTERPROCESS_POSIX_SEMAPHORES_NO_UNLINK
+-   #  endif
+    //#elif defined(__APPLE__)
+    //# define BOOST_INTERPROCESS_POSIX_NAMED_SEMAPHORES   
+    #endif 

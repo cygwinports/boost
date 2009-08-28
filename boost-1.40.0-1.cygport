@@ -1,0 +1,99 @@
+inherit python cmake
+
+DESCRIPTION="Boost C++ libraries"
+HOMEPAGE="http://www.boost.org/"
+SRC_URI="mirror://sourceforge/boost/${PN}_${PV//./_}.tar.bz2"
+SRC_DIR="${PN}_${PV//./_}"
+
+PATCH_URI="
+	1.40.0-build-cmake.patch
+	1.40.0-cstdint-cygwin.patch
+	1.40.0-asio-cygwin.patch
+	1.40.0-filesystem-cygwin.patch
+	1.40.0-interlocked-cygwin.patch
+	1.40.0-interprocess-cygwin.patch
+	1.40.0-iostreams-cygwin.patch
+	1.40.0-python-cygwin.patch
+	1.40.0-regex-cygwin.patch
+	1.40.0-smart_ptr-cygwin.patch
+	1.40.0-system-cygwin.patch
+"
+
+case ${PV} in
+	*.0)	dll_v=${PV%.0} ;;
+	*)		dll_v=${PV} ;;
+esac
+
+PKG_NAMES="${PN} lib${PN}${dll_v} lib${PN}-devel"
+PKG_HINTS="src libboost libboost-devel"
+libboost_devel_CONTENTS='usr/include/ usr/lib/ usr/share/doc/'
+declare libboost${dll_v//./_}_CONTENTS="usr/bin/*-${dll_v//./_}.dll"
+
+#for l in date-time filesystem graph iostreams math program-options python \
+#         regex serialization signals system thread wave
+#do
+#	PKG_NAMES+=" lib${PN}_${l}${dll_v}"
+#	PKG_HINTS+=" ${l}"
+#	declare libboost_${l//-/_}${dll_v//./_}_CONTENTS="usr/bin/cyg${PN}_${l//-/_}*.dll"
+#done
+#unset l n
+
+DIFF_EXCLUDES="boostbook html *.test"
+
+CYGCMAKE_ARGS="-DBUILD_DEBUG=OFF -DBUILD_VERSIONED=ON -DBUILD_BOOST_WSERIALIZATION=OFF"
+
+src_test() {
+	local y=0
+	local n=0
+	local allf=""
+
+	cd ${B}
+	cygcmake -DBUILD_REGRESSION_TESTS=ON
+	cygmake -k || true
+
+	cd ${B}/bin/tests
+
+	PATH="${B}/bin:$PATH"
+
+	for x in $(find . -name '*.exe')
+	do
+		echo -n "${x#./}: "
+		if $x &> $x.out
+		then
+			echo "Passed"
+			let y+=1
+			rm -f $x.out
+		else
+			echo "FAILED"
+			let n+=1
+			allf+="${x#./} "
+		fi
+	done
+
+	echo "Summary: $y tests Passed, $n FAILED:"
+	echo $allf
+}
+
+src_install() {
+	cd ${B}
+	dobin bin/*.dll
+	dolib lib/*.a
+
+	dodir /usr/include
+	cp -r ${S}/boost ${D}/usr/include/
+
+	# Unit test DLLs broken on Cygwin; results in _WinMain@16 linker errors
+#	rm -f ${D}/usr/bin/cygboost_{prg_exec_monitor,unit_test}*.dll \
+#	      ${D}/usr/lib/libboost_{prg_exec_monitor,unit_test}*.dll.a
+
+	(
+		cd ${D}/usr/lib
+		for lib in libboost_*
+		do
+			vext=${dll_v//./_}
+			mv ${lib} ${lib/-${vext}}
+		done
+	)
+
+	dodoc README LICENSE_1_0.txt
+}
