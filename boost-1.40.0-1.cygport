@@ -76,8 +76,8 @@ src_test() {
 
 src_install() {
 	cd ${B}
-	dobin bin/*.dll
-	dolib lib/*.a
+	dobin bin/cygboost_*.dll
+	dolib lib/libboost_*.a
 
 	dodir /usr/include
 	cp -r ${S}/boost ${D}/usr/include/
