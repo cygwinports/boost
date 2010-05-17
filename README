@@ -8,22 +8,20 @@ broad spectrum of applications. The Boost license encourages both
 commercial and non-commercial use.
 
 Runtime requirements:
-  cygwin-1.7.0-60
+  cygwin-1.7.5-1
   libbz2_1-1.0.5-10
-  libgcc1-4.3.2-2
-  libicu38-3.8-5
-  libstdc++6-4.3.2-2
-  python-2.5.4-10
+  libgcc1-4.3.4-3
+  libicu38-3.8-7
+  libstdc++6-4.3.4-3
+  python-2.6.5-1
   zlib0-1.2.3-10
 
 Build requirements:
 (besides corresponding -devel packages)
-  binutils-2.19.51-1
-  cmake-2.6.4-10
-  cygport-0.9.9-1
-  gcc4-core-4.3.2-2
-  gcc4-g++-4.3.2-2
-  make-3.81-2
+  binutils-2.20.51-2
+  cygport-0.9.84-1
+  gcc4-core-4.3.4-3
+  gcc4-g++-4.3.4-3
 
 Canonical website:
   http://www.boost.org/
@@ -34,20 +32,24 @@ Canonical download:
 -------------------------------------------
 
 Build instructions:
-  unpack boost-1.40.0-X-src.tar.bz2
+  unpack boost-1.43.0-X-src.tar.bz2
     if you use setup to install this src package, it will be
 	 unpacked under /usr/src automatically
   cd /usr/src
-  cygport ./boost-1.40.0-X.cygport all
+  cygport ./boost-1.43.0-X.cygport all
 
 This will create:
-  /usr/src/boost-1.40.0-X-src.tar.bz2
-  /usr/src/libboost-devel-1.40.0-X.tar.bz2
-  /usr/src/libboost1.40-1.40.0-X.tar.bz2
+  /usr/src/boost-1.43.0-X-src.tar.bz2
+  /usr/src/libboost1.43-1.43.0-X.tar.bz2
+  /usr/src/libboost-devel-1.43.0-X.tar.bz2
+  /usr/src/libboost_python1.43-1.43.0-X.tar.bz2
 
 -------------------------------------------
 
 Port Notes:
+
+----- version 1.43.0-1 -----
+Version bump.
 
 ----- version 1.40.0-1 -----
 Version bump.

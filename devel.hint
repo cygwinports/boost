@@ -1,0 +1,10 @@
+category: Libs
+requires: libboost1.43 libboost_python1.43 libbz2-devel libicu-devel libstdc++6-devel python zlib-devel
+external-source: boost
+sdesc: "Boost includes and link libraries"
+ldesc: "Boost provides free peer-reviewed portable C++ source libraries.
+
+We emphasize libraries that work well with the C++ Standard Library. 
+Boost libraries are intended to be widely useful, and usable across a 
+broad spectrum of applications. The Boost license encourages both 
+commercial and non-commercial use."

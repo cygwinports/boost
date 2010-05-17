@@ -1,4 +1,4 @@
-inherit python cmake
+inherit python
 
 DESCRIPTION="Boost C++ libraries"
 HOMEPAGE="http://www.boost.org/"
@@ -6,7 +6,6 @@ SRC_URI="mirror://sourceforge/boost/${PN}_${PV//./_}.tar.bz2"
 SRC_DIR="${PN}_${PV//./_}"
 
 PATCH_URI="
-	1.40.0-build-cmake.patch
 	1.40.0-cstdint-cygwin.patch
 	1.40.0-asio-cygwin.patch
 	1.40.0-filesystem-cygwin.patch
@@ -17,6 +16,8 @@ PATCH_URI="
 	1.40.0-regex-cygwin.patch
 	1.40.0-smart_ptr-cygwin.patch
 	1.40.0-system-cygwin.patch
+	1.43.0-jam-cygwin.patch
+	1.43.0-jam-toolkit.patch
 "
 
 case ${PV} in
@@ -24,60 +25,48 @@ case ${PV} in
 	*)		dll_v=${PV} ;;
 esac
 
-PKG_NAMES="${PN} lib${PN}${dll_v} lib${PN}-devel"
-PKG_HINTS="src libboost libboost-devel"
+PKG_NAMES="${PN} libboost${dll_v} libboost_python${dll_v} libboost-devel"
+PKG_HINTS="src lib python devel"
 libboost_devel_CONTENTS='usr/include/ usr/lib/ usr/share/doc/'
-declare libboost${dll_v//./_}_CONTENTS="usr/bin/*-${dll_v//./_}.dll"
-
-#for l in date-time filesystem graph iostreams math program-options python \
-#         regex serialization signals system thread wave
-#do
-#	PKG_NAMES+=" lib${PN}_${l}${dll_v}"
-#	PKG_HINTS+=" ${l}"
-#	declare libboost_${l//-/_}${dll_v//./_}_CONTENTS="usr/bin/cyg${PN}_${l//-/_}*.dll"
-#done
-#unset l n
+declare libboost${dll_v//./_}_CONTENTS="--exclude=*python* usr/bin/*-${dll_v//./_}.dll"
+declare libboost_python${dll_v//./_}_CONTENTS="usr/bin/cygboost_python-*"
 
 DIFF_EXCLUDES="boostbook html *.test"
 
-CYGCMAKE_ARGS="-DBUILD_DEBUG=OFF -DBUILD_VERSIONED=ON -DBUILD_BOOST_WSERIALIZATION=OFF"
+src_compile() {
+	lndirs
 
-src_test() {
-	local y=0
-	local n=0
-	local allf=""
+	export BOOST_ROOT=${B}
 
 	cd ${B}
-	cygcmake -DBUILD_REGRESSION_TESTS=ON
-	cygmake -k || true
+	${B}/bootstrap.sh \
+		--prefix=/usr \
+		--with-icu=/usr \
+		--with-python=${PYTHON} \
+		--with-toolset=gcc \
+		|| error "configure failed"
 
-	cd ${B}/bin/tests
+	cat > user-config.jam <<-_EOF
+	# Compiler configuration
+	using gcc : $(${CXX} -dumpversion) : ${CXX} : <cxxflags>"${CXXFLAGS}" <linkflags>"${LDFLAGS}" ;
+	_EOF
 
-	PATH="${B}/bin:$PATH"
-
-	for x in $(find . -name '*.exe')
-	do
-		echo -n "${x#./}: "
-		if $x &> $x.out
-		then
-			echo "Passed"
-			let y+=1
-			rm -f $x.out
-		else
-			echo "FAILED"
-			let n+=1
-			allf+="${x#./} "
-		fi
-	done
-
-	echo "Summary: $y tests Passed, $n FAILED:"
-	echo $allf
+	./tools/jam/src/bin.cygwinx86/bjam.exe \
+		-sICU_PATH=/usr \
+		--prefix=/usr \
+		--layout=versioned \
+		--user-config=user-config.jam \
+		--without-mpi \
+		release \
+		threading=multi link=shared,static \
+		${MAKEOPTS} \
+		|| true
 }
 
 src_install() {
 	cd ${B}
-	dobin bin/cygboost_*.dll
-	dolib lib/libboost_*.a
+	dobin $(find bin.v2/libs -name '*.dll')
+	dolib $(find bin.v2/libs -name '*.a')
 
 	dodir /usr/include
 	cp -r ${S}/boost ${D}/usr/include/

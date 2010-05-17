@@ -1,7 +1,7 @@
 category: Libs
-requires: libboost1.40 libbz2-devel libicu-devel libstdc++6-devel python zlib-devel
+requires: libbz2_1 libgcc1 libicu38 libstdc++6 zlib0
 external-source: boost
-sdesc: "Boost includes and link libraries"
+sdesc: "Boost runtime libraries (not including Boost.Python)"
 ldesc: "Boost provides free peer-reviewed portable C++ source libraries.
 
 We emphasize libraries that work well with the C++ Standard Library. 
