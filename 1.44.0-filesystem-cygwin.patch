@@ -1,0 +1,68 @@
+--- origsrc/boost_1_44_0/boost/filesystem/v2/config.hpp	2010-07-06 06:17:54.000000000 -0500
++++ src/boost_1_44_0/boost/filesystem/v2/config.hpp	2010-09-28 16:11:35.421938400 -0500
+@@ -44,7 +44,7 @@
+ # if defined(BOOST_WINDOWS_PATH) && defined(BOOST_POSIX_PATH)
+ #   error both BOOST_WINDOWS_PATH and BOOST_POSIX_PATH are defined
+ # elif !defined(BOOST_WINDOWS_PATH) && !defined(BOOST_POSIX_PATH)
+-#   if !defined(BOOST_POSIX_PATH) && (defined(_WIN32) || defined(__CYGWIN__))
++#   if !defined(BOOST_POSIX_PATH) && defined(_WIN32)
+ #     define BOOST_WINDOWS_PATH
+ #   else
+ #     define BOOST_POSIX_PATH
+--- origsrc/boost_1_44_0/boost/filesystem/v2/path.hpp	2010-08-10 15:00:09.000000000 -0500
++++ src/boost_1_44_0/boost/filesystem/v2/path.hpp	2010-09-28 16:12:09.006186700 -0500
+@@ -218,9 +218,6 @@ namespace boost
+       void swap( basic_path & rhs )
+       {
+         m_path.swap( rhs.m_path );
+-#       ifdef BOOST_CYGWIN_PATH
+-          std::swap( m_cygwin_root, rhs.m_cygwin_root );
+-#       endif
+       }
+ 
+       basic_path & remove_filename();
+@@ -317,11 +314,6 @@ namespace boost
+       string_type  m_path; // invariant: portable path grammar
+                            // on Windows, backslashes converted to slashes
+ 
+-#   ifdef BOOST_CYGWIN_PATH
+-      bool m_cygwin_root; // if present, m_path[0] was slash. note: initialization
+-                          // done by append
+-#   endif  
+-
+       void m_append_separator_if_needed();
+       void m_append( value_type value ); // converts Windows alt_separator
+ 
+@@ -1093,10 +1085,6 @@ namespace boost
+     template<class String, class Traits>
+     void basic_path<String, Traits>::m_append( value_type value )
+     {
+-#   ifdef BOOST_CYGWIN_PATH
+-      if ( m_path.empty() ) m_cygwin_root = (value == slash<path_type>::value);
+-#   endif
+-
+ #   ifdef BOOST_WINDOWS_PATH
+       // for BOOST_WINDOWS_PATH, convert alt_separator ('\') to separator ('/')
+       m_path += ( value == path_alt_separator<path_type>::value
+@@ -1339,9 +1327,6 @@ namespace boost
+           && m_path[pos] == slash<path_type>::value )
+           { in_root = false; }
+       }
+-#   ifdef BOOST_CYGWIN_PATH
+-      if ( m_cygwin_root ) s[0] = slash<path_type>::value;
+-#   endif
+       return s;
+ #   else
+       return m_path;
+--- origsrc/boost_1_44_0/libs/filesystem/v2/src/v2_operations.cpp	2010-08-10 15:00:09.000000000 -0500
++++ src/boost_1_44_0/libs/filesystem/v2/src/v2_operations.cpp	2010-09-28 16:12:50.941895300 -0500
+@@ -1311,8 +1311,7 @@ namespace boost
+         {
+           errno = 0;
+ 
+-    #     if !defined(__CYGWIN__) \
+-          && defined(_POSIX_THREAD_SAFE_FUNCTIONS) \
++    #     if defined(_POSIX_THREAD_SAFE_FUNCTIONS) \
+           && defined(_SC_THREAD_SAFE_FUNCTIONS) \
+           && (_POSIX_THREAD_SAFE_FUNCTIONS+0 >= 0) \
+           && (!defined(__hpux) || defined(_REENTRANT)) \

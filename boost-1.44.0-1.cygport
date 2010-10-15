@@ -7,15 +7,15 @@ SRC_DIR="${PN}_${PV//./_}"
 
 PATCH_URI="
 	1.40.0-cstdint-cygwin.patch
-	1.40.0-asio-cygwin.patch
-	1.40.0-filesystem-cygwin.patch
+	1.44.0-asio-cygwin.patch
+	1.44.0-filesystem-cygwin.patch
 	1.40.0-interlocked-cygwin.patch
 	1.40.0-interprocess-cygwin.patch
 	1.40.0-iostreams-cygwin.patch
 	1.40.0-python-cygwin.patch
 	1.40.0-regex-cygwin.patch
 	1.40.0-smart_ptr-cygwin.patch
-	1.40.0-system-cygwin.patch
+	1.44.0-system-cygwin.patch
 	1.43.0-jam-cygwin.patch
 	1.43.0-jam-toolkit.patch
 "

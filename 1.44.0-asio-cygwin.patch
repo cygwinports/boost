@@ -1,0 +1,1496 @@
+--- origsrc/boost_1_44_0/boost/asio/detail/buffer_sequence_adapter.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/buffer_sequence_adapter.hpp	2010-09-28 16:21:47.607859100 -0500
+@@ -28,7 +28,7 @@ namespace detail {
+ class buffer_sequence_adapter_base
+ {
+ protected:
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   typedef WSABUF native_buffer_type;
+ 
+   static void init_native_buffer(WSABUF& buf,
+@@ -44,7 +44,7 @@ protected:
+     buf.buf = const_cast<char*>(boost::asio::buffer_cast<const char*>(buffer));
+     buf.len = static_cast<ULONG>(boost::asio::buffer_size(buffer));
+   }
+-#else // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#else // defined(BOOST_WINDOWS)
+   typedef iovec native_buffer_type;
+ 
+   static void init_iov_base(void*& base, void* addr)
+@@ -72,7 +72,7 @@ protected:
+           boost::asio::buffer_cast<const void*>(buffer)));
+     iov.iov_len = boost::asio::buffer_size(buffer);
+   }
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ };
+ 
+ // Helper class to translate buffers into the native buffer representation.
+--- origsrc/boost_1_44_0/boost/asio/detail/config.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/config.hpp	2010-09-28 16:25:12.085723900 -0500
+@@ -47,7 +47,7 @@
+ #endif // !defined(BOOST_ASIO_DECL)
+ 
+ // Windows: target OS version.
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+ # if !defined(_WIN32_WINNT) && !defined(_WIN32_WINDOWS)
+ #  if defined(_MSC_VER) || defined(__BORLANDC__)
+ #   pragma message( \
+@@ -85,28 +85,28 @@
+ #   error You must add -D__USE_W32_SOCKETS to your compiler options.
+ #  endif // !defined(__USE_W32_SOCKETS)
+ # endif // defined(__CYGWIN__)
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ 
+ // Windows: minimise header inclusion.
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+ # if !defined(BOOST_ASIO_NO_WIN32_LEAN_AND_MEAN)
+ #  if !defined(WIN32_LEAN_AND_MEAN)
+ #   define WIN32_LEAN_AND_MEAN
+ #  endif // !defined(WIN32_LEAN_AND_MEAN)
+ # endif // !defined(BOOST_ASIO_NO_WIN32_LEAN_AND_MEAN)
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ 
+ // Windows: suppress definition of "min" and "max" macros.
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+ # if !defined(BOOST_ASIO_NO_NOMINMAX)
+ #  if !defined(NOMINMAX)
+ #   define NOMINMAX 1
+ #  endif // !defined(NOMINMAX)
+ # endif // !defined(BOOST_ASIO_NO_NOMINMAX)
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ 
+ // Windows: IO Completion Ports.
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+ # if defined(_WIN32_WINNT) && (_WIN32_WINNT >= 0x0400)
+ #  if !defined(UNDER_CE)
+ #   if !defined(BOOST_ASIO_DISABLE_IOCP)
+@@ -114,7 +114,7 @@
+ #   endif // !defined(BOOST_ASIO_DISABLE_IOCP)
+ #  endif // !defined(UNDER_CE)
+ # endif // defined(_WIN32_WINNT) && (_WIN32_WINNT >= 0x0400)
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ 
+ // Linux: epoll, eventfd and timerfd.
+ #if defined(__linux__)
+@@ -158,14 +158,14 @@
+ 
+ // Serial ports.
+ #if defined(BOOST_ASIO_HAS_IOCP) \
+-   || !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++   || !defined(BOOST_WINDOWS)
+ # if !defined(__SYMBIAN32__)
+ #  if !defined(BOOST_ASIO_DISABLE_SERIAL_PORT)
+ #   define BOOST_ASIO_HAS_SERIAL_PORT 1
+ #  endif // !defined(BOOST_ASIO_DISABLE_SERIAL_PORT)
+ # endif // !defined(__SYMBIAN32__)
+ #endif // defined(BOOST_ASIO_HAS_IOCP)
+-       //   || !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++       //   || !defined(BOOST_WINDOWS)
+ 
+ // Windows: stream handles.
+ #if !defined(BOOST_ASIO_DISABLE_WINDOWS_STREAM_HANDLE)
+@@ -190,16 +190,16 @@
+ 
+ // POSIX: stream-oriented file descriptors.
+ #if !defined(BOOST_ASIO_DISABLE_POSIX_STREAM_DESCRIPTOR)
+-# if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++# if !defined(BOOST_WINDOWS)
+ #  define BOOST_ASIO_HAS_POSIX_STREAM_DESCRIPTOR 1
+-# endif // !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++# endif // !defined(BOOST_WINDOWS)
+ #endif // !defined(BOOST_ASIO_DISABLE_POSIX_STREAM_DESCRIPTOR)
+ 
+ // UNIX domain sockets.
+ #if !defined(BOOST_ASIO_DISABLE_LOCAL_SOCKETS)
+-# if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++# if !defined(BOOST_WINDOWS)
+ #  define BOOST_ASIO_HAS_LOCAL_SOCKETS 1
+-# endif // !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++# endif // !defined(BOOST_WINDOWS)
+ #endif // !defined(BOOST_ASIO_DISABLE_LOCAL_SOCKETS)
+ 
+ #endif // BOOST_ASIO_DETAIL_CONFIG_HPP
+--- origsrc/boost_1_44_0/boost/asio/detail/descriptor_ops.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/descriptor_ops.hpp	2010-09-28 16:25:25.879081600 -0500
+@@ -17,7 +17,7 @@
+ 
+ #include <boost/asio/detail/config.hpp>
+ 
+-#if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#if !defined(BOOST_WINDOWS)
+ 
+ #include <cstddef>
+ #include <boost/system/error_code.hpp>
+@@ -102,6 +102,6 @@ BOOST_ASIO_DECL int poll_write(int d, bo
+ # include <boost/asio/detail/impl/descriptor_ops.ipp>
+ #endif // defined(BOOST_ASIO_HEADER_ONLY)
+ 
+-#endif // !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#endif // !defined(BOOST_WINDOWS)
+ 
+ #endif // BOOST_ASIO_DETAIL_DESCRIPTOR_OPS_HPP
+--- origsrc/boost_1_44_0/boost/asio/detail/descriptor_read_op.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/descriptor_read_op.hpp	2010-09-28 16:25:39.087608600 -0500
+@@ -17,7 +17,7 @@
+ 
+ #include <boost/asio/detail/config.hpp>
+ 
+-#if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#if !defined(BOOST_WINDOWS)
+ 
+ #include <boost/utility/addressof.hpp>
+ #include <boost/asio/detail/bind_handler.hpp>
+@@ -111,6 +111,6 @@ private:
+ 
+ #include <boost/asio/detail/pop_options.hpp>
+ 
+-#endif // !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#endif // !defined(BOOST_WINDOWS)
+ 
+ #endif // BOOST_ASIO_DETAIL_DESCRIPTOR_READ_OP_HPP
+--- origsrc/boost_1_44_0/boost/asio/detail/descriptor_write_op.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/descriptor_write_op.hpp	2010-09-28 16:25:55.392299600 -0500
+@@ -17,7 +17,7 @@
+ 
+ #include <boost/asio/detail/config.hpp>
+ 
+-#if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#if !defined(BOOST_WINDOWS)
+ 
+ #include <boost/utility/addressof.hpp>
+ #include <boost/asio/detail/bind_handler.hpp>
+@@ -111,6 +111,6 @@ private:
+ 
+ #include <boost/asio/detail/pop_options.hpp>
+ 
+-#endif // !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#endif // !defined(BOOST_WINDOWS)
+ 
+ #endif // BOOST_ASIO_DETAIL_DESCRIPTOR_WRITE_OP_HPP
+--- origsrc/boost_1_44_0/boost/asio/detail/fd_set_adapter.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/fd_set_adapter.hpp	2010-09-28 16:26:11.682800300 -0500
+@@ -23,7 +23,7 @@ namespace boost {
+ namespace asio {
+ namespace detail {
+ 
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+ typedef win_fd_set_adapter fd_set_adapter;
+ #else
+ typedef posix_fd_set_adapter fd_set_adapter;
+--- origsrc/boost_1_44_0/boost/asio/detail/hash_map.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/hash_map.hpp	2010-09-28 16:26:29.204371300 -0500
+@@ -21,9 +21,9 @@
+ #include <utility>
+ #include <boost/asio/detail/noncopyable.hpp>
+ 
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+ # include <boost/asio/detail/socket_types.hpp>
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ 
+ #include <boost/asio/detail/push_options.hpp>
+ 
+@@ -42,12 +42,12 @@ inline std::size_t calculate_hash_value(
+     + (reinterpret_cast<std::size_t>(p) >> 3);
+ }
+ 
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+ inline std::size_t calculate_hash_value(SOCKET s)
+ {
+   return static_cast<std::size_t>(s);
+ }
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ 
+ // Note: assumes K and V are POD types.
+ template <typename K, typename V>
+--- origsrc/boost_1_44_0/boost/asio/detail/impl/descriptor_ops.ipp	2010-07-05 23:49:47.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/impl/descriptor_ops.ipp	2010-09-28 16:26:43.464760100 -0500
+@@ -20,7 +20,7 @@
+ #include <boost/asio/detail/descriptor_ops.hpp>
+ #include <boost/asio/error.hpp>
+ 
+-#if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#if !defined(BOOST_WINDOWS)
+ 
+ #include <boost/asio/detail/push_options.hpp>
+ 
+@@ -367,6 +367,6 @@ int poll_write(int d, boost::system::err
+ 
+ #include <boost/asio/detail/pop_options.hpp>
+ 
+-#endif // !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#endif // !defined(BOOST_WINDOWS)
+ 
+ #endif // BOOST_ASIO_DETAIL_IMPL_DESCRIPTOR_OPS_IPP
+--- origsrc/boost_1_44_0/boost/asio/detail/impl/pipe_select_interrupter.ipp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/impl/pipe_select_interrupter.ipp	2010-09-28 16:26:57.476134700 -0500
+@@ -18,7 +18,6 @@
+ #include <boost/asio/detail/config.hpp>
+ 
+ #if !defined(BOOST_WINDOWS)
+-#if !defined(__CYGWIN__)
+ #if !defined(__SYMBIAN32__)
+ #if !defined(BOOST_ASIO_HAS_EVENTFD)
+ 
+@@ -92,7 +91,6 @@ bool pipe_select_interrupter::reset()
+ 
+ #endif // !defined(BOOST_ASIO_HAS_EVENTFD)
+ #endif // !defined(__SYMBIAN32__)
+-#endif // !defined(__CYGWIN__)
+ #endif // !defined(BOOST_WINDOWS)
+ 
+ #endif // BOOST_ASIO_DETAIL_IMPL_PIPE_SELECT_INTERRUPTER_IPP
+--- origsrc/boost_1_44_0/boost/asio/detail/impl/reactive_descriptor_service.ipp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/impl/reactive_descriptor_service.ipp	2010-09-28 16:27:09.346990300 -0500
+@@ -17,7 +17,7 @@
+ 
+ #include <boost/asio/detail/config.hpp>
+ 
+-#if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#if !defined(BOOST_WINDOWS)
+ 
+ #include <boost/asio/error.hpp>
+ #include <boost/asio/detail/reactive_descriptor_service.hpp>
+@@ -133,6 +133,6 @@ void reactive_descriptor_service::start_
+ 
+ #include <boost/asio/detail/pop_options.hpp>
+ 
+-#endif // !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#endif // !defined(BOOST_WINDOWS)
+ 
+ #endif // BOOST_ASIO_DETAIL_IMPL_REACTIVE_DESCRIPTOR_SERVICE_IPP
+--- origsrc/boost_1_44_0/boost/asio/detail/impl/reactive_serial_port_service.ipp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/impl/reactive_serial_port_service.ipp	2010-09-28 16:27:19.786358900 -0500
+@@ -19,7 +19,7 @@
+ #include <boost/asio/detail/config.hpp>
+ 
+ #if defined(BOOST_ASIO_HAS_SERIAL_PORT)
+-#if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#if !defined(BOOST_WINDOWS)
+ 
+ #include <cstring>
+ #include <boost/asio/detail/reactive_serial_port_service.hpp>
+@@ -147,7 +147,7 @@ boost::system::error_code reactive_seria
+ 
+ #include <boost/asio/detail/pop_options.hpp>
+ 
+-#endif // !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#endif // !defined(BOOST_WINDOWS)
+ #endif // defined(BOOST_ASIO_HAS_SERIAL_PORT)
+ 
+ #endif // BOOST_ASIO_DETAIL_IMPL_REACTIVE_SERIAL_PORT_SERVICE_IPP
+--- origsrc/boost_1_44_0/boost/asio/detail/impl/select_reactor.ipp	2010-07-05 23:49:47.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/impl/select_reactor.ipp	2010-09-28 16:27:37.906964200 -0500
+@@ -149,7 +149,7 @@ void select_reactor::run(bool block, op_
+       max_fd = fds[i].max_descriptor();
+   }
+ 
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   // Connection operations on Windows use both except and write fd_sets.
+   have_work_to_do = have_work_to_do || !op_queue_[connect_op].empty();
+   op_queue_[connect_op].get_descriptors(fds[write_op], ops);
+@@ -158,7 +158,7 @@ void select_reactor::run(bool block, op_
+   op_queue_[connect_op].get_descriptors(fds[except_op], ops);
+   if (fds[except_op].max_descriptor() > max_fd)
+     max_fd = fds[except_op].max_descriptor();
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ 
+   // We can return immediately if there's no work to do and the reactor is
+   // not supposed to block.
+@@ -185,13 +185,13 @@ void select_reactor::run(bool block, op_
+   // Dispatch all ready operations.
+   if (retval > 0)
+   {
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+     // Connection operations on Windows use both except and write fd_sets.
+     op_queue_[connect_op].perform_operations_for_descriptors(
+         fds[except_op], ops);
+     op_queue_[connect_op].perform_operations_for_descriptors(
+         fds[write_op], ops);
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ 
+     // Exception operations must be processed first to ensure that any
+     // out-of-band data is read before normal data.
+--- origsrc/boost_1_44_0/boost/asio/detail/impl/socket_ops.ipp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/impl/socket_ops.ipp	2010-09-28 16:28:58.464588400 -0500
+@@ -33,9 +33,9 @@ namespace asio {
+ namespace detail {
+ namespace socket_ops {
+ 
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+ struct msghdr { int msg_namelen; };
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ 
+ #if defined(__hpux)
+ // HP-UX doesn't declare these functions extern "C", so they are declared again
+@@ -46,7 +46,7 @@ extern "C" unsigned int if_nametoindex(c
+ 
+ inline void clear_last_error()
+ {
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   WSASetLastError(0);
+ #else
+   errno = 0;
+@@ -57,7 +57,7 @@ template <typename ReturnType>
+ inline ReturnType error_wrapper(ReturnType return_value,
+     boost::system::error_code& ec)
+ {
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   ec = boost::system::error_code(WSAGetLastError(),
+       boost::asio::error::get_system_category());
+ #else
+@@ -278,14 +278,14 @@ int close(socket_type s, state_type& sta
+   int result = 0;
+   if (s != invalid_socket)
+   {
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+     if ((state & non_blocking) && (state & user_set_linger))
+     {
+       ioctl_arg_type arg = 0;
+       ::ioctlsocket(s, FIONBIO, &arg);
+       state &= ~non_blocking;
+     }
+-#else // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#else // defined(BOOST_WINDOWS)
+     if (state & non_blocking)
+     {
+ #if defined(__SYMBIAN32__)
+@@ -298,7 +298,7 @@ int close(socket_type s, state_type& sta
+ #endif // defined(__SYMBIAN32__)
+       state &= ~non_blocking;
+     }
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ 
+     if (destruction && (state & user_set_linger))
+     {
+@@ -311,11 +311,11 @@ int close(socket_type s, state_type& sta
+     }
+ 
+     clear_last_error();
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+     int result = error_wrapper(::closesocket(s), ec);
+-#else // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#else // defined(BOOST_WINDOWS)
+     int result = error_wrapper(::close(s), ec);
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+     if (result == 0)
+       ec = boost::system::error_code();
+   }
+@@ -333,7 +333,7 @@ bool set_internal_non_blocking(socket_ty
+   }
+ 
+   clear_last_error();
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   ioctl_arg_type arg = 1;
+   int result = error_wrapper(::ioctlsocket(s, FIONBIO, &arg), ec);
+ #elif defined(__SYMBIAN32__)
+@@ -448,7 +448,7 @@ bool non_blocking_connect(socket_type s,
+ int socketpair(int af, int type, int protocol,
+     socket_type sv[2], boost::system::error_code& ec)
+ {
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   (void)(af);
+   (void)(type);
+   (void)(protocol);
+@@ -474,11 +474,11 @@ bool sockatmark(socket_type s, boost::sy
+ 
+ #if defined(SIOCATMARK)
+   ioctl_arg_type value = 0;
+-# if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++# if defined(BOOST_WINDOWS)
+   int result = error_wrapper(::ioctlsocket(s, SIOCATMARK, &value), ec);
+-# else // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++# else // defined(BOOST_WINDOWS)
+   int result = error_wrapper(::ioctl(s, SIOCATMARK, &value), ec);
+-# endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++# endif // defined(BOOST_WINDOWS)
+   if (result == 0)
+     ec = boost::system::error_code();
+ # if defined(ENOTTY)
+@@ -503,11 +503,11 @@ size_t available(socket_type s, boost::s
+   }
+ 
+   ioctl_arg_type value = 0;
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   int result = error_wrapper(::ioctlsocket(s, FIONREAD, &value), ec);
+-#else // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#else // defined(BOOST_WINDOWS)
+   int result = error_wrapper(::ioctl(s, FIONREAD, &value), ec);
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+   if (result == 0)
+     ec = boost::system::error_code();
+ #if defined(ENOTTY)
+@@ -544,32 +544,32 @@ inline void init_buf_iov_base(T& base, v
+   base = static_cast<T>(addr);
+ }
+ 
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+ typedef WSABUF buf;
+-#else // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#else // defined(BOOST_WINDOWS)
+ typedef iovec buf;
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ 
+ void init_buf(buf& b, void* data, size_t size)
+ {
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   b.buf = static_cast<char*>(data);
+   b.len = static_cast<u_long>(size);
+-#else // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#else // defined(BOOST_WINDOWS)
+   init_buf_iov_base(b.iov_base, data);
+   b.iov_len = size;
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ }
+ 
+ void init_buf(buf& b, const void* data, size_t size)
+ {
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   b.buf = static_cast<char*>(const_cast<void*>(data));
+   b.len = static_cast<u_long>(size);
+-#else // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#else // defined(BOOST_WINDOWS)
+   init_buf_iov_base(b.iov_base, const_cast<void*>(data));
+   b.iov_len = size;
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ }
+ 
+ inline void init_msghdr_msg_name(void*& name, socket_addr_type* addr)
+@@ -598,7 +598,7 @@ int recv(socket_type s, buf* bufs, size_
+     boost::system::error_code& ec)
+ {
+   clear_last_error();
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   // Receive some data.
+   DWORD recv_buf_count = static_cast<DWORD>(count);
+   DWORD bytes_transferred = 0;
+@@ -613,7 +613,7 @@ int recv(socket_type s, buf* bufs, size_
+     return socket_error_retval;
+   ec = boost::system::error_code();
+   return bytes_transferred;
+-#else // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#else // defined(BOOST_WINDOWS)
+   msghdr msg = msghdr();
+   msg.msg_iov = bufs;
+   msg.msg_iovlen = count;
+@@ -621,7 +621,7 @@ int recv(socket_type s, buf* bufs, size_
+   if (result >= 0)
+     ec = boost::system::error_code();
+   return result;
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ }
+ 
+ size_t sync_recv(socket_type s, state_type state, buf* bufs,
+@@ -744,7 +744,7 @@ int recvfrom(socket_type s, buf* bufs, s
+     boost::system::error_code& ec)
+ {
+   clear_last_error();
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   // Receive some data.
+   DWORD recv_buf_count = static_cast<DWORD>(count);
+   DWORD bytes_transferred = 0;
+@@ -761,7 +761,7 @@ int recvfrom(socket_type s, buf* bufs, s
+     return socket_error_retval;
+   ec = boost::system::error_code();
+   return bytes_transferred;
+-#else // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#else // defined(BOOST_WINDOWS)
+   msghdr msg = msghdr();
+   init_msghdr_msg_name(msg.msg_name, addr);
+   msg.msg_namelen = *addrlen;
+@@ -772,7 +772,7 @@ int recvfrom(socket_type s, buf* bufs, s
+   if (result >= 0)
+     ec = boost::system::error_code();
+   return result;
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ }
+ 
+ size_t sync_recvfrom(socket_type s, state_type state, buf* bufs,
+@@ -867,7 +867,7 @@ int send(socket_type s, const buf* bufs,
+     boost::system::error_code& ec)
+ {
+   clear_last_error();
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   // Send the data.
+   DWORD send_buf_count = static_cast<DWORD>(count);
+   DWORD bytes_transferred = 0;
+@@ -882,7 +882,7 @@ int send(socket_type s, const buf* bufs,
+     return socket_error_retval;
+   ec = boost::system::error_code();
+   return bytes_transferred;
+-#else // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#else // defined(BOOST_WINDOWS)
+   msghdr msg = msghdr();
+   msg.msg_iov = const_cast<buf*>(bufs);
+   msg.msg_iovlen = count;
+@@ -893,7 +893,7 @@ int send(socket_type s, const buf* bufs,
+   if (result >= 0)
+     ec = boost::system::error_code();
+   return result;
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ }
+ 
+ size_t sync_send(socket_type s, state_type state, const buf* bufs,
+@@ -994,7 +994,7 @@ int sendto(socket_type s, const buf* buf
+     boost::system::error_code& ec)
+ {
+   clear_last_error();
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   // Send the data.
+   DWORD send_buf_count = static_cast<DWORD>(count);
+   DWORD bytes_transferred = 0;
+@@ -1009,7 +1009,7 @@ int sendto(socket_type s, const buf* buf
+     return socket_error_retval;
+   ec = boost::system::error_code();
+   return bytes_transferred;
+-#else // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#else // defined(BOOST_WINDOWS)
+   msghdr msg = msghdr();
+   init_msghdr_msg_name(msg.msg_name, addr);
+   msg.msg_namelen = addrlen;
+@@ -1022,7 +1022,7 @@ int sendto(socket_type s, const buf* buf
+   if (result >= 0)
+     ec = boost::system::error_code();
+   return result;
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ }
+ 
+ size_t sync_sendto(socket_type s, state_type state, const buf* bufs,
+@@ -1097,7 +1097,7 @@ socket_type socket(int af, int type, int
+     boost::system::error_code& ec)
+ {
+   clear_last_error();
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   socket_type s = error_wrapper(::WSASocket(af, type, protocol, 0, 0,
+         WSA_FLAG_OVERLAPPED), ec);
+   if (s == invalid_socket)
+@@ -1295,7 +1295,7 @@ int getsockopt(socket_type s, state_type
+   }
+   ec = boost::asio::error::fault;
+   return socket_error_retval;
+-#elif defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#elif defined(BOOST_WINDOWS)
+   clear_last_error();
+   int result = error_wrapper(call_getsockopt(&msghdr::msg_namelen,
+         s, level, optname, optval, optlen), ec);
+@@ -1313,7 +1313,7 @@ int getsockopt(socket_type s, state_type
+   if (result == 0)
+     ec = boost::system::error_code();
+   return result;
+-#else // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#else // defined(BOOST_WINDOWS)
+   clear_last_error();
+   int result = error_wrapper(call_getsockopt(&msghdr::msg_namelen,
+         s, level, optname, optval, optlen), ec);
+@@ -1332,7 +1332,7 @@ int getsockopt(socket_type s, state_type
+   if (result == 0)
+     ec = boost::system::error_code();
+   return result;
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ }
+ 
+ template <typename SockLenType>
+@@ -1354,7 +1354,7 @@ int getpeername(socket_type s, socket_ad
+     return socket_error_retval;
+   }
+ 
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   if (cached)
+   {
+     // Check if socket is still connected.
+@@ -1375,9 +1375,9 @@ int getpeername(socket_type s, socket_ad
+     ec = boost::system::error_code();
+     return 0;
+   }
+-#else // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#else // defined(BOOST_WINDOWS)
+   (void)cached;
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ 
+   clear_last_error();
+   int result = error_wrapper(call_getpeername(
+@@ -1424,11 +1424,11 @@ int ioctl(socket_type s, state_type& sta
+   }
+ 
+   clear_last_error();
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   int result = error_wrapper(::ioctlsocket(s, cmd, arg), ec);
+-#else // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#else // defined(BOOST_WINDOWS)
+   int result = error_wrapper(::ioctl(s, cmd, arg), ec);
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+   if (result >= 0)
+   {
+     ec = boost::system::error_code();
+@@ -1461,7 +1461,7 @@ int select(int nfds, fd_set* readfds, fd
+     fd_set* exceptfds, timeval* timeout, boost::system::error_code& ec)
+ {
+   clear_last_error();
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   if (!readfds && !writefds && !exceptfds && timeout)
+   {
+     DWORD milliseconds = timeout->tv_sec * 1000 + timeout->tv_usec / 1000;
+@@ -1481,7 +1481,7 @@ int select(int nfds, fd_set* readfds, fd
+   if (timeout && timeout->tv_sec == 0
+       && timeout->tv_usec > 0 && timeout->tv_usec < 1000)
+     timeout->tv_usec = 1000;
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ 
+ #if defined(__hpux) && defined(__HP_aCC)
+   timespec ts;
+@@ -1507,7 +1507,6 @@ int poll_read(socket_type s, boost::syst
+   }
+ 
+ #if defined(BOOST_WINDOWS) \
+-  || defined(__CYGWIN__) \
+   || defined(__SYMBIAN32__)
+   fd_set fds;
+   FD_ZERO(&fds);
+@@ -1518,7 +1517,6 @@ int poll_read(socket_type s, boost::syst
+     ec = boost::system::error_code();
+   return result;
+ #else // defined(BOOST_WINDOWS)
+-      // || defined(__CYGWIN__)
+       // || defined(__SYMBIAN32__)
+   pollfd fds;
+   fds.fd = s;
+@@ -1530,7 +1528,6 @@ int poll_read(socket_type s, boost::syst
+     ec = boost::system::error_code();
+   return result;
+ #endif // defined(BOOST_WINDOWS)
+-       // || defined(__CYGWIN__)
+        // || defined(__SYMBIAN32__)
+ }
+ 
+@@ -1543,7 +1540,6 @@ int poll_write(socket_type s, boost::sys
+   }
+ 
+ #if defined(BOOST_WINDOWS) \
+-  || defined(__CYGWIN__) \
+   || defined(__SYMBIAN32__)
+   fd_set fds;
+   FD_ZERO(&fds);
+@@ -1554,7 +1550,6 @@ int poll_write(socket_type s, boost::sys
+     ec = boost::system::error_code();
+   return result;
+ #else // defined(BOOST_WINDOWS)
+-      // || defined(__CYGWIN__)
+       // || defined(__SYMBIAN32__)
+   pollfd fds;
+   fds.fd = s;
+@@ -1566,7 +1561,6 @@ int poll_write(socket_type s, boost::sys
+     ec = boost::system::error_code();
+   return result;
+ #endif // defined(BOOST_WINDOWS)
+-       // || defined(__CYGWIN__)
+        // || defined(__SYMBIAN32__)
+ }
+ 
+@@ -1579,7 +1573,6 @@ int poll_connect(socket_type s, boost::s
+   }
+ 
+ #if defined(BOOST_WINDOWS) \
+-  || defined(__CYGWIN__) \
+   || defined(__SYMBIAN32__)
+   fd_set write_fds;
+   FD_ZERO(&write_fds);
+@@ -1593,7 +1586,6 @@ int poll_connect(socket_type s, boost::s
+     ec = boost::system::error_code();
+   return result;
+ #else // defined(BOOST_WINDOWS)
+-      // || defined(__CYGWIN__)
+       // || defined(__SYMBIAN32__)
+   pollfd fds;
+   fds.fd = s;
+@@ -1605,7 +1597,6 @@ int poll_connect(socket_type s, boost::s
+     ec = boost::system::error_code();
+   return result;
+ #endif // defined(BOOST_WINDOWS)
+-       // || defined(__CYGWIN__)
+        // || defined(__SYMBIAN32__)
+ }
+ 
+@@ -1613,7 +1604,7 @@ const char* inet_ntop(int af, const void
+     unsigned long scope_id, boost::system::error_code& ec)
+ {
+   clear_last_error();
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   using namespace std; // For memcpy.
+ 
+   if (af != AF_INET && af != AF_INET6)
+@@ -1667,7 +1658,7 @@ const char* inet_ntop(int af, const void
+     ec = boost::asio::error::invalid_argument;
+ 
+   return result == socket_error_retval ? 0 : dest;
+-#else // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#else // defined(BOOST_WINDOWS)
+   const char* result = error_wrapper(::inet_ntop(af, src, dest, length), ec);
+   if (result == 0 && !ec)
+     ec = boost::asio::error::invalid_argument;
+@@ -1682,14 +1673,14 @@ const char* inet_ntop(int af, const void
+     strcat(dest, if_name);
+   }
+   return result;
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ }
+ 
+ int inet_pton(int af, const char* src, void* dest,
+     unsigned long* scope_id, boost::system::error_code& ec)
+ {
+   clear_last_error();
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   using namespace std; // For memcpy and strcmp.
+ 
+   if (af != AF_INET && af != AF_INET6)
+@@ -1749,7 +1740,7 @@ int inet_pton(int af, const char* src, v
+     ec = boost::system::error_code();
+ 
+   return result == socket_error_retval ? -1 : 1;
+-#else // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#else // defined(BOOST_WINDOWS)
+   int result = error_wrapper(::inet_pton(af, src, dest), ec);
+   if (result <= 0 && !ec)
+     ec = boost::asio::error::invalid_argument;
+@@ -1768,7 +1759,7 @@ int inet_pton(int af, const char* src, v
+     }
+   }
+   return result;
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ }
+ 
+ int gethostname(char* name, int namelen, boost::system::error_code& ec)
+@@ -1782,7 +1773,7 @@ int gethostname(char* name, int namelen,
+   return result;
+ }
+ 
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__) \
++#if defined(BOOST_WINDOWS) \
+   || defined(__MACH__) && defined(__APPLE__)
+ 
+ // The following functions are only needed for emulation of getaddrinfo and
+@@ -1812,7 +1803,7 @@ inline hostent* gethostbyaddr(const char
+     hostent* result, char* buffer, int buflength, boost::system::error_code& ec)
+ {
+   clear_last_error();
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   (void)(buffer);
+   (void)(buflength);
+   hostent* retval = error_wrapper(::gethostbyaddr(addr, length, af), ec);
+@@ -1855,7 +1846,7 @@ inline hostent* gethostbyname(const char
+     char* buffer, int buflength, int ai_flags, boost::system::error_code& ec)
+ {
+   clear_last_error();
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   (void)(buffer);
+   (void)(buflength);
+   (void)(ai_flags);
+@@ -2622,7 +2613,7 @@ inline boost::system::error_code getname
+   return ec;
+ }
+ 
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+        //   || defined(__MACH__) && defined(__APPLE__)
+ 
+ inline boost::system::error_code translate_addrinfo_error(int error)
+@@ -2654,7 +2645,7 @@ inline boost::system::error_code transla
+   case EAI_SOCKTYPE:
+     return boost::asio::error::socket_type_not_supported;
+   default: // Possibly the non-portable EAI_SYSTEM.
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+     return boost::system::error_code(
+         WSAGetLastError(), boost::asio::error::get_system_category());
+ #else
+@@ -2670,7 +2661,7 @@ boost::system::error_code getaddrinfo(co
+ {
+   host = (host && *host) ? host : 0;
+   clear_last_error();
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+ # if defined(_WIN32_WINNT) && (_WIN32_WINNT >= 0x0501) || defined(UNDER_CE)
+   // Building for Windows XP, Windows Server 2003, or later.
+   int error = ::getaddrinfo(host, service, &hints, result);
+@@ -2713,7 +2704,7 @@ boost::system::error_code background_get
+ 
+ void freeaddrinfo(addrinfo_type* ai)
+ {
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+ # if defined(_WIN32_WINNT) && (_WIN32_WINNT >= 0x0501) || defined(UNDER_CE)
+   // Building for Windows XP, Windows Server 2003, or later.
+   ::freeaddrinfo(ai);
+@@ -2741,7 +2732,7 @@ boost::system::error_code getnameinfo(co
+     std::size_t addrlen, char* host, std::size_t hostlen,
+     char* serv, std::size_t servlen, int flags, boost::system::error_code& ec)
+ {
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+ # if defined(_WIN32_WINNT) && (_WIN32_WINNT >= 0x0501) || defined(UNDER_CE)
+   // Building for Windows XP, Windows Server 2003, or later.
+   clear_last_error();
+--- origsrc/boost_1_44_0/boost/asio/detail/impl/socket_select_interrupter.ipp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/impl/socket_select_interrupter.ipp	2010-09-28 16:29:06.225614100 -0500
+@@ -18,7 +18,6 @@
+ #include <boost/asio/detail/config.hpp>
+ 
+ #if defined(BOOST_WINDOWS) \
+-  || defined(__CYGWIN__) \
+   || defined(__SYMBIAN32__)
+ 
+ #include <cstdlib>
+@@ -147,7 +146,6 @@ bool socket_select_interrupter::reset()
+ #include <boost/asio/detail/pop_options.hpp>
+ 
+ #endif // defined(BOOST_WINDOWS)
+-       // || defined(__CYGWIN__)
+        // || defined(__SYMBIAN32__)
+ 
+ #endif // BOOST_ASIO_DETAIL_IMPL_SOCKET_SELECT_INTERRUPTER_IPP
+--- origsrc/boost_1_44_0/boost/asio/detail/impl/winsock_init.ipp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/impl/winsock_init.ipp	2010-09-28 16:29:17.906661500 -0500
+@@ -17,7 +17,7 @@
+ 
+ #include <boost/asio/detail/config.hpp>
+ 
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+ 
+ #include <boost/asio/detail/socket_types.hpp>
+ #include <boost/asio/detail/winsock_init.hpp>
+@@ -66,6 +66,6 @@ void winsock_init_base::throw_on_error(d
+ 
+ #include <boost/asio/detail/pop_options.hpp>
+ 
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ 
+ #endif // BOOST_ASIO_DETAIL_IMPL_WINSOCK_INIT_IPP
+--- origsrc/boost_1_44_0/boost/asio/detail/local_free_on_block_exit.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/local_free_on_block_exit.hpp	2010-09-28 16:29:27.456587000 -0500
+@@ -17,7 +17,7 @@
+ 
+ #include <boost/asio/detail/config.hpp>
+ 
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+ 
+ #include <boost/asio/detail/noncopyable.hpp>
+ #include <boost/asio/detail/socket_types.hpp>
+@@ -54,6 +54,6 @@ private:
+ 
+ #include <boost/asio/detail/pop_options.hpp>
+ 
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ 
+ #endif // BOOST_ASIO_DETAIL_LOCAL_FREE_ON_BLOCK_EXIT_HPP
+--- origsrc/boost_1_44_0/boost/asio/detail/null_signal_blocker.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/null_signal_blocker.hpp	2010-09-28 16:29:34.025949700 -0500
+@@ -20,7 +20,6 @@
+ #if !defined(BOOST_HAS_THREADS) \
+   || defined(BOOST_ASIO_DISABLE_THREADS) \
+   || defined(BOOST_WINDOWS) \
+-  || defined(__CYGWIN__) \
+   || defined(__SYMBIAN32__)
+ 
+ #include <boost/asio/detail/noncopyable.hpp>
+@@ -65,7 +64,6 @@ public:
+ #endif // !defined(BOOST_HAS_THREADS)
+        // || defined(BOOST_ASIO_DISABLE_THREADS)
+        // || defined(BOOST_WINDOWS)
+-       // || defined(__CYGWIN__)
+        // || defined(__SYMBIAN32__)
+ 
+ #endif // BOOST_ASIO_DETAIL_NULL_SIGNAL_BLOCKER_HPP
+--- origsrc/boost_1_44_0/boost/asio/detail/old_win_sdk_compat.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/old_win_sdk_compat.hpp	2010-09-28 16:29:39.801672300 -0500
+@@ -17,7 +17,7 @@
+ 
+ #include <boost/asio/detail/config.hpp>
+ 
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+ 
+ // Guess whether we are building against on old Platform SDK.
+ #if !defined(IN6ADDR_ANY_INIT)
+@@ -335,6 +335,6 @@ inline int IN6_IS_ADDR_MC_GLOBAL(const i
+ # define IPPROTO_ICMPV6 58
+ #endif
+ 
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ 
+ #endif // BOOST_ASIO_DETAIL_OLD_WIN_SDK_COMPAT_HPP
+--- origsrc/boost_1_44_0/boost/asio/detail/pipe_select_interrupter.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/pipe_select_interrupter.hpp	2010-09-28 16:29:47.856314000 -0500
+@@ -18,7 +18,6 @@
+ #include <boost/asio/detail/config.hpp>
+ 
+ #if !defined(BOOST_WINDOWS)
+-#if !defined(__CYGWIN__)
+ #if !defined(__SYMBIAN32__)
+ #if !defined(BOOST_ASIO_HAS_EVENTFD)
+ 
+@@ -74,7 +73,6 @@ private:
+ 
+ #endif // !defined(BOOST_ASIO_HAS_EVENTFD)
+ #endif // !defined(__SYMBIAN32__)
+-#endif // !defined(__CYGWIN__)
+ #endif // !defined(BOOST_WINDOWS)
+ 
+ #endif // BOOST_ASIO_DETAIL_PIPE_SELECT_INTERRUPTER_HPP
+--- origsrc/boost_1_44_0/boost/asio/detail/pop_options.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/pop_options.hpp	2010-09-28 16:30:18.412785600 -0500
+@@ -27,7 +27,7 @@
+ 
+ // GNU C++
+ 
+-# if defined(__MINGW32__) || defined(__CYGWIN__)
++# if defined(__MINGW32__)
+ #  pragma pack (pop)
+ # endif
+ 
+--- origsrc/boost_1_44_0/boost/asio/detail/posix_fd_set_adapter.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/posix_fd_set_adapter.hpp	2010-09-28 16:30:26.819050800 -0500
+@@ -17,7 +17,7 @@
+ 
+ #include <boost/asio/detail/config.hpp>
+ 
+-#if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#if !defined(BOOST_WINDOWS)
+ 
+ #include <cstring>
+ #include <boost/asio/detail/socket_types.hpp>
+@@ -77,6 +77,6 @@ private:
+ 
+ #include <boost/asio/detail/pop_options.hpp>
+ 
+-#endif // !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#endif // !defined(BOOST_WINDOWS)
+ 
+ #endif // BOOST_ASIO_DETAIL_POSIX_FD_SET_ADAPTER_HPP
+--- origsrc/boost_1_44_0/boost/asio/detail/push_options.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/push_options.hpp	2010-09-28 16:33:18.463875600 -0500
+@@ -27,7 +27,7 @@
+ 
+ // GNU C++
+ 
+-# if defined(__MINGW32__) || defined(__CYGWIN__)
++# if defined(__MINGW32__)
+ #  pragma pack (push, 8)
+ # endif
+ 
+--- origsrc/boost_1_44_0/boost/asio/detail/reactive_descriptor_service.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/reactive_descriptor_service.hpp	2010-09-28 16:30:40.120979600 -0500
+@@ -17,7 +17,7 @@
+ 
+ #include <boost/asio/detail/config.hpp>
+ 
+-#if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#if !defined(BOOST_WINDOWS)
+ 
+ #include <boost/utility/addressof.hpp>
+ #include <boost/asio/buffer.hpp>
+@@ -250,6 +250,6 @@ private:
+ # include <boost/asio/detail/impl/reactive_descriptor_service.ipp>
+ #endif // defined(BOOST_ASIO_HEADER_ONLY)
+ 
+-#endif // !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#endif // !defined(BOOST_WINDOWS)
+ 
+ #endif // BOOST_ASIO_DETAIL_REACTIVE_DESCRIPTOR_SERVICE_HPP
+--- origsrc/boost_1_44_0/boost/asio/detail/reactive_serial_port_service.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/reactive_serial_port_service.hpp	2010-09-28 16:30:46.579327400 -0500
+@@ -19,7 +19,7 @@
+ #include <boost/asio/detail/config.hpp>
+ 
+ #if defined(BOOST_ASIO_HAS_SERIAL_PORT)
+-#if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#if !defined(BOOST_WINDOWS)
+ 
+ #include <string>
+ #include <boost/asio/error.hpp>
+@@ -213,7 +213,7 @@ private:
+ # include <boost/asio/detail/impl/reactive_serial_port_service.ipp>
+ #endif // defined(BOOST_ASIO_HEADER_ONLY)
+ 
+-#endif // !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#endif // !defined(BOOST_WINDOWS)
+ #endif // defined(BOOST_ASIO_HAS_SERIAL_PORT)
+ 
+ #endif // BOOST_ASIO_DETAIL_REACTIVE_SERIAL_PORT_SERVICE_HPP
+--- origsrc/boost_1_44_0/boost/asio/detail/select_interrupter.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/select_interrupter.hpp	2010-09-28 16:30:55.370006800 -0500
+@@ -17,7 +17,7 @@
+ 
+ #include <boost/asio/detail/config.hpp>
+ 
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__) || defined(__SYMBIAN32__)
++#if defined(BOOST_WINDOWS) || defined(__SYMBIAN32__)
+ # include <boost/asio/detail/socket_select_interrupter.hpp>
+ #elif defined(BOOST_ASIO_HAS_EVENTFD)
+ # include <boost/asio/detail/eventfd_select_interrupter.hpp>
+@@ -29,7 +29,7 @@ namespace boost {
+ namespace asio {
+ namespace detail {
+ 
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__) || defined(__SYMBIAN32__)
++#if defined(BOOST_WINDOWS) || defined(__SYMBIAN32__)
+ typedef socket_select_interrupter select_interrupter;
+ #elif defined(BOOST_ASIO_HAS_EVENTFD)
+ typedef eventfd_select_interrupter select_interrupter;
+--- origsrc/boost_1_44_0/boost/asio/detail/select_reactor.hpp	2010-07-05 23:49:47.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/select_reactor.hpp	2010-09-28 16:31:04.013087400 -0500
+@@ -50,13 +50,13 @@ class select_reactor
+   : public boost::asio::detail::service_base<select_reactor>
+ {
+ public:
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   enum { read_op = 0, write_op = 1, except_op = 2,
+     max_select_ops = 3, connect_op = 3, max_ops = 4 };
+-#else // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#else // defined(BOOST_WINDOWS)
+   enum { read_op = 0, write_op = 1, except_op = 2,
+     max_select_ops = 3, connect_op = 1, max_ops = 3 };
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ 
+   // Per-descriptor data.
+   struct per_descriptor_data
+--- origsrc/boost_1_44_0/boost/asio/detail/signal_blocker.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/signal_blocker.hpp	2010-09-28 16:31:09.884612800 -0500
+@@ -18,7 +18,7 @@
+ #include <boost/asio/detail/config.hpp>
+ 
+ #if !defined(BOOST_HAS_THREADS) || defined(BOOST_ASIO_DISABLE_THREADS) \
+-  || defined(BOOST_WINDOWS) || defined(__CYGWIN__) || defined(__SYMBIAN32__)
++  || defined(BOOST_WINDOWS) || defined(__SYMBIAN32__)
+ # include <boost/asio/detail/null_signal_blocker.hpp>
+ #elif defined(BOOST_HAS_PTHREADS)
+ # include <boost/asio/detail/posix_signal_blocker.hpp>
+@@ -31,7 +31,7 @@ namespace asio {
+ namespace detail {
+ 
+ #if !defined(BOOST_HAS_THREADS) || defined(BOOST_ASIO_DISABLE_THREADS) \
+-  || defined(BOOST_WINDOWS) || defined(__CYGWIN__) || defined(__SYMBIAN32__)
++  || defined(BOOST_WINDOWS) || defined(__SYMBIAN32__)
+ typedef null_signal_blocker signal_blocker;
+ #elif defined(BOOST_HAS_PTHREADS)
+ typedef posix_signal_blocker signal_blocker;
+--- origsrc/boost_1_44_0/boost/asio/detail/signal_init.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/signal_init.hpp	2010-09-28 16:31:15.354110900 -0500
+@@ -17,7 +17,7 @@
+ 
+ #include <boost/asio/detail/config.hpp>
+ 
+-#if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#if !defined(BOOST_WINDOWS)
+ 
+ #include <csignal>
+ 
+@@ -44,6 +44,6 @@ public:
+ 
+ #include <boost/asio/detail/pop_options.hpp>
+ 
+-#endif // !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#endif // !defined(BOOST_WINDOWS)
+ 
+ #endif // BOOST_ASIO_DETAIL_SIGNAL_INIT_HPP
+--- origsrc/boost_1_44_0/boost/asio/detail/socket_ops.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/socket_ops.hpp	2010-09-28 16:31:24.710021000 -0500
+@@ -113,11 +113,11 @@ BOOST_ASIO_DECL size_t available(socket_
+ BOOST_ASIO_DECL int listen(socket_type s,
+     int backlog, boost::system::error_code& ec);
+ 
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+ typedef WSABUF buf;
+-#else // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#else // defined(BOOST_WINDOWS)
+ typedef iovec buf;
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ 
+ BOOST_ASIO_DECL void init_buf(buf& b, void* data, size_t size);
+ 
+--- origsrc/boost_1_44_0/boost/asio/detail/socket_select_interrupter.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/socket_select_interrupter.hpp	2010-09-28 16:31:31.004570600 -0500
+@@ -18,7 +18,6 @@
+ #include <boost/asio/detail/config.hpp>
+ 
+ #if defined(BOOST_WINDOWS) \
+-  || defined(__CYGWIN__) \
+   || defined(__SYMBIAN32__)
+ 
+ #include <boost/asio/detail/socket_types.hpp>
+@@ -74,7 +73,6 @@ private:
+ #endif // defined(BOOST_ASIO_HEADER_ONLY)
+ 
+ #endif // defined(BOOST_WINDOWS)
+-       // || defined(__CYGWIN__)
+        // || defined(__SYMBIAN32__)
+ 
+ #endif // BOOST_ASIO_DETAIL_SOCKET_SELECT_INTERRUPTER_HPP
+--- origsrc/boost_1_44_0/boost/asio/detail/socket_types.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/socket_types.hpp	2010-09-28 16:31:41.115325600 -0500
+@@ -17,7 +17,7 @@
+ 
+ #include <boost/asio/detail/config.hpp>
+ 
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+ # if defined(_WINSOCKAPI_) && !defined(_WINSOCK2API_)
+ #  error WinSock.h has already been included
+ # endif // defined(_WINSOCKAPI_) && !defined(_WINSOCK2API_)
+@@ -80,7 +80,7 @@ namespace boost {
+ namespace asio {
+ namespace detail {
+ 
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+ typedef SOCKET socket_type;
+ const SOCKET invalid_socket = INVALID_SOCKET;
+ const int socket_error_retval = SOCKET_ERROR;
+--- origsrc/boost_1_44_0/boost/asio/detail/win_fd_set_adapter.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/win_fd_set_adapter.hpp	2010-09-28 16:31:50.621442500 -0500
+@@ -17,7 +17,7 @@
+ 
+ #include <boost/asio/detail/config.hpp>
+ 
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+ 
+ #include <boost/asio/detail/socket_types.hpp>
+ 
+@@ -87,6 +87,6 @@ private:
+ 
+ #include <boost/asio/detail/pop_options.hpp>
+ 
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ 
+ #endif // BOOST_ASIO_DETAIL_WIN_FD_SET_ADAPTER_HPP
+--- origsrc/boost_1_44_0/boost/asio/detail/winsock_init.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/detail/winsock_init.hpp	2010-09-28 16:31:46.238006500 -0500
+@@ -17,7 +17,7 @@
+ 
+ #include <boost/asio/detail/config.hpp>
+ 
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+ 
+ #include <boost/asio/detail/push_options.hpp>
+ 
+@@ -87,6 +87,6 @@ static const winsock_init<>& winsock_ini
+ # include <boost/asio/detail/impl/winsock_init.ipp>
+ #endif // defined(BOOST_ASIO_HEADER_ONLY)
+ 
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+ 
+ #endif // BOOST_ASIO_DETAIL_WINSOCK_INIT_HPP
+--- origsrc/boost_1_44_0/boost/asio/error.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/error.hpp	2010-09-28 16:33:35.534813100 -0500
+@@ -18,7 +18,7 @@
+ #include <boost/asio/detail/config.hpp>
+ #include <boost/cerrno.hpp>
+ #include <boost/system/error_code.hpp>
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+ # include <WinError.h>
+ #else
+ # include <cerrno>
+@@ -36,7 +36,7 @@
+ # define BOOST_ASIO_GETADDRINFO_ERROR(e) implementation_defined
+ /// INTERNAL ONLY.
+ # define BOOST_ASIO_WIN_OR_POSIX(e_win, e_posix) implementation_defined
+-#elif defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#elif defined(BOOST_WINDOWS)
+ # define BOOST_ASIO_NATIVE_ERROR(e) e
+ # define BOOST_ASIO_SOCKET_ERROR(e) WSA ## e
+ # define BOOST_ASIO_NETDB_ERROR(e) WSA ## e
+@@ -220,7 +220,7 @@ inline const boost::system::error_catego
+   return boost::system::get_system_category();
+ }
+ 
+-#if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#if !defined(BOOST_WINDOWS)
+ 
+ extern BOOST_ASIO_DECL
+ const boost::system::error_category& get_netdb_category();
+@@ -228,7 +228,7 @@ const boost::system::error_category& get
+ extern BOOST_ASIO_DECL
+ const boost::system::error_category& get_addrinfo_category();
+ 
+-#else // !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#else // !defined(BOOST_WINDOWS)
+ 
+ inline const boost::system::error_category& get_netdb_category()
+ {
+@@ -240,7 +240,7 @@ inline const boost::system::error_catego
+   return get_system_category();
+ }
+ 
+-#endif // !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#endif // !defined(BOOST_WINDOWS)
+ 
+ extern BOOST_ASIO_DECL
+ const boost::system::error_category& get_misc_category();
+--- origsrc/boost_1_44_0/boost/asio/impl/error.ipp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/impl/error.ipp	2010-09-28 16:32:08.078600300 -0500
+@@ -26,7 +26,7 @@ namespace boost {
+ namespace asio {
+ namespace error {
+ 
+-#if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#if !defined(BOOST_WINDOWS)
+ 
+ namespace detail {
+ 
+@@ -88,7 +88,7 @@ const boost::system::error_category& get
+   return instance;
+ }
+ 
+-#endif // !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#endif // !defined(BOOST_WINDOWS)
+ 
+ namespace detail {
+ 
+--- origsrc/boost_1_44_0/boost/asio/impl/serial_port_base.ipp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/impl/serial_port_base.ipp	2010-09-28 16:32:27.321054200 -0500
+@@ -27,7 +27,7 @@
+ 
+ #if defined(GENERATING_DOCUMENTATION)
+ # define BOOST_ASIO_OPTION_STORAGE implementation_defined
+-#elif defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#elif defined(BOOST_WINDOWS)
+ # define BOOST_ASIO_OPTION_STORAGE DCB
+ #else
+ # define BOOST_ASIO_OPTION_STORAGE termios
+@@ -41,7 +41,7 @@ namespace asio {
+ boost::system::error_code serial_port_base::baud_rate::store(
+     BOOST_ASIO_OPTION_STORAGE& storage, boost::system::error_code& ec) const
+ {
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   storage.BaudRate = value_;
+ #else
+   speed_t baud;
+@@ -129,7 +129,7 @@ boost::system::error_code serial_port_ba
+ boost::system::error_code serial_port_base::baud_rate::load(
+     const BOOST_ASIO_OPTION_STORAGE& storage, boost::system::error_code& ec)
+ {
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   value_ = storage.BaudRate;
+ #else
+   speed_t baud = ::cfgetospeed(&storage);
+@@ -222,7 +222,7 @@ serial_port_base::flow_control::flow_con
+ boost::system::error_code serial_port_base::flow_control::store(
+     BOOST_ASIO_OPTION_STORAGE& storage, boost::system::error_code& ec) const
+ {
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   storage.fOutxCtsFlow = FALSE;
+   storage.fOutxDsrFlow = FALSE;
+   storage.fTXContinueOnXoff = TRUE;
+@@ -281,7 +281,7 @@ boost::system::error_code serial_port_ba
+ boost::system::error_code serial_port_base::flow_control::load(
+     const BOOST_ASIO_OPTION_STORAGE& storage, boost::system::error_code& ec)
+ {
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   if (storage.fOutX && storage.fInX)
+   {
+     value_ = software;
+@@ -327,7 +327,7 @@ serial_port_base::parity::parity(serial_
+ boost::system::error_code serial_port_base::parity::store(
+     BOOST_ASIO_OPTION_STORAGE& storage, boost::system::error_code& ec) const
+ {
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   switch (value_)
+   {
+   case none:
+@@ -374,7 +374,7 @@ boost::system::error_code serial_port_ba
+ boost::system::error_code serial_port_base::parity::load(
+     const BOOST_ASIO_OPTION_STORAGE& storage, boost::system::error_code& ec)
+ {
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   if (storage.Parity == EVENPARITY)
+   {
+     value_ = even;
+@@ -422,7 +422,7 @@ serial_port_base::stop_bits::stop_bits(
+ boost::system::error_code serial_port_base::stop_bits::store(
+     BOOST_ASIO_OPTION_STORAGE& storage, boost::system::error_code& ec) const
+ {
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   switch (value_)
+   {
+   case one:
+@@ -458,7 +458,7 @@ boost::system::error_code serial_port_ba
+ boost::system::error_code serial_port_base::stop_bits::load(
+     const BOOST_ASIO_OPTION_STORAGE& storage, boost::system::error_code& ec)
+ {
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   if (storage.StopBits == ONESTOPBIT)
+   {
+     value_ = one;
+@@ -495,7 +495,7 @@ serial_port_base::character_size::charac
+ boost::system::error_code serial_port_base::character_size::store(
+     BOOST_ASIO_OPTION_STORAGE& storage, boost::system::error_code& ec) const
+ {
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   storage.ByteSize = value_;
+ #else
+   storage.c_cflag &= ~CSIZE;
+@@ -515,7 +515,7 @@ boost::system::error_code serial_port_ba
+ boost::system::error_code serial_port_base::character_size::load(
+     const BOOST_ASIO_OPTION_STORAGE& storage, boost::system::error_code& ec)
+ {
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   value_ = storage.ByteSize;
+ #else
+   if ((storage.c_cflag & CSIZE) == CS5) { value_ = 5; }
+--- origsrc/boost_1_44_0/boost/asio/io_service.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/io_service.hpp	2010-09-28 16:32:37.846238000 -0500
+@@ -30,7 +30,7 @@
+ # include <boost/asio/detail/task_io_service_fwd.hpp>
+ #endif
+ 
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+ # include <boost/asio/detail/winsock_init.hpp>
+ #elif defined(__sun) || defined(__QNX__) || defined(__hpux) || defined(_AIX) \
+   || defined(__osf__)
+@@ -518,7 +518,7 @@ public:
+   friend bool has_service(io_service& ios);
+ 
+ private:
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+   detail::winsock_init<> init_;
+ #elif defined(__sun) || defined(__QNX__) || defined(__hpux) || defined(_AIX) \
+   || defined(__osf__)
+--- origsrc/boost_1_44_0/boost/asio/serial_port_base.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/serial_port_base.hpp	2010-09-28 16:33:42.158976400 -0500
+@@ -21,9 +21,9 @@
+ #if defined(BOOST_ASIO_HAS_SERIAL_PORT) \
+   || defined(GENERATING_DOCUMENTATION)
+ 
+-#if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#if !defined(BOOST_WINDOWS)
+ # include <termios.h>
+-#endif // !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#endif // !defined(BOOST_WINDOWS)
+ 
+ #include <boost/detail/workaround.hpp>
+ #include <boost/asio/detail/socket_types.hpp>
+@@ -31,7 +31,7 @@
+ 
+ #if defined(GENERATING_DOCUMENTATION)
+ # define BOOST_ASIO_OPTION_STORAGE implementation_defined
+-#elif defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#elif defined(BOOST_WINDOWS)
+ # define BOOST_ASIO_OPTION_STORAGE DCB
+ #else
+ # define BOOST_ASIO_OPTION_STORAGE termios
+--- origsrc/boost_1_44_0/boost/asio/ssl/detail/openssl_init.hpp	2010-06-09 04:40:46.000000000 -0500
++++ src/boost_1_44_0/boost/asio/ssl/detail/openssl_init.hpp	2010-09-28 16:33:54.880083200 -0500
+@@ -86,15 +86,15 @@ private:
+   private:
+     static unsigned long openssl_id_func()
+     {
+-#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#if defined(BOOST_WINDOWS)
+       return ::GetCurrentThreadId();
+-#else // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#else // defined(BOOST_WINDOWS)
+       void* id = instance()->thread_id_;
+       if (id == 0)
+         instance()->thread_id_ = id = &id; // Ugh.
+       BOOST_ASSERT(sizeof(unsigned long) >= sizeof(void*));
+       return reinterpret_cast<unsigned long>(id);
+-#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
++#endif // defined(BOOST_WINDOWS)
+     }
+ 
+     static void openssl_locking_func(int mode, int n, 
+@@ -109,10 +109,10 @@ private:
+     // Mutexes to be used in locking callbacks.
+     std::vector<boost::shared_ptr<boost::asio::detail::mutex> > mutexes_;
+ 
+-#if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#if !defined(BOOST_WINDOWS)
+     // The thread identifiers to be used by openssl.
+     boost::asio::detail::tss_ptr<void> thread_id_;
+-#endif // !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#endif // !defined(BOOST_WINDOWS)
+   };
+ 
+ public:
