@@ -7,16 +7,16 @@ SRC_DIR="${PN}_${PV//./_}"
 
 PATCH_URI="
 	1.40.0-cstdint-cygwin.patch
-	1.44.0-asio-cygwin.patch
+	1.45.0-asio-cygwin.patch
 	1.44.0-filesystem-cygwin.patch
 	1.40.0-interlocked-cygwin.patch
-	1.40.0-interprocess-cygwin.patch
+	1.45.0-interprocess-cygwin.patch
 	1.40.0-iostreams-cygwin.patch
 	1.40.0-python-cygwin.patch
 	1.40.0-regex-cygwin.patch
 	1.40.0-smart_ptr-cygwin.patch
 	1.44.0-system-cygwin.patch
-	1.43.0-jam-cygwin.patch
+	1.45.0-jam-cygwin.patch
 	1.43.0-jam-toolkit.patch
 "
 
@@ -25,8 +25,8 @@ case ${PV} in
 	*)		dll_v=${PV} ;;
 esac
 
-PKG_NAMES="${PN} libboost${dll_v} libboost_python${dll_v} libboost-devel"
-PKG_HINTS="src lib python devel"
+PKG_NAMES="libboost${dll_v} libboost_python${dll_v} libboost-devel"
+PKG_HINTS="lib python devel"
 libboost_devel_CONTENTS='usr/include/ usr/lib/ usr/share/doc/'
 declare libboost${dll_v//./_}_CONTENTS="--exclude=*python* usr/bin/*-${dll_v//./_}.dll"
 declare libboost_python${dll_v//./_}_CONTENTS="usr/bin/cygboost_python-*"
@@ -51,7 +51,7 @@ src_compile() {
 	using gcc : $(${CXX} -dumpversion) : ${CXX} : <cxxflags>"${CXXFLAGS}" <linkflags>"${LDFLAGS}" ;
 	_EOF
 
-	./tools/jam/src/bin.cygwinx86/bjam.exe \
+	./bjam.exe \
 		-sICU_PATH=/usr \
 		--prefix=/usr \
 		--layout=versioned \
@@ -75,14 +75,13 @@ src_install() {
 #	rm -f ${D}/usr/bin/cygboost_{prg_exec_monitor,unit_test}*.dll \
 #	      ${D}/usr/lib/libboost_{prg_exec_monitor,unit_test}*.dll.a
 
-	(
-		cd ${D}/usr/lib
-		for lib in libboost_*
-		do
-			vext=${dll_v//./_}
-			mv ${lib} ${lib/-${vext}}
-		done
-	)
+	pushd ${D}/usr/lib
+	for lib in libboost_*
+	do
+		vext=${dll_v//./_}
+		mv ${lib} ${lib/-${vext}}
+	done
+	popd
 
 	dodoc README LICENSE_1_0.txt
 }

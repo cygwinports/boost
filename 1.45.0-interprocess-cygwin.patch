@@ -1,0 +1,24 @@
+diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/interprocess/detail/workaround.hpp src/boost_1_45_0/boost/interprocess/detail/workaround.hpp
+--- origsrc/boost_1_45_0/boost/interprocess/detail/workaround.hpp	2010-10-12 13:18:42.000000000 -0500
++++ src/boost_1_45_0/boost/interprocess/detail/workaround.hpp	2011-01-11 04:19:20.856742000 -0600
+@@ -30,9 +30,8 @@
+    #include <unistd.h>
+ 
+    #if ((_POSIX_THREAD_PROCESS_SHARED - 0) > 0)
+-   //Cygwin defines _POSIX_THREAD_PROCESS_SHARED but does not implement it.
+    //Mac Os X >= Leopard defines _POSIX_THREAD_PROCESS_SHARED but does not seems to work.
+-   #  if !defined(__CYGWIN__) && !defined(__APPLE__)
++   #  if !defined(__APPLE__)
+    #  define BOOST_INTERPROCESS_POSIX_PROCESS_SHARED
+    #  endif
+    #endif
+@@ -43,9 +42,6 @@
+ 
+    #if ((_POSIX_SEMAPHORES - 0) > 0)
+    # define BOOST_INTERPROCESS_POSIX_NAMED_SEMAPHORES
+-   #  if defined(__CYGWIN__)
+-      #define BOOST_INTERPROCESS_POSIX_SEMAPHORES_NO_UNLINK
+-   #  endif
+    //Some platforms have a limited (name length) named semaphore support
+    #elif (defined(__FreeBSD__) && (__FreeBSD__ >= 4)) || defined(__APPLE__)
+      # define BOOST_INTERPROCESS_POSIX_NAMED_SEMAPHORES   

@@ -1,5 +1,5 @@
-category: Libs Python
-requires: libgcc1 libstdc++6 zlib0
+category: Python
+requires: libgcc1 libstdc++6 zlib0 python
 external-source: boost
 sdesc: "Boost.Python runtime library"
 ldesc: "Boost provides free peer-reviewed portable C++ source libraries.

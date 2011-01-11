@@ -1,7 +1,7 @@
 OS_CYGWIN is used to assume cygpath, Win32-isms
 
---- origsrc/boost_1_43_0/tools/jam/src/jam.h	2010-04-20 06:51:08.000000000 -0500
-+++ src/boost_1_43_0/tools/jam/src/jam.h	2010-05-16 20:40:10.424283300 -0500
+--- origsrc/boost_1_45_0/tools/build/v2/engine/src/jam.h
++++ src/boost_1_45_0/tools/build/v2/engine/src/jam.h
 @@ -245,7 +245,6 @@
  #endif
  #if defined(__cygwin__) || defined(__CYGWIN__)
