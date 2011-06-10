@@ -1,4 +1,3 @@
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/buffer_sequence_adapter.hpp src/boost_1_45_0/boost/asio//detail/buffer_sequence_adapter.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/buffer_sequence_adapter.hpp	2010-10-18 07:58:10.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/buffer_sequence_adapter.hpp	2011-01-11 04:09:31.893315100 -0600
 @@ -28,7 +28,7 @@
@@ -28,7 +27,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/buffer_
  };
  
  // Helper class to translate buffers into the native buffer representation.
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/config.hpp src/boost_1_45_0/boost/asio//detail/config.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/config.hpp	2010-10-25 05:44:35.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/config.hpp	2011-01-11 04:09:31.893315100 -0600
 @@ -47,7 +47,7 @@
@@ -122,7 +120,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/config.
  #endif // !defined(BOOST_ASIO_DISABLE_LOCAL_SOCKETS)
  
  #endif // BOOST_ASIO_DETAIL_CONFIG_HPP
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/descriptor_ops.hpp src/boost_1_45_0/boost/asio//detail/descriptor_ops.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/descriptor_ops.hpp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/descriptor_ops.hpp	2011-01-11 04:09:31.908915100 -0600
 @@ -17,7 +17,7 @@
@@ -142,7 +139,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/descrip
 +#endif // !defined(BOOST_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_DESCRIPTOR_OPS_HPP
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/descriptor_read_op.hpp src/boost_1_45_0/boost/asio//detail/descriptor_read_op.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/descriptor_read_op.hpp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/descriptor_read_op.hpp	2011-01-11 04:09:31.908915100 -0600
 @@ -17,7 +17,7 @@
@@ -162,7 +158,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/descrip
 +#endif // !defined(BOOST_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_DESCRIPTOR_READ_OP_HPP
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/descriptor_write_op.hpp src/boost_1_45_0/boost/asio//detail/descriptor_write_op.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/descriptor_write_op.hpp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/descriptor_write_op.hpp	2011-01-11 04:09:31.908915100 -0600
 @@ -17,7 +17,7 @@
@@ -182,7 +177,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/descrip
 +#endif // !defined(BOOST_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_DESCRIPTOR_WRITE_OP_HPP
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/fd_set_adapter.hpp src/boost_1_45_0/boost/asio//detail/fd_set_adapter.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/fd_set_adapter.hpp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/fd_set_adapter.hpp	2011-01-11 04:09:31.924515100 -0600
 @@ -23,7 +23,7 @@
@@ -194,7 +188,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/fd_set_
  typedef win_fd_set_adapter fd_set_adapter;
  #else
  typedef posix_fd_set_adapter fd_set_adapter;
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/hash_map.hpp src/boost_1_45_0/boost/asio//detail/hash_map.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/hash_map.hpp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/hash_map.hpp	2011-01-11 04:09:31.924515100 -0600
 @@ -21,9 +21,9 @@
@@ -224,7 +217,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/hash_ma
  
  // Note: assumes K and V are POD types.
  template <typename K, typename V>
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/impl/descriptor_ops.ipp src/boost_1_45_0/boost/asio//detail/impl/descriptor_ops.ipp
 --- origsrc/boost_1_45_0/boost/asio//detail/impl/descriptor_ops.ipp	2010-07-05 23:49:47.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/impl/descriptor_ops.ipp	2011-01-11 04:09:31.924515100 -0600
 @@ -20,7 +20,7 @@
@@ -244,7 +236,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/impl/de
 +#endif // !defined(BOOST_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_IMPL_DESCRIPTOR_OPS_IPP
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/impl/pipe_select_interrupter.ipp src/boost_1_45_0/boost/asio//detail/impl/pipe_select_interrupter.ipp
 --- origsrc/boost_1_45_0/boost/asio//detail/impl/pipe_select_interrupter.ipp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/impl/pipe_select_interrupter.ipp	2011-01-11 04:09:31.940115200 -0600
 @@ -18,7 +18,6 @@
@@ -263,7 +254,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/impl/pi
  #endif // !defined(BOOST_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_IMPL_PIPE_SELECT_INTERRUPTER_IPP
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/impl/reactive_descriptor_service.ipp src/boost_1_45_0/boost/asio//detail/impl/reactive_descriptor_service.ipp
 --- origsrc/boost_1_45_0/boost/asio//detail/impl/reactive_descriptor_service.ipp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/impl/reactive_descriptor_service.ipp	2011-01-11 04:09:31.940115200 -0600
 @@ -17,7 +17,7 @@
@@ -283,7 +273,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/impl/re
 +#endif // !defined(BOOST_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_IMPL_REACTIVE_DESCRIPTOR_SERVICE_IPP
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/impl/reactive_serial_port_service.ipp src/boost_1_45_0/boost/asio//detail/impl/reactive_serial_port_service.ipp
 --- origsrc/boost_1_45_0/boost/asio//detail/impl/reactive_serial_port_service.ipp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/impl/reactive_serial_port_service.ipp	2011-01-11 04:09:31.940115200 -0600
 @@ -19,7 +19,7 @@
@@ -304,7 +293,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/impl/re
  #endif // defined(BOOST_ASIO_HAS_SERIAL_PORT)
  
  #endif // BOOST_ASIO_DETAIL_IMPL_REACTIVE_SERIAL_PORT_SERVICE_IPP
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/impl/select_reactor.ipp src/boost_1_45_0/boost/asio//detail/impl/select_reactor.ipp
 --- origsrc/boost_1_45_0/boost/asio//detail/impl/select_reactor.ipp	2010-07-05 23:49:47.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/impl/select_reactor.ipp	2011-01-11 04:09:31.955715200 -0600
 @@ -149,7 +149,7 @@
@@ -341,7 +329,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/impl/se
  
      // Exception operations must be processed first to ensure that any
      // out-of-band data is read before normal data.
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/impl/socket_ops.ipp src/boost_1_45_0/boost/asio//detail/impl/socket_ops.ipp
 --- origsrc/boost_1_45_0/boost/asio//detail/impl/socket_ops.ipp	2010-11-17 03:51:56.000000000 -0600
 +++ src/boost_1_45_0/boost/asio//detail/impl/socket_ops.ipp	2011-01-11 04:11:00.033468800 -0600
 @@ -33,9 +33,9 @@
@@ -894,7 +881,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/impl/so
  # if defined(_WIN32_WINNT) && (_WIN32_WINNT >= 0x0501) || defined(UNDER_CE)
    // Building for Windows XP, Windows Server 2003, or later.
    clear_last_error();
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/impl/socket_select_interrupter.ipp src/boost_1_45_0/boost/asio//detail/impl/socket_select_interrupter.ipp
 --- origsrc/boost_1_45_0/boost/asio//detail/impl/socket_select_interrupter.ipp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/impl/socket_select_interrupter.ipp	2011-01-11 04:09:31.971315200 -0600
 @@ -18,7 +18,6 @@
@@ -913,7 +899,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/impl/so
         // || defined(__SYMBIAN32__)
  
  #endif // BOOST_ASIO_DETAIL_IMPL_SOCKET_SELECT_INTERRUPTER_IPP
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/impl/winsock_init.ipp src/boost_1_45_0/boost/asio//detail/impl/winsock_init.ipp
 --- origsrc/boost_1_45_0/boost/asio//detail/impl/winsock_init.ipp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/impl/winsock_init.ipp	2011-01-11 04:09:31.986915200 -0600
 @@ -17,7 +17,7 @@
@@ -933,7 +918,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/impl/wi
 +#endif // defined(BOOST_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_IMPL_WINSOCK_INIT_IPP
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/local_free_on_block_exit.hpp src/boost_1_45_0/boost/asio//detail/local_free_on_block_exit.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/local_free_on_block_exit.hpp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/local_free_on_block_exit.hpp	2011-01-11 04:09:31.986915200 -0600
 @@ -17,7 +17,7 @@
@@ -953,7 +937,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/local_f
 +#endif // defined(BOOST_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_LOCAL_FREE_ON_BLOCK_EXIT_HPP
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/null_signal_blocker.hpp src/boost_1_45_0/boost/asio//detail/null_signal_blocker.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/null_signal_blocker.hpp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/null_signal_blocker.hpp	2011-01-11 04:09:31.986915200 -0600
 @@ -20,7 +20,6 @@
@@ -972,7 +955,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/null_si
         // || defined(__SYMBIAN32__)
  
  #endif // BOOST_ASIO_DETAIL_NULL_SIGNAL_BLOCKER_HPP
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/old_win_sdk_compat.hpp src/boost_1_45_0/boost/asio//detail/old_win_sdk_compat.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/old_win_sdk_compat.hpp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/old_win_sdk_compat.hpp	2011-01-11 04:09:32.002515300 -0600
 @@ -17,7 +17,7 @@
@@ -992,7 +974,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/old_win
 +#endif // defined(BOOST_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_OLD_WIN_SDK_COMPAT_HPP
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/pipe_select_interrupter.hpp src/boost_1_45_0/boost/asio//detail/pipe_select_interrupter.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/pipe_select_interrupter.hpp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/pipe_select_interrupter.hpp	2011-01-11 04:09:32.002515300 -0600
 @@ -18,7 +18,6 @@
@@ -1011,7 +992,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/pipe_se
  #endif // !defined(BOOST_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_PIPE_SELECT_INTERRUPTER_HPP
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/pop_options.hpp src/boost_1_45_0/boost/asio//detail/pop_options.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/pop_options.hpp	2010-11-12 17:32:36.000000000 -0600
 +++ src/boost_1_45_0/boost/asio//detail/pop_options.hpp	2011-01-11 04:09:32.002515300 -0600
 @@ -27,7 +27,7 @@
@@ -1023,7 +1003,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/pop_opt
  #  pragma pack (pop)
  # endif
  
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/posix_fd_set_adapter.hpp src/boost_1_45_0/boost/asio//detail/posix_fd_set_adapter.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/posix_fd_set_adapter.hpp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/posix_fd_set_adapter.hpp	2011-01-11 04:09:32.018115300 -0600
 @@ -17,7 +17,7 @@
@@ -1043,7 +1022,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/posix_f
 +#endif // !defined(BOOST_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_POSIX_FD_SET_ADAPTER_HPP
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/push_options.hpp src/boost_1_45_0/boost/asio//detail/push_options.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/push_options.hpp	2010-11-12 17:32:36.000000000 -0600
 +++ src/boost_1_45_0/boost/asio//detail/push_options.hpp	2011-01-11 04:09:32.018115300 -0600
 @@ -27,7 +27,7 @@
@@ -1055,7 +1033,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/push_op
  #  pragma pack (push, 8)
  # endif
  
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/reactive_descriptor_service.hpp src/boost_1_45_0/boost/asio//detail/reactive_descriptor_service.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/reactive_descriptor_service.hpp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/reactive_descriptor_service.hpp	2011-01-11 04:09:32.033715300 -0600
 @@ -17,7 +17,7 @@
@@ -1075,7 +1052,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/reactiv
 +#endif // !defined(BOOST_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_REACTIVE_DESCRIPTOR_SERVICE_HPP
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/reactive_serial_port_service.hpp src/boost_1_45_0/boost/asio//detail/reactive_serial_port_service.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/reactive_serial_port_service.hpp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/reactive_serial_port_service.hpp	2011-01-11 04:09:32.033715300 -0600
 @@ -19,7 +19,7 @@
@@ -1096,7 +1072,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/reactiv
  #endif // defined(BOOST_ASIO_HAS_SERIAL_PORT)
  
  #endif // BOOST_ASIO_DETAIL_REACTIVE_SERIAL_PORT_SERVICE_HPP
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/select_interrupter.hpp src/boost_1_45_0/boost/asio//detail/select_interrupter.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/select_interrupter.hpp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/select_interrupter.hpp	2011-01-11 04:09:32.033715300 -0600
 @@ -17,7 +17,7 @@
@@ -1117,27 +1092,25 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/select_
  typedef socket_select_interrupter select_interrupter;
  #elif defined(BOOST_ASIO_HAS_EVENTFD)
  typedef eventfd_select_interrupter select_interrupter;
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/select_reactor.hpp src/boost_1_45_0/boost/asio//detail/select_reactor.hpp
---- origsrc/boost_1_45_0/boost/asio//detail/select_reactor.hpp	2010-07-05 23:49:47.000000000 -0500
-+++ src/boost_1_45_0/boost/asio//detail/select_reactor.hpp	2011-01-11 04:09:32.049315400 -0600
+--- origsrc/boost_1_46_1/boost/asio//detail/select_reactor.hpp
++++ src/boost_1_46_1/boost/asio//detail/select_reactor.hpp
 @@ -50,13 +50,13 @@
    : public boost::asio::detail::service_base<select_reactor>
  {
  public:
 -#if defined(BOOST_WINDOWS) || defined(__CYGWIN__)
 +#if defined(BOOST_WINDOWS)
-   enum { read_op = 0, write_op = 1, except_op = 2,
+   enum op_types { read_op = 0, write_op = 1, except_op = 2,
      max_select_ops = 3, connect_op = 3, max_ops = 4 };
 -#else // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
 +#else // defined(BOOST_WINDOWS)
-   enum { read_op = 0, write_op = 1, except_op = 2,
+   enum op_types { read_op = 0, write_op = 1, except_op = 2,
      max_select_ops = 3, connect_op = 1, max_ops = 3 };
 -#endif // defined(BOOST_WINDOWS) || defined(__CYGWIN__)
 +#endif // defined(BOOST_WINDOWS)
  
    // Per-descriptor data.
    struct per_descriptor_data
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/signal_blocker.hpp src/boost_1_45_0/boost/asio//detail/signal_blocker.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/signal_blocker.hpp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/signal_blocker.hpp	2011-01-11 04:09:32.049315400 -0600
 @@ -18,7 +18,7 @@
@@ -1158,7 +1131,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/signal_
  typedef null_signal_blocker signal_blocker;
  #elif defined(BOOST_HAS_PTHREADS)
  typedef posix_signal_blocker signal_blocker;
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/signal_init.hpp src/boost_1_45_0/boost/asio//detail/signal_init.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/signal_init.hpp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/signal_init.hpp	2011-01-11 04:09:32.049315400 -0600
 @@ -17,7 +17,7 @@
@@ -1178,7 +1150,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/signal_
 +#endif // !defined(BOOST_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_SIGNAL_INIT_HPP
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/socket_ops.hpp src/boost_1_45_0/boost/asio//detail/socket_ops.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/socket_ops.hpp	2010-10-25 05:44:35.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/socket_ops.hpp	2011-01-11 04:09:32.064915400 -0600
 @@ -113,11 +113,11 @@
@@ -1196,7 +1167,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/socket_
  
  BOOST_ASIO_DECL void init_buf(buf& b, void* data, size_t size);
  
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/socket_select_interrupter.hpp src/boost_1_45_0/boost/asio//detail/socket_select_interrupter.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/socket_select_interrupter.hpp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/socket_select_interrupter.hpp	2011-01-11 04:09:32.064915400 -0600
 @@ -18,7 +18,6 @@
@@ -1215,7 +1185,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/socket_
         // || defined(__SYMBIAN32__)
  
  #endif // BOOST_ASIO_DETAIL_SOCKET_SELECT_INTERRUPTER_HPP
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/socket_types.hpp src/boost_1_45_0/boost/asio//detail/socket_types.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/socket_types.hpp	2010-10-17 07:24:50.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/socket_types.hpp	2011-01-11 04:09:32.064915400 -0600
 @@ -17,7 +17,7 @@
@@ -1236,7 +1205,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/socket_
  typedef SOCKET socket_type;
  const SOCKET invalid_socket = INVALID_SOCKET;
  const int socket_error_retval = SOCKET_ERROR;
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/win_fd_set_adapter.hpp src/boost_1_45_0/boost/asio//detail/win_fd_set_adapter.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/win_fd_set_adapter.hpp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/win_fd_set_adapter.hpp	2011-01-11 04:09:32.080515400 -0600
 @@ -17,7 +17,7 @@
@@ -1256,7 +1224,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/win_fd_
 +#endif // defined(BOOST_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_WIN_FD_SET_ADAPTER_HPP
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/winsock_init.hpp src/boost_1_45_0/boost/asio//detail/winsock_init.hpp
 --- origsrc/boost_1_45_0/boost/asio//detail/winsock_init.hpp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//detail/winsock_init.hpp	2011-01-11 04:09:32.080515400 -0600
 @@ -17,7 +17,7 @@
@@ -1276,7 +1243,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//detail/winsock
 +#endif // defined(BOOST_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_WINSOCK_INIT_HPP
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//error.hpp src/boost_1_45_0/boost/asio//error.hpp
 --- origsrc/boost_1_45_0/boost/asio//error.hpp	2010-10-25 05:44:35.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//error.hpp	2011-01-11 04:11:11.967489600 -0600
 @@ -18,7 +18,7 @@
@@ -1324,7 +1290,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//error.hpp src/
  
  extern BOOST_ASIO_DECL
  const boost::system::error_category& get_misc_category();
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//impl/error.ipp src/boost_1_45_0/boost/asio//impl/error.ipp
 --- origsrc/boost_1_45_0/boost/asio//impl/error.ipp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//impl/error.ipp	2011-01-11 04:09:32.096115400 -0600
 @@ -26,7 +26,7 @@
@@ -1345,7 +1310,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//impl/error.ipp
  
  namespace detail {
  
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//impl/serial_port_base.ipp src/boost_1_45_0/boost/asio//impl/serial_port_base.ipp
 --- origsrc/boost_1_45_0/boost/asio//impl/serial_port_base.ipp	2010-10-17 07:24:50.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//impl/serial_port_base.ipp	2011-01-11 04:09:32.111715500 -0600
 @@ -27,7 +27,7 @@
@@ -1447,7 +1411,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//impl/serial_po
    value_ = storage.ByteSize;
  #else
    if ((storage.c_cflag & CSIZE) == CS5) { value_ = 5; }
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//io_service.hpp src/boost_1_45_0/boost/asio//io_service.hpp
 --- origsrc/boost_1_45_0/boost/asio//io_service.hpp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//io_service.hpp	2011-01-11 04:09:32.111715500 -0600
 @@ -30,7 +30,7 @@
@@ -1468,7 +1431,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//io_service.hpp
    detail::winsock_init<> init_;
  #elif defined(__sun) || defined(__QNX__) || defined(__hpux) || defined(_AIX) \
    || defined(__osf__)
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//serial_port_base.hpp src/boost_1_45_0/boost/asio//serial_port_base.hpp
 --- origsrc/boost_1_45_0/boost/asio//serial_port_base.hpp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//serial_port_base.hpp	2011-01-11 04:09:32.111715500 -0600
 @@ -21,9 +21,9 @@
@@ -1492,7 +1454,6 @@ diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//serial_port_ba
  # define BOOST_ASIO_OPTION_STORAGE DCB
  #else
  # define BOOST_ASIO_OPTION_STORAGE termios
-diff -urN -x '*.orig' -x '*.rej' origsrc/boost_1_45_0/boost/asio//ssl/detail/openssl_init.hpp src/boost_1_45_0/boost/asio//ssl/detail/openssl_init.hpp
 --- origsrc/boost_1_45_0/boost/asio//ssl/detail/openssl_init.hpp	2010-06-09 04:40:46.000000000 -0500
 +++ src/boost_1_45_0/boost/asio//ssl/detail/openssl_init.hpp	2011-01-11 04:09:32.127315500 -0600
 @@ -86,15 +86,15 @@
