@@ -1,5 +1,5 @@
---- origsrc/boost_1_43_0/Jamroot	2010-05-01 15:29:31.000000000 -0500
-+++ src/boost_1_43_0/Jamroot	2010-05-16 20:57:08.507514300 -0500
+--- origsrc/boost_1_48_0/boostcpp.jam	2010-05-01 15:29:31.000000000 -0500
++++ src/boost_1_48_0/boostcpp.jam	2010-05-16 20:57:08.507514300 -0500
 @@ -377,7 +377,7 @@ rule tag ( name : type ? : property-set
          if $(layout) = versioned
          {

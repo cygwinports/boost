@@ -1,5 +1,5 @@
 category: Libs
-requires: libbz2_1 libgcc1 libicu45 libstdc++6 zlib0
+requires: libbz2_1 libgcc1 libiconv2 libicu48 libstdc++6 zlib0
 external-source: boost
 sdesc: "Boost runtime libraries (not including Boost.Python)"
 ldesc: "Boost provides free peer-reviewed portable C++ source libraries.

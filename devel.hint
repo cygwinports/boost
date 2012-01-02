@@ -1,5 +1,5 @@
 category: Libs
-requires: libboost1.45 libboost_python1.45 libbz2-devel libicu-devel python zlib-devel
+requires: libboost1.48 libboost_python1.48 libbz2-devel libicu-devel python zlib-devel
 external-source: boost
 sdesc: "Boost includes and link libraries"
 ldesc: "Boost provides free peer-reviewed portable C++ source libraries.
