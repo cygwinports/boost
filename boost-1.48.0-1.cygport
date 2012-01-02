@@ -13,6 +13,7 @@ PATCH_URI="
 	fedora/${P}-signals-erase.patch
 	1.40.0-cstdint-cygwin.patch
 	1.48.0-asio-cygwin.patch
+	1.48.0-asio-MSG_EOR.patch
 	1.44.0-filesystem-cygwin.patch
 	1.40.0-interlocked-cygwin.patch
 	1.45.0-interprocess-cygwin.patch
@@ -21,6 +22,7 @@ PATCH_URI="
 	1.40.0-regex-cygwin.patch
 	1.40.0-smart_ptr-cygwin.patch
 	1.46.1-system-cygwin.patch
+	1.48.0-type_traits-qtbug22829.patch
 	1.45.0-jam-cygwin.patch
 	1.43.0-jam-toolkit.patch
 "
