@@ -59,14 +59,14 @@ src_compile() {
 		--layout=versioned \
 		--without-mpi \
 		release \
-		threading=multi link=shared,static \
+		threading=multi link=shared \
 		${MAKEOPTS}
 }
 
 src_install() {
 	cd ${B}
 	dobin $(find bin.v2/libs -name '*.dll')
-	dolib $(find bin.v2/libs -name '*.a')
+	dolib $(find bin.v2/libs -name '*.dll.a')
 
 	dodir /usr/include
 	cp -r ${S}/boost ${D}/usr/include/
