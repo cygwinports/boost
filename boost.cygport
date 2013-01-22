@@ -25,6 +25,7 @@ PATCH_URI="
 	1.40.0-cstdint-cygwin.patch
 	1.48.0-asio-cygwin.patch
 	1.48.0-asio-MSG_EOR.patch
+	1.50.0-config-cygwin.patch
 	1.40.0-interlocked-cygwin.patch
 	1.40.0-iostreams-cygwin.patch
 	1.40.0-python-cygwin.patch
