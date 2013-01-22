@@ -3,7 +3,7 @@
 @@ -83,7 +83,7 @@
  #     endif
  #     define BOOST_PYTHON_DECL_FORWARD
- #     define BOOST_PYTHON_DECL_EXCEPTION __attribute__ ((visibility("default")))
+ #     define BOOST_PYTHON_DECL_EXCEPTION __attribute__ ((__visibility__("default")))
 -#  elif (defined(_WIN32) || defined(__CYGWIN__))
 +#  elif defined(_WIN32)
  #     if defined(BOOST_PYTHON_SOURCE)

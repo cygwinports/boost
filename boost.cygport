@@ -1,0 +1,105 @@
+inherit python python3
+
+NAME="boost"
+VERSION=1.50.0
+RELEASE=1
+CATEGORY="Libs"
+SUMMARY="Boost C++ libraries"
+DESCRIPTION="Boost provides free peer-reviewed portable C++ source libraries.
+We emphasize libraries that work well with the C++ Standard Library. Boost
+libraries are intended to be widely useful, and usable across a broad spectrum
+of applications. The Boost license encourages both commercial and non-commercial
+use."
+HOMEPAGE="http://www.boost.org/"
+SRC_URI="mirror://sourceforge/boost/${PN}_${PV//./_}.tar.bz2"
+SRC_DIR="${PN}_${PV//./_}"
+
+PATCH_URI="
+	fedora/boost-1.50.0-attribute.patch
+	fedora/boost-1.50.0-fix-non-utf8-files.patch
+	fedora/boost-1.50.0-foreach.patch
+	fedora/boost-1.50.0-long-double-1.patch
+	fedora/boost-1.50.0-polygon.patch
+	fedora/boost-1.50.0-pool.patch
+	fedora/boost-1.50.0-signals-erase.patch
+	1.40.0-cstdint-cygwin.patch
+	1.48.0-asio-cygwin.patch
+	1.48.0-asio-MSG_EOR.patch
+	1.40.0-interlocked-cygwin.patch
+	1.40.0-iostreams-cygwin.patch
+	1.40.0-python-cygwin.patch
+	1.40.0-regex-cygwin.patch
+	1.40.0-smart_ptr-cygwin.patch
+	1.46.1-system-cygwin.patch
+	1.48.0-type_traits-qtbug22829.patch
+	1.45.0-jam-cygwin.patch
+	1.43.0-jam-toolkit.patch
+	1.50.0-jam-pep3149.patch
+"
+
+case ${PV} in
+	*.0)	dll_v=${PV%.0} ;;
+	*)	dll_v=${PV} ;;
+esac
+
+PKG_NAMES="libboost${dll_v} libboost_python${dll_v} libboost_python3_${dll_v}
+           libboost-devel libboost_python-devel libboost_python3-devel"
+libboost_devel_REQUIRES="libicu-devel"
+libboost_devel_CONTENTS='--exclude=*boost_python* usr/include/ usr/lib/ usr/share/doc/'
+libboost_python_devel_REQUIRES="libboost-devel"
+libboost_python_devel_CONTENTS="usr/lib/libboost_python-mt.dll.a"
+libboost_python3_devel_REQUIRES="libboost-devel"
+libboost_python3_devel_CONTENTS="usr/lib/libboost_python3-mt.dll.a"
+declare libboost${dll_v//./_}_CONTENTS="--exclude=*python* usr/bin/*-${dll_v//./_}.dll"
+declare libboost_python${dll_v//./_}_CONTENTS="usr/bin/cygboost_python-*"
+declare libboost_python3_${dll_v//./_}_CONTENTS="usr/bin/cygboost_python3-*"
+
+DIFF_EXCLUDES="boostbook html *.test"
+
+src_compile() {
+	lndirs
+
+	export BOOST_ROOT=${B}
+
+	cd ${B}
+	${B}/bootstrap.sh \
+		--prefix=/usr \
+		--without-libraries=python \
+		--with-icu=/usr \
+		--with-toolset=gcc \
+		|| error "configure failed"
+
+	cat >> project-config.jam <<_EOF
+using python : ${PYTHON3_VERSION}${PYTHON3_ABIFLAGS} : ${PYTHON3} : ${PYTHON3_INCLUDEDIR} ;
+using python : ${PYTHON_VERSION} : /usr ;
+_EOF
+
+	./bjam.exe \
+		--prefix=/usr \
+		--layout=versioned \
+		--without-mpi \
+		release \
+		python=${PYTHON_VERSION} \
+		threading=multi link=shared pch=off \
+		${MAKEOPTS}
+}
+
+src_install() {
+	cd ${B}
+	dobin stage/lib/*.dll
+	dolib stage/lib/*.dll.a
+
+	dodir /usr/include
+	cp -r ${S}/boost ${D}/usr/include/
+	find ${D}/usr/include/ -type f -name '*.orig' -delete
+
+	pushd ${D}/usr/lib
+	for lib in libboost_*
+	do
+		vext=${dll_v//./_}
+		mv ${lib} ${lib/-${vext}}
+	done
+	popd
+
+	dodoc README LICENSE_1_0.txt
+}
