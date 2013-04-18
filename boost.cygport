@@ -1,7 +1,7 @@
 inherit python python3
 
 NAME="boost"
-VERSION=1.50.0
+VERSION=1.53.0
 RELEASE=1
 CATEGORY="Libs"
 SUMMARY="Boost C++ libraries"
@@ -15,15 +15,14 @@ SRC_URI="mirror://sourceforge/boost/${PN}_${PV//./_}.tar.bz2"
 SRC_DIR="${PN}_${PV//./_}"
 
 PATCH_URI="
-	fedora/boost-1.50.0-attribute.patch
+	fedora/boost-1.53.0-attribute.patch
 	fedora/boost-1.50.0-fix-non-utf8-files.patch
 	fedora/boost-1.50.0-foreach.patch
 	fedora/boost-1.50.0-long-double-1.patch
-	fedora/boost-1.50.0-polygon.patch
 	fedora/boost-1.50.0-pool.patch
-	fedora/boost-1.50.0-signals-erase.patch
+	fedora/boost-1.53.0-context.patch
 	1.40.0-cstdint-cygwin.patch
-	1.48.0-asio-cygwin.patch
+	1.53.0-asio-cygwin.patch
 	1.48.0-asio-MSG_EOR.patch
 	1.50.0-config-cygwin.patch
 	1.40.0-interlocked-cygwin.patch
@@ -92,7 +91,6 @@ src_install() {
 
 	dodir /usr/include
 	cp -r ${S}/boost ${D}/usr/include/
-	find ${D}/usr/include/ -type f -name '*.orig' -delete
 
 	pushd ${D}/usr/lib
 	for lib in libboost_*
