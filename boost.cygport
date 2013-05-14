@@ -2,7 +2,7 @@ inherit python python3
 
 NAME="boost"
 VERSION=1.53.0
-RELEASE=1
+RELEASE=2
 CATEGORY="Libs"
 SUMMARY="Boost C++ libraries"
 DESCRIPTION="Boost provides free peer-reviewed portable C++ source libraries.
@@ -25,6 +25,7 @@ PATCH_URI="
 	1.53.0-asio-cygwin.patch
 	1.48.0-asio-MSG_EOR.patch
 	1.50.0-config-cygwin.patch
+	1.53.0-filesystem-cygwin.patch
 	1.40.0-interlocked-cygwin.patch
 	1.40.0-iostreams-cygwin.patch
 	1.53.0-locale-cygwin.patch
