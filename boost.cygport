@@ -52,7 +52,6 @@ PATCH_URI="
 	1.46.1-system-cygwin.patch
 	1.48.0-type_traits-qtbug22829.patch
 	1.45.0-jam-cygwin.patch
-	1.43.0-jam-toolkit.patch
 	1.50.0-jam-pep3149.patch
 "
 
