@@ -1,5 +1,5 @@
---- a/tools/build/v2/tools/python.jam	2012-04-25 22:35:55.000000000 -0500
-+++ b/tools/build/v2/tools/python.jam	2013-01-21 07:22:30.814373200 -0600
+--- a/tools/build/src/tools/python.jam	2012-04-25 22:35:55.000000000 -0500
++++ b/tools/build/src/tools/python.jam	2013-01-21 07:22:30.814373200 -0600
 @@ -376,7 +376,7 @@ local rule path-to-native ( paths * )
  #
  local rule split-version ( version )

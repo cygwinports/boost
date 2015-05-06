@@ -1,8 +1,8 @@
 inherit python python3
 
 NAME="boost"
-VERSION=1.55.0
-RELEASE=2
+VERSION=1.57.0
+RELEASE=1
 CATEGORY="Libs"
 SUMMARY="Boost C++ libraries"
 DESCRIPTION="Boost provides free peer-reviewed portable C++ source libraries.
@@ -13,47 +13,32 @@ use."
 HOMEPAGE="http://www.boost.org/"
 SRC_URI="mirror://sourceforge/boost/boost_${VERSION//./_}.tar.bz2"
 SRC_DIR="boost_${VERSION//./_}"
-
 PATCH_URI="
 	fedora/boost-1.50.0-fix-non-utf8-files.patch
 	fedora/boost-1.50.0-pool.patch
-	fedora/boost-1.54.0-bind-static_assert.patch
-	fedora/boost-1.54.0-concept-unused_typedef.patch
-	fedora/boost-1.54.0-mpl-print.patch
-	fedora/boost-1.54.0-static_warning-unused_typedef.patch
-	fedora/boost-1.54.0-tuple-unused_typedef.patch
-	fedora/boost-1.54.0-random-unused_typedef.patch
-	fedora/boost-1.54.0-date_time-unused_typedef.patch
-	fedora/boost-1.54.0-date_time-unused_typedef-2.patch
-	fedora/boost-1.54.0-spirit-unused_typedef.patch
-	fedora/boost-1.54.0-spirit-unused_typedef-2.patch
-	fedora/boost-1.54.0-numeric-unused_typedef.patch
+	fedora/boost-1.57.0-mpl-print.patch
+	fedora/boost-1.57.0-spirit-unused_typedef.patch
 	fedora/boost-1.54.0-locale-unused_typedef.patch
-	fedora/boost-1.54.0-property_tree-unused_typedef.patch
 	fedora/boost-1.54.0-python-unused_typedef.patch
-	fedora/boost-1.54.0-pool-test_linking.patch
+	fedora/boost-1.57.0-pool-test_linking.patch
 	fedora/boost-1.54.0-pool-max_chunks_shadow.patch
-	fedora/boost-1.55.0-program_options-class_attribute.patch
-	fedora/boost-1.55.0-archive-init_order.patch
-	fedora/boost-1.55.0-xpressive-unused_typedefs.patch
-	fedora/boost-1.55.0-spirit-unused_typedefs.patch
-	fedora/boost-1.54.0-smart_ptr-shared_ptr_at.patch
-	fedora/boost-1.55.0-atomic-int128_1.patch
-	fedora/boost-1.55.0-atomic-int128_2.patch
+	fedora/boost-1.57.0-signals2-weak_ptr.patch
+	fedora/boost-1.57.0-uuid-comparison.patch
+	fedora/boost-1.57.0-move-is_class.patch
 	1.40.0-cstdint-cygwin.patch
-	1.55.0-asio-cygwin.patch
+	1.57.0-asio-cygwin.patch
 	1.55.0-asio-MSG_EOR.patch
-	1.50.0-config-cygwin.patch
-	1.55.0-context-cygwin.patch
-	1.53.0-filesystem-cygwin.patch
+	1.57.0-config-cygwin.patch
+	1.57.0-context-cygwin.patch
+	1.57.0-filesystem-cygwin.patch
 	1.55.0-interlocked-cygwin.patch
 	1.40.0-iostreams-cygwin.patch
-	1.53.0-locale-cygwin.patch
+	1.57.0-locale-cygwin.patch
+	1.57.0-log-cygwin.patch
 	1.40.0-python-cygwin.patch
 	1.40.0-regex-cygwin.patch
-	1.40.0-smart_ptr-cygwin.patch
-	1.46.1-system-cygwin.patch
-	1.48.0-type_traits-qtbug22829.patch
+	1.57.0-smart_ptr-cygwin.patch
+	1.57.0-system-cygwin.patch
 	1.45.0-jam-cygwin.patch
 	1.50.0-jam-pep3149.patch
 "
@@ -70,7 +55,7 @@ libboost_python_devel_REQUIRES="libboost-devel"
 libboost_python_devel_CONTENTS="usr/lib/libboost_python.dll.a"
 libboost_python3_devel_REQUIRES="libboost-devel"
 libboost_python3_devel_CONTENTS="usr/lib/libboost_python3.dll.a"
-for b in atomic chrono context coroutine date_time filesystem graph iostreams \
+for b in atomic chrono context container coroutine date_time filesystem graph iostreams \
 	 locale log math program_options random regex serialization signals \
 	 system thread timer wave
 do
@@ -92,8 +77,8 @@ src_compile() {
 	export BOOST_ROOT=${B}
 
 	cd ${B}
-	rm tools/build/v2/user-config.jam
-	cat > tools/build/v2/user-config.jam <<_EOF
+	rm -f tools/build/src/user-config.jam
+	cat > tools/build/src/user-config.jam <<_EOF
 using gcc : : $(which ${CXX}) : <compileflags>"${CXXFLAGS}" ;
 using python : ${PYTHON3_VERSION}${PYTHON3_ABIFLAGS} : ${PYTHON3} : ${PYTHON3_INCLUDEDIR} ;
 using python : ${PYTHON_VERSION} : /usr ;

@@ -1,16 +1,14 @@
-Based on Fedora's boost-mingw.patch
-
---- origsrc/boost_1_55_0/libs/context/build/Jamfile.v2	2013-07-26 10:24:15.000000000 -0500
-+++ src/boost_1_55_0/libs/context/build/Jamfile.v2	2014-09-01 00:17:14.875872500 -0500
+--- origsrc/boost_1_57_0/libs/context/build/Jamfile.v2	2014-10-20 01:26:00.000000000 -0500
++++ src/boost_1_57_0/libs/context/build/Jamfile.v2	2015-05-04 17:43:10.812161900 -0500
 @@ -29,6 +29,7 @@ local rule default_binary_format ( )
      local tmp = elf ;
      if [ os.name ] = "MACOSX" { tmp = mach-o ; }
      if [ os.name ] = "NT" { tmp = pe ; }
 +    if [ os.name ] = "CYGWIN" { tmp = pe ; }
+     if [ os.name ] = "AIX" { tmp = xcoff ; }
      return $(tmp) ;
  }
- 
-@@ -319,6 +320,16 @@ alias asm_context_sources
+@@ -581,6 +582,16 @@ alias asm_context_sources
     ;
  
  alias asm_context_sources
@@ -27,7 +25,7 @@ Based on Fedora's boost-mingw.patch
     : asm/make_i386_ms_pe_masm.asm
       asm/jump_i386_ms_pe_masm.asm
       dummy.cpp
-@@ -416,6 +427,16 @@ alias asm_context_sources
+@@ -715,6 +726,16 @@ alias asm_context_sources
     ;
  
  alias asm_context_sources
@@ -44,8 +42,8 @@ Based on Fedora's boost-mingw.patch
     : asm/make_x86_64_ms_pe_masm.asm
       asm/jump_x86_64_ms_pe_masm.asm
       dummy.cpp
---- origsrc/boost_1_55_0/libs/context/src/asm/jump_i386_ms_pe_gas.S	1969-12-31 18:00:00.000000000 -0600
-+++ src/boost_1_55_0/libs/context/src/asm/jump_i386_ms_pe_gas.S	2014-09-01 00:08:28.250499600 -0500
+--- origsrc/boost_1_57_0/libs/context/src/asm/jump_i386_ms_pe_gas.S	1969-12-31 18:00:00.000000000 -0600
++++ src/boost_1_57_0/libs/context/src/asm/jump_i386_ms_pe_gas.S	2015-05-04 17:43:10.821663100 -0500
 @@ -0,0 +1,108 @@
 +/*
 +            Copyright Oliver Kowalke 2009.
@@ -155,8 +153,8 @@ Based on Fedora's boost-mingw.patch
 +    movl    0x14(%ecx), %ecx        /* fetch the address to return to */
 +
 +    jmp     *%ecx                   /* indirect jump to context */
---- origsrc/boost_1_55_0/libs/context/src/asm/jump_x86_64_ms_pe_gas.S	1969-12-31 18:00:00.000000000 -0600
-+++ src/boost_1_55_0/libs/context/src/asm/jump_x86_64_ms_pe_gas.S	2014-09-01 00:08:28.265501500 -0500
+--- origsrc/boost_1_57_0/libs/context/src/asm/jump_x86_64_ms_pe_gas.S	1969-12-31 18:00:00.000000000 -0600
++++ src/boost_1_57_0/libs/context/src/asm/jump_x86_64_ms_pe_gas.S	2015-05-04 17:43:10.829664200 -0500
 @@ -0,0 +1,189 @@
 +/*
 +            Copyright Oliver Kowalke 2009.
@@ -347,8 +345,8 @@ Based on Fedora's boost-mingw.patch
 +
 +    jmp     *%r10                   /* indirect jump to caller */
 +.seh_endproc
---- origsrc/boost_1_55_0/libs/context/src/asm/make_i386_ms_pe_gas.S	1969-12-31 18:00:00.000000000 -0600
-+++ src/boost_1_55_0/libs/context/src/asm/make_i386_ms_pe_gas.S	2014-09-01 00:08:28.245498900 -0500
+--- origsrc/boost_1_57_0/libs/context/src/asm/make_i386_ms_pe_gas.S	1969-12-31 18:00:00.000000000 -0600
++++ src/boost_1_57_0/libs/context/src/asm/make_i386_ms_pe_gas.S	2015-05-04 17:43:10.836165000 -0500
 @@ -0,0 +1,115 @@
 +/*
 +            Copyright Oliver Kowalke 2009.
@@ -465,8 +463,8 @@ Based on Fedora's boost-mingw.patch
 +    hlt
 +
 +.def	__exit;	.scl	2;	.type	32;	.endef  /* standard C library function */
---- origsrc/boost_1_55_0/libs/context/src/asm/make_x86_64_ms_pe_gas.S	1969-12-31 18:00:00.000000000 -0600
-+++ src/boost_1_55_0/libs/context/src/asm/make_x86_64_ms_pe_gas.S	2014-09-01 00:08:28.258000500 -0500
+--- origsrc/boost_1_57_0/libs/context/src/asm/make_x86_64_ms_pe_gas.S	1969-12-31 18:00:00.000000000 -0600
++++ src/boost_1_57_0/libs/context/src/asm/make_x86_64_ms_pe_gas.S	2015-05-04 17:43:10.843165900 -0500
 @@ -0,0 +1,132 @@
 +/*
 +            Copyright Oliver Kowalke 2009.
