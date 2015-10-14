@@ -1153,9 +1153,9 @@
    return result == socket_error_retval ? -1 : 1;
 -#else // defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
 +#else // defined(BOOST_ASIO_WINDOWS)
-   int result = error_wrapper(::inet_pton(af, src, dest), ec);
-   if (result <= 0 && !ec)
-     ec = boost::asio::error::invalid_argument;
+   using namespace std; // For strchr, memcpy and atoi.
+ 
+   // On some platforms, inet_pton fails if an address string contains a scope
 @@ -2234,7 +2222,7 @@ int inet_pton(int af, const char* src, v
      }
    }

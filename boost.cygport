@@ -1,7 +1,7 @@
 inherit python python3
 
 NAME="boost"
-VERSION=1.57.0
+VERSION=1.58.0
 RELEASE=1
 CATEGORY="Libs"
 SUMMARY="Boost C++ libraries"
@@ -15,16 +15,17 @@ SRC_URI="mirror://sourceforge/boost/boost_${VERSION//./_}.tar.bz2"
 SRC_DIR="boost_${VERSION//./_}"
 PATCH_URI="
 	fedora/boost-1.50.0-fix-non-utf8-files.patch
-	fedora/boost-1.50.0-pool.patch
+	fedora/boost-1.58.0-pool.patch
 	fedora/boost-1.57.0-mpl-print.patch
 	fedora/boost-1.57.0-spirit-unused_typedef.patch
 	fedora/boost-1.54.0-locale-unused_typedef.patch
 	fedora/boost-1.54.0-python-unused_typedef.patch
-	fedora/boost-1.57.0-pool-test_linking.patch
-	fedora/boost-1.54.0-pool-max_chunks_shadow.patch
-	fedora/boost-1.57.0-signals2-weak_ptr.patch
+	fedora/boost-1.58.0-pool-test_linking.patch
 	fedora/boost-1.57.0-uuid-comparison.patch
-	fedora/boost-1.57.0-move-is_class.patch
+	fedora/boost-1.58.0-variant-includes.patch
+	fedora/boost-1.58.0-address-model.patch
+	fedora/boost-1.58-ublas-inlines.patch
+	fedora/0002-Fix-a-regression-with-non-constexpr-types.patch
 	1.40.0-cstdint-cygwin.patch
 	1.57.0-asio-cygwin.patch
 	1.55.0-asio-MSG_EOR.patch
