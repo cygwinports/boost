@@ -11,12 +11,20 @@
  #   define BOOST_POSIX_API 
 --- origsrc/boost_1_57_0/boost/system/detail/error_code.ipp	2014-08-03 15:44:11.000000000 -0500
 +++ src/boost_1_57_0/boost/system/detail/error_code.ipp	2015-05-04 17:51:02.925112700 -0500
+@@ -85,6 +85,7 @@ namespace
+   //      thread safe.
+   # if defined(BOOST_WINDOWS_API) || defined(__hpux) || defined(__sun)\
+      || (defined(__linux) && (!defined(__USE_XOPEN2K) || defined(BOOST_SYSTEM_USE_STRERROR)))\
++     || (defined(__CYGWIN__) && (__POSIX_VISIBLE < 200112 || defined(BOOST_SYSTEM_USE_STRERROR)))\
+      || (defined(__osf__) && !defined(_REENTRANT))\
+      || (defined(__INTEGRITY))\
+      || (defined(__vms))\
 @@ -97,7 +97,7 @@ namespace
        char buf[64];
        char * bp = buf;
        std::size_t sz = sizeof(buf);
 -  #  if defined(__CYGWIN__) || defined(__USE_GNU)
-+  #  if defined(__GNU_VISIBLE) || defined(__USE_GNU)
++  #  if __GNU_VISIBLE || defined(__USE_GNU)
        // Oddball version of strerror_r
        const char * c_str = strerror_r( ev, bp, sz );
        return  c_str

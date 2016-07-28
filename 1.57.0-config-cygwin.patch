@@ -1,12 +1,24 @@
 --- origsrc/boost_1_57_0/boost/config/platform/cygwin.hpp	2015-05-04 18:02:21.742811600 -0500
 +++ src/boost_1_57_0/boost/config/platform/cygwin.hpp	2015-05-04 17:16:30.183407900 -0500
-@@ -39,18 +39,8 @@
- #define BOOST_HAS_STDINT_H
- #endif
+@@ -11,6 +11,7 @@
+ #define BOOST_HAS_DIRENT_H
+ #define BOOST_HAS_LOG1P
+ #define BOOST_HAS_EXPM1
++#define BOOST_HAS_NANOSLEEP
  
+ //
+ // Threading API:
+@@ -35,22 +36,10 @@
+ // find out if we have a stdint.h, there should be a better way to do this:
+ //
+ #include <sys/types.h>
+-#ifdef _STDINT_H
+ #define BOOST_HAS_STDINT_H
+-#endif
+-
 -/// Cygwin has no fenv.h
 -#define BOOST_NO_FENV_H
--
+ 
  // boilerplate code:
  #include <boost/config/posix_features.hpp>
 -

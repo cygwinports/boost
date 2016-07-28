@@ -1,7 +1,7 @@
 inherit python python3
 
 NAME="boost"
-VERSION=1.58.0
+VERSION=1.60.0
 RELEASE=1
 CATEGORY="Libs"
 SUMMARY="Boost C++ libraries"
@@ -18,24 +18,21 @@ PATCH_URI="
 	fedora/boost-1.58.0-pool.patch
 	fedora/boost-1.57.0-mpl-print.patch
 	fedora/boost-1.57.0-spirit-unused_typedef.patch
-	fedora/boost-1.54.0-locale-unused_typedef.patch
-	fedora/boost-1.54.0-python-unused_typedef.patch
 	fedora/boost-1.58.0-pool-test_linking.patch
-	fedora/boost-1.57.0-uuid-comparison.patch
-	fedora/boost-1.58.0-variant-includes.patch
 	fedora/boost-1.58.0-address-model.patch
-	fedora/boost-1.58-ublas-inlines.patch
-	fedora/0002-Fix-a-regression-with-non-constexpr-types.patch
+	fedora/boost-1.59-test-fenv.patch
+	fedora/boost-1.60-multiprecision.patch
 	1.40.0-cstdint-cygwin.patch
-	1.57.0-asio-cygwin.patch
+	1.60.0-asio-cygwin.patch
 	1.55.0-asio-MSG_EOR.patch
 	1.57.0-config-cygwin.patch
-	1.57.0-context-cygwin.patch
 	1.57.0-filesystem-cygwin.patch
 	1.55.0-interlocked-cygwin.patch
 	1.40.0-iostreams-cygwin.patch
 	1.57.0-locale-cygwin.patch
 	1.57.0-log-cygwin.patch
+	1.60.0-math-cygwin.patch
+	1.60.0-numeric-cygwin.patch
 	1.40.0-python-cygwin.patch
 	1.40.0-regex-cygwin.patch
 	1.57.0-smart_ptr-cygwin.patch
@@ -58,7 +55,7 @@ libboost_python3_devel_REQUIRES="libboost-devel"
 libboost_python3_devel_CONTENTS="usr/lib/libboost_python3.dll.a"
 for b in atomic chrono context container coroutine date_time filesystem graph iostreams \
 	 locale log math program_options random regex serialization signals \
-	 system thread timer wave
+	 system thread timer type_erasure wave
 do
 	PKG_NAMES+=" libboost_${b}${dll_v}"
 	declare libboost_${b}${dll_v//./_}_CONTENTS="usr/bin/cygboost_${b}*-${dll_v//./_}.dll"
@@ -106,7 +103,7 @@ _EOF
 src_install() {
 	cd ${B}
 	dobin stage/lib/*.dll
-	dolib stage/lib/*.dll.a
+	dolib stage/lib/*.a
 
 	dodir /usr/include
 	cp -pr ${S}/boost ${D}/usr/include/

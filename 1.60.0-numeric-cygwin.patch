@@ -1,0 +1,43 @@
+--- origsrc/boost_1_60_0/boost/numeric/interval/detail/bugs.hpp	2015-04-02 13:10:44.000000000 -0500
++++ src/boost_1_60_0/boost/numeric/interval/detail/bugs.hpp	2016-07-27 12:48:37.097806700 -0500
+@@ -16,6 +16,9 @@
+ #if defined(__GLIBC__) && (defined(__USE_MISC) || defined(__USE_XOPEN_EXTENDED) || defined(__USE_ISOC99)) && !defined(__ICC)
+ #  define BOOST_HAS_INV_HYPERBOLIC
+ #endif
++#if defined(__CYGWIN__) && __ISO_C_VISIBLE >= 1999
++#  define BOOST_HAS_INV_HYPERBOLIC
++#endif
+ 
+ #ifdef BOOST_NO_STDC_NAMESPACE
+ #  define BOOST_NUMERIC_INTERVAL_using_math(a) using ::a
+--- origsrc/boost_1_60_0/boost/numeric/interval/detail/ppc_rounding_control.hpp	2015-04-02 13:10:44.000000000 -0500
++++ src/boost_1_60_0/boost/numeric/interval/detail/ppc_rounding_control.hpp	2016-07-27 12:49:47.065193200 -0500
+@@ -53,7 +53,7 @@ struct ppc_rounding_control
+ 
+ // Do not declare the following C99 symbols if <math.h> provides them.
+ // Otherwise, conflicts may occur, due to differences between prototypes.
+-#if !defined(_ISOC99_SOURCE) && !defined(__USE_ISOC99)
++#if !defined(_ISOC99_SOURCE) && !defined(__USE_ISOC99) && !(__ISO_C_VISIBLE - 0) >= 1999
+ extern "C" {
+   float rintf(float);
+   double rint(double);
+--- origsrc/boost_1_60_0/boost/numeric/interval/hw_rounding.hpp	2015-04-02 13:10:44.000000000 -0500
++++ src/boost_1_60_0/boost/numeric/interval/hw_rounding.hpp	2016-07-27 12:52:07.569564000 -0500
+@@ -17,7 +17,7 @@
+ #define BOOST_NUMERIC_INTERVAL_NO_HARDWARE
+ 
+ // define appropriate specialization of rounding_control for built-in types
+-#if defined(__x86_64__) && (defined(__USE_ISOC99) || defined(__APPLE__))
++#if defined(__x86_64__) && (defined(__USE_ISOC99) || (__ISO_C_VISIBLE - 0) >= 1999 || defined(__APPLE__))
+ #  include <boost/numeric/interval/detail/c99_rounding_control.hpp>
+ #elif defined(__i386__) || defined(_M_IX86) || defined(__BORLANDC__) || defined(_M_X64)
+ #  include <boost/numeric/interval/detail/x86_rounding_control.hpp>
+@@ -31,7 +31,7 @@
+ #  include <boost/numeric/interval/detail/ia64_rounding_control.hpp>
+ #endif
+ 
+-#if defined(BOOST_NUMERIC_INTERVAL_NO_HARDWARE) && (defined(__USE_ISOC99) || defined(__MSL__))
++#if defined(BOOST_NUMERIC_INTERVAL_NO_HARDWARE) && (defined(__USE_ISOC99) || (__ISO_C_VISIBLE - 0) >= 1999 || defined(__MSL__))
+ #  include <boost/numeric/interval/detail/c99_rounding_control.hpp>
+ #endif
+ 

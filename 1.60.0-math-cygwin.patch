@@ -1,0 +1,20 @@
+--- origsrc/boost_1_60_0/boost/math/tools/config.hpp	2015-12-11 12:00:52.000000000 -0600
++++ src/boost_1_60_0/boost/math/tools/config.hpp	2016-07-27 11:42:28.240221700 -0500
+@@ -28,7 +28,7 @@
+ 
+ #include <boost/math/tools/user.hpp>
+ 
+-#if (defined(__CYGWIN__) || defined(__FreeBSD__) || defined(__NetBSD__) \
++#if (defined(__FreeBSD__) || defined(__NetBSD__) \
+    || (defined(__hppa) && !defined(__OpenBSD__)) || (defined(__NO_LONG_DOUBLE_MATH) && (DBL_MANT_DIG != LDBL_MANT_DIG))) \
+    && !defined(BOOST_MATH_NO_LONG_DOUBLE_MATH_FUNCTIONS)
+ #  define BOOST_MATH_NO_LONG_DOUBLE_MATH_FUNCTIONS
+@@ -119,7 +119,7 @@
+ #  define BOOST_MATH_USE_C99
+ #endif
+ 
+-#if defined(__CYGWIN__) || defined(__HP_aCC) || defined(BOOST_INTEL) \
++#if defined(__HP_aCC) || defined(BOOST_INTEL) \
+   || defined(BOOST_NO_NATIVE_LONG_DOUBLE_FP_CLASSIFY) \
+   || (defined(__GNUC__) && !defined(BOOST_MATH_USE_C99))\
+   || defined(BOOST_MATH_NO_LONG_DOUBLE_MATH_FUNCTIONS)
