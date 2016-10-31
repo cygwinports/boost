@@ -2,7 +2,7 @@ inherit python python3
 
 NAME="boost"
 VERSION=1.60.0
-RELEASE=1
+RELEASE=2
 CATEGORY="Libs"
 SUMMARY="Boost C++ libraries"
 DESCRIPTION="Boost provides free peer-reviewed portable C++ source libraries.
@@ -22,6 +22,7 @@ PATCH_URI="
 	fedora/boost-1.58.0-address-model.patch
 	fedora/boost-1.59-test-fenv.patch
 	fedora/boost-1.60-multiprecision.patch
+	fedora/boost-1.60-python-regptr.patch
 	1.40.0-cstdint-cygwin.patch
 	1.60.0-asio-cygwin.patch
 	1.55.0-asio-MSG_EOR.patch
