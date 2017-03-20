@@ -2,7 +2,7 @@ inherit python python3
 
 NAME="boost"
 VERSION=1.60.0
-RELEASE=2
+RELEASE=3
 CATEGORY="Libs"
 SUMMARY="Boost C++ libraries"
 DESCRIPTION="Boost provides free peer-reviewed portable C++ source libraries.
