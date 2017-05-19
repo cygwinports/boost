@@ -1,0 +1,32 @@
+--- origsrc/boost_1_63_0/boost/log/detail/config.hpp	2016-12-22 06:33:16.000000000 -0600
++++ src/boost_1_63_0/boost/log/detail/config.hpp	2017-04-03 11:09:07.837777600 -0500
+@@ -111,11 +111,6 @@
+ #   define BOOST_LOG_NO_CXX11_CODECVT_FACETS
+ #endif
+ 
+-#if defined(__CYGWIN__)
+-    // Boost.ASIO is broken on Cygwin
+-#   define BOOST_LOG_NO_ASIO
+-#endif
+-
+ #if !defined(BOOST_LOG_USE_NATIVE_SYSLOG) && defined(BOOST_LOG_NO_ASIO)
+ #   ifndef BOOST_LOG_WITHOUT_SYSLOG
+ #       define BOOST_LOG_WITHOUT_SYSLOG
+--- origsrc/boost_1_63_0/libs/log/build/Jamfile.v2	2016-12-22 06:33:16.000000000 -0600
++++ src/boost_1_63_0/libs/log/build/Jamfile.v2	2017-04-03 11:09:31.952614100 -0500
+@@ -241,15 +241,6 @@ project boost/log
+         <target-os>windows:<library>mswsock
+         <target-os>windows:<library>advapi32
+ 
+-        <target-os>cygwin:<define>NOMINMAX
+-        <target-os>cygwin:<define>WIN32_LEAN_AND_MEAN
+-        <target-os>cygwin:<define>SECURITY_WIN32
+-        <target-os>cygwin:<define>__USE_W32_SOCKETS
+-        <target-os>cygwin:<define>BOOST_USE_WINDOWS_H
+-        <target-os>cygwin:<library>ws2_32
+-        <target-os>cygwin:<library>mswsock
+-        <target-os>cygwin:<library>advapi32
+-
+         <target-os>linux:<define>_XOPEN_SOURCE=600
+         <target-os>linux:<library>rt
+ 

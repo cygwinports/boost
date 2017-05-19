@@ -1,5 +1,5 @@
---- origsrc/boost_1_60_0/boost/asio/detail/buffer_sequence_adapter.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/buffer_sequence_adapter.hpp	2016-07-27 11:04:06.965295000 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/buffer_sequence_adapter.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/buffer_sequence_adapter.hpp	2017-04-03 11:06:20.495721100 -0500
 @@ -42,7 +42,7 @@ protected:
    BOOST_ASIO_DECL static void init_native_buffer(
        native_buffer_type& buf,
@@ -27,8 +27,8 @@
  };
  
  // Helper class to translate buffers into the native buffer representation.
---- origsrc/boost_1_60_0/boost/asio/detail/config.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/config.hpp	2016-07-27 11:06:22.971405000 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/config.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/config.hpp	2017-04-03 11:06:20.495721100 -0500
 @@ -554,7 +554,7 @@
  #endif // !defined(BOOST_ASIO_WINDOWS)
  
@@ -157,17 +157,17 @@
  # endif // !defined(BOOST_ASIO_DISABLE_SIGACTION)
  #endif // !defined(BOOST_ASIO_HAS_SIGACTION)
  
-@@ -802,7 +794,7 @@
- 
+@@ -803,7 +795,7 @@
  // Can use getaddrinfo() and getnameinfo().
  #if !defined(BOOST_ASIO_HAS_GETADDRINFO)
--# if defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
-+# if defined(BOOST_ASIO_WINDOWS)
- #  if defined(_WIN32_WINNT) && (_WIN32_WINNT >= 0x0501)
- #   define BOOST_ASIO_HAS_GETADDRINFO 1
- #  elif defined(UNDER_CE)
---- origsrc/boost_1_60_0/boost/asio/detail/descriptor_ops.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/descriptor_ops.hpp	2016-07-27 11:06:39.359273200 -0500
+ # if !defined(BOOST_ASIO_DISABLE_GETADDRINFO)
+-#  if defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
++#  if defined(BOOST_ASIO_WINDOWS)
+ #   if defined(_WIN32_WINNT) && (_WIN32_WINNT >= 0x0501)
+ #    define BOOST_ASIO_HAS_GETADDRINFO 1
+ #   elif defined(UNDER_CE)
+--- origsrc/boost_1_63_0/boost/asio/detail/descriptor_ops.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/descriptor_ops.hpp	2017-04-03 11:06:20.495721100 -0500
 @@ -18,8 +18,7 @@
  #include <boost/asio/detail/config.hpp>
  
@@ -185,8 +185,8 @@
 -       //   && !defined(__CYGWIN__)
  
  #endif // BOOST_ASIO_DETAIL_DESCRIPTOR_OPS_HPP
---- origsrc/boost_1_60_0/boost/asio/detail/descriptor_read_op.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/descriptor_read_op.hpp	2016-07-27 11:06:49.285125100 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/descriptor_read_op.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/descriptor_read_op.hpp	2017-04-03 11:06:20.495721100 -0500
 @@ -17,7 +17,7 @@
  
  #include <boost/asio/detail/config.hpp>
@@ -204,8 +204,8 @@
 +#endif // !defined(BOOST_ASIO_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_DESCRIPTOR_READ_OP_HPP
---- origsrc/boost_1_60_0/boost/asio/detail/descriptor_write_op.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/descriptor_write_op.hpp	2016-07-27 11:12:20.032041300 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/descriptor_write_op.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/descriptor_write_op.hpp	2017-04-03 11:06:20.511346100 -0500
 @@ -17,7 +17,7 @@
  
  #include <boost/asio/detail/config.hpp>
@@ -223,8 +223,8 @@
 +#endif // !defined(BOOST_ASIO_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_DESCRIPTOR_WRITE_OP_HPP
---- origsrc/boost_1_60_0/boost/asio/detail/fd_set_adapter.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/fd_set_adapter.hpp	2016-07-27 11:12:26.232127900 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/fd_set_adapter.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/fd_set_adapter.hpp	2017-04-03 11:06:20.511346100 -0500
 @@ -26,7 +26,7 @@ namespace boost {
  namespace asio {
  namespace detail {
@@ -234,8 +234,8 @@
  typedef win_fd_set_adapter fd_set_adapter;
  #else
  typedef posix_fd_set_adapter fd_set_adapter;
---- origsrc/boost_1_60_0/boost/asio/detail/hash_map.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/hash_map.hpp	2016-07-27 11:12:43.892957500 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/hash_map.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/hash_map.hpp	2017-04-03 11:06:20.511346100 -0500
 @@ -21,9 +21,9 @@
  #include <boost/asio/detail/assert.hpp>
  #include <boost/asio/detail/noncopyable.hpp>
@@ -263,8 +263,8 @@
  
  // Note: assumes K and V are POD types.
  template <typename K, typename V>
---- origsrc/boost_1_60_0/boost/asio/detail/impl/descriptor_ops.ipp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/impl/descriptor_ops.ipp	2016-07-27 11:12:51.116533800 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/impl/descriptor_ops.ipp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/impl/descriptor_ops.ipp	2017-04-03 11:06:20.511346100 -0500
 @@ -21,8 +21,7 @@
  #include <boost/asio/error.hpp>
  
@@ -282,8 +282,8 @@
 -       //   && !defined(__CYGWIN__)
  
  #endif // BOOST_ASIO_DETAIL_IMPL_DESCRIPTOR_OPS_IPP
---- origsrc/boost_1_60_0/boost/asio/detail/impl/pipe_select_interrupter.ipp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/impl/pipe_select_interrupter.ipp	2016-07-27 11:13:01.242811500 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/impl/pipe_select_interrupter.ipp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/impl/pipe_select_interrupter.ipp	2017-04-03 11:06:20.511346100 -0500
 @@ -19,7 +19,6 @@
  
  #if !defined(BOOST_ASIO_WINDOWS_RUNTIME)
@@ -300,8 +300,8 @@
  #endif // !defined(BOOST_ASIO_WINDOWS)
  #endif // !defined(BOOST_ASIO_WINDOWS_RUNTIME)
  
---- origsrc/boost_1_60_0/boost/asio/detail/impl/reactive_descriptor_service.ipp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/impl/reactive_descriptor_service.ipp	2016-07-27 11:13:07.575065300 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/impl/reactive_descriptor_service.ipp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/impl/reactive_descriptor_service.ipp	2017-04-03 11:06:20.526974600 -0500
 @@ -18,8 +18,7 @@
  #include <boost/asio/detail/config.hpp>
  
@@ -319,8 +319,8 @@
 -       //   && !defined(__CYGWIN__)
  
  #endif // BOOST_ASIO_DETAIL_IMPL_REACTIVE_DESCRIPTOR_SERVICE_IPP
---- origsrc/boost_1_60_0/boost/asio/detail/impl/reactive_serial_port_service.ipp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/impl/reactive_serial_port_service.ipp	2016-07-27 11:13:21.447999100 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/impl/reactive_serial_port_service.ipp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/impl/reactive_serial_port_service.ipp	2017-04-03 11:06:20.526974600 -0500
 @@ -19,7 +19,7 @@
  #include <boost/asio/detail/config.hpp>
  
@@ -339,8 +339,8 @@
  #endif // defined(BOOST_ASIO_HAS_SERIAL_PORT)
  
  #endif // BOOST_ASIO_DETAIL_IMPL_REACTIVE_SERIAL_PORT_SERVICE_IPP
---- origsrc/boost_1_60_0/boost/asio/detail/impl/select_reactor.ipp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/impl/select_reactor.ipp	2016-07-27 11:13:39.554623700 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/impl/select_reactor.ipp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/impl/select_reactor.ipp	2017-04-03 11:06:20.526974600 -0500
 @@ -187,7 +187,7 @@ void select_reactor::run(bool block, op_
        max_fd = fd_sets_[i].max_descriptor();
    }
@@ -373,8 +373,8 @@
  
      // Exception operations must be processed first to ensure that any
      // out-of-band data is read before normal data.
---- origsrc/boost_1_60_0/boost/asio/detail/impl/signal_set_service.ipp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/impl/signal_set_service.ipp	2016-07-27 11:15:45.642886500 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/impl/signal_set_service.ipp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/impl/signal_set_service.ipp	2017-04-03 11:06:20.543605500 -0500
 @@ -60,12 +60,10 @@ signal_state* get_signal_state()
  void boost_asio_signal_handler(int signal_number)
  {
@@ -607,8 +607,8 @@
  }
  
  void signal_set_service::start_wait_op(
---- origsrc/boost_1_60_0/boost/asio/detail/impl/socket_ops.ipp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/impl/socket_ops.ipp	2016-07-27 11:21:12.303610900 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/impl/socket_ops.ipp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/impl/socket_ops.ipp	2017-04-03 11:06:20.549613800 -0500
 @@ -33,12 +33,12 @@
  # include <string>
  #endif // defined(BOOST_ASIO_WINDOWS_RUNTIME)
@@ -1219,8 +1219,8 @@
  # if defined(BOOST_ASIO_HAS_GETADDRINFO)
    // Building for Windows XP, Windows Server 2003, or later.
    clear_last_error();
---- origsrc/boost_1_60_0/boost/asio/detail/impl/socket_select_interrupter.ipp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/impl/socket_select_interrupter.ipp	2016-07-27 11:21:19.675239100 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/impl/socket_select_interrupter.ipp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/impl/socket_select_interrupter.ipp	2017-04-03 11:06:20.549613800 -0500
 @@ -20,7 +20,6 @@
  #if !defined(BOOST_ASIO_WINDOWS_RUNTIME)
  
@@ -1229,7 +1229,7 @@
    || defined(__SYMBIAN32__)
  
  #include <cstdlib>
-@@ -169,7 +168,6 @@ bool socket_select_interrupter::reset()
+@@ -170,7 +169,6 @@ bool socket_select_interrupter::reset()
  #include <boost/asio/detail/pop_options.hpp>
  
  #endif // defined(BOOST_ASIO_WINDOWS)
@@ -1237,8 +1237,8 @@
         // || defined(__SYMBIAN32__)
  
  #endif // !defined(BOOST_ASIO_WINDOWS_RUNTIME)
---- origsrc/boost_1_60_0/boost/asio/detail/impl/winsock_init.ipp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/impl/winsock_init.ipp	2016-07-27 11:21:30.138592700 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/impl/winsock_init.ipp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/impl/winsock_init.ipp	2017-04-03 11:06:20.549613800 -0500
 @@ -17,7 +17,7 @@
  
  #include <boost/asio/detail/config.hpp>
@@ -1256,8 +1256,8 @@
 +#endif // defined(BOOST_ASIO_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_IMPL_WINSOCK_INIT_IPP
---- origsrc/boost_1_60_0/boost/asio/detail/local_free_on_block_exit.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/local_free_on_block_exit.hpp	2016-07-27 11:21:47.012391300 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/local_free_on_block_exit.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/local_free_on_block_exit.hpp	2017-04-03 11:06:20.549613800 -0500
 @@ -17,7 +17,7 @@
  
  #include <boost/asio/detail/config.hpp>
@@ -1275,8 +1275,8 @@
 +#endif // defined(BOOST_ASIO_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_LOCAL_FREE_ON_BLOCK_EXIT_HPP
---- origsrc/boost_1_60_0/boost/asio/detail/null_signal_blocker.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/null_signal_blocker.hpp	2016-07-27 11:21:56.567692900 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/null_signal_blocker.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/null_signal_blocker.hpp	2017-04-03 11:06:20.549613800 -0500
 @@ -20,7 +20,6 @@
  #if !defined(BOOST_ASIO_HAS_THREADS) \
    || defined(BOOST_ASIO_WINDOWS) \
@@ -1293,8 +1293,8 @@
         // || defined(__SYMBIAN32__)
  
  #endif // BOOST_ASIO_DETAIL_NULL_SIGNAL_BLOCKER_HPP
---- origsrc/boost_1_60_0/boost/asio/detail/old_win_sdk_compat.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/old_win_sdk_compat.hpp	2016-07-27 11:22:06.931831600 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/old_win_sdk_compat.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/old_win_sdk_compat.hpp	2017-04-03 11:06:20.565235900 -0500
 @@ -17,7 +17,7 @@
  
  #include <boost/asio/detail/config.hpp>
@@ -1312,8 +1312,8 @@
 +#endif // defined(BOOST_ASIO_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_OLD_WIN_SDK_COMPAT_HPP
---- origsrc/boost_1_60_0/boost/asio/detail/pipe_select_interrupter.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/pipe_select_interrupter.hpp	2016-07-27 11:22:13.511303800 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/pipe_select_interrupter.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/pipe_select_interrupter.hpp	2017-04-03 11:06:20.565235900 -0500
 @@ -19,7 +19,6 @@
  
  #if !defined(BOOST_ASIO_WINDOWS)
@@ -1330,8 +1330,8 @@
  #endif // !defined(BOOST_ASIO_WINDOWS_RUNTIME)
  #endif // !defined(BOOST_ASIO_WINDOWS)
  
---- origsrc/boost_1_60_0/boost/asio/detail/posix_fd_set_adapter.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/posix_fd_set_adapter.hpp	2016-07-27 11:23:26.822223900 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/posix_fd_set_adapter.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/posix_fd_set_adapter.hpp	2017-04-03 11:06:20.565235900 -0500
 @@ -18,7 +18,6 @@
  #include <boost/asio/detail/config.hpp>
  
@@ -1348,8 +1348,8 @@
         // && !defined(BOOST_ASIO_WINDOWS_RUNTIME)
  
  #endif // BOOST_ASIO_DETAIL_POSIX_FD_SET_ADAPTER_HPP
---- origsrc/boost_1_60_0/boost/asio/detail/reactive_descriptor_service.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/reactive_descriptor_service.hpp	2016-07-27 11:23:38.629981900 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/reactive_descriptor_service.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/reactive_descriptor_service.hpp	2017-04-03 11:06:20.565235900 -0500
 @@ -18,8 +18,7 @@
  #include <boost/asio/detail/config.hpp>
  
@@ -1367,8 +1367,8 @@
 -       //   && !defined(__CYGWIN__)
  
  #endif // BOOST_ASIO_DETAIL_REACTIVE_DESCRIPTOR_SERVICE_HPP
---- origsrc/boost_1_60_0/boost/asio/detail/reactive_serial_port_service.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/reactive_serial_port_service.hpp	2016-07-27 11:23:51.585124000 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/reactive_serial_port_service.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/reactive_serial_port_service.hpp	2017-04-03 11:06:20.580861500 -0500
 @@ -19,7 +19,7 @@
  #include <boost/asio/detail/config.hpp>
  
@@ -1387,8 +1387,8 @@
  #endif // defined(BOOST_ASIO_HAS_SERIAL_PORT)
  
  #endif // BOOST_ASIO_DETAIL_REACTIVE_SERIAL_PORT_SERVICE_HPP
---- origsrc/boost_1_60_0/boost/asio/detail/select_interrupter.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/select_interrupter.hpp	2016-07-27 11:24:11.214417800 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/select_interrupter.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/select_interrupter.hpp	2017-04-03 11:06:20.580861500 -0500
 @@ -19,7 +19,7 @@
  
  #if !defined(BOOST_ASIO_WINDOWS_RUNTIME)
@@ -1407,8 +1407,8 @@
  typedef socket_select_interrupter select_interrupter;
  #elif defined(BOOST_ASIO_HAS_EVENTFD)
  typedef eventfd_select_interrupter select_interrupter;
---- origsrc/boost_1_60_0/boost/asio/detail/select_reactor.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/select_reactor.hpp	2016-07-27 11:24:23.546623900 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/select_reactor.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/select_reactor.hpp	2017-04-03 11:06:20.580861500 -0500
 @@ -51,13 +51,13 @@ class select_reactor
    : public boost::asio::detail::service_base<select_reactor>
  {
@@ -1426,8 +1426,8 @@
  
    // Per-descriptor data.
    struct per_descriptor_data
---- origsrc/boost_1_60_0/boost/asio/detail/signal_blocker.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/signal_blocker.hpp	2016-07-27 11:24:38.786717900 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/signal_blocker.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/signal_blocker.hpp	2017-04-03 11:06:20.580861500 -0500
 @@ -19,7 +19,7 @@
  
  #if !defined(BOOST_ASIO_HAS_THREADS) || defined(BOOST_ASIO_WINDOWS) \
@@ -1446,8 +1446,8 @@
  typedef null_signal_blocker signal_blocker;
  #elif defined(BOOST_ASIO_HAS_PTHREADS)
  typedef posix_signal_blocker signal_blocker;
---- origsrc/boost_1_60_0/boost/asio/detail/signal_init.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/signal_init.hpp	2016-07-27 11:24:50.887162600 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/signal_init.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/signal_init.hpp	2017-04-03 11:06:20.580861500 -0500
 @@ -17,7 +17,7 @@
  
  #include <boost/asio/detail/config.hpp>
@@ -1465,8 +1465,8 @@
 +#endif // !defined(BOOST_ASIO_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_SIGNAL_INIT_HPP
---- origsrc/boost_1_60_0/boost/asio/detail/signal_set_service.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/signal_set_service.hpp	2016-07-27 11:25:09.366002000 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/signal_set_service.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/signal_set_service.hpp	2017-04-03 11:06:20.596486300 -0500
 @@ -28,9 +28,9 @@
  #include <boost/asio/detail/signal_op.hpp>
  #include <boost/asio/detail/socket_types.hpp>
@@ -1497,8 +1497,8 @@
  
    // A mapping from signal number to the registered signal sets.
    registration* registrations_[max_signal_number];
---- origsrc/boost_1_60_0/boost/asio/detail/socket_ops.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/socket_ops.hpp	2016-07-27 11:25:27.780046000 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/socket_ops.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/socket_ops.hpp	2017-04-03 11:06:20.596486300 -0500
 @@ -128,11 +128,11 @@ BOOST_ASIO_DECL size_t available(socket_
  BOOST_ASIO_DECL int listen(socket_type s,
      int backlog, boost::system::error_code& ec);
@@ -1514,8 +1514,8 @@
  
  BOOST_ASIO_DECL void init_buf(buf& b, void* data, size_t size);
  
---- origsrc/boost_1_60_0/boost/asio/detail/socket_select_interrupter.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/socket_select_interrupter.hpp	2016-07-27 11:25:33.362900900 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/socket_select_interrupter.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/socket_select_interrupter.hpp	2017-04-03 11:06:20.596486300 -0500
 @@ -20,7 +20,6 @@
  #if !defined(BOOST_ASIO_WINDOWS_RUNTIME)
  
@@ -1532,8 +1532,8 @@
         // || defined(__SYMBIAN32__)
  
  #endif // !defined(BOOST_ASIO_WINDOWS_RUNTIME)
---- origsrc/boost_1_60_0/boost/asio/detail/socket_types.hpp	2016-07-27 10:54:18.549536400 -0500
-+++ src/boost_1_60_0/boost/asio/detail/socket_types.hpp	2016-07-27 11:25:45.578213500 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/socket_types.hpp	2017-04-03 10:15:16.514629900 -0500
++++ src/boost_1_63_0/boost/asio/detail/socket_types.hpp	2017-04-03 11:06:20.596486300 -0500
 @@ -19,7 +19,7 @@
  
  #if defined(BOOST_ASIO_WINDOWS_RUNTIME)
@@ -1552,8 +1552,8 @@
  typedef SOCKET socket_type;
  const SOCKET invalid_socket = INVALID_SOCKET;
  const int socket_error_retval = SOCKET_ERROR;
---- origsrc/boost_1_60_0/boost/asio/detail/win_fd_set_adapter.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/win_fd_set_adapter.hpp	2016-07-27 11:26:04.790941800 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/win_fd_set_adapter.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/win_fd_set_adapter.hpp	2017-04-03 11:06:20.596486300 -0500
 @@ -17,7 +17,7 @@
  
  #include <boost/asio/detail/config.hpp>
@@ -1571,8 +1571,8 @@
 +#endif // defined(BOOST_ASIO_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_WIN_FD_SET_ADAPTER_HPP
---- origsrc/boost_1_60_0/boost/asio/detail/winsock_init.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/detail/winsock_init.hpp	2016-07-27 11:25:56.422301200 -0500
+--- origsrc/boost_1_63_0/boost/asio/detail/winsock_init.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/detail/winsock_init.hpp	2017-04-03 11:06:20.612115700 -0500
 @@ -17,7 +17,7 @@
  
  #include <boost/asio/detail/config.hpp>
@@ -1590,8 +1590,8 @@
 +#endif // defined(BOOST_ASIO_WINDOWS)
  
  #endif // BOOST_ASIO_DETAIL_WINSOCK_INIT_HPP
---- origsrc/boost_1_60_0/boost/asio/error.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/error.hpp	2016-07-27 11:26:25.094355600 -0500
+--- origsrc/boost_1_63_0/boost/asio/error.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/error.hpp	2017-04-03 11:06:20.612115700 -0500
 @@ -20,7 +20,6 @@
  #include <boost/system/error_code.hpp>
  #include <boost/system/system_error.hpp>
@@ -1636,8 +1636,8 @@
  
  extern BOOST_ASIO_DECL
  const boost::system::error_category& get_misc_category();
---- origsrc/boost_1_60_0/boost/asio/impl/error.ipp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/impl/error.ipp	2016-07-27 11:26:36.022307200 -0500
+--- origsrc/boost_1_63_0/boost/asio/impl/error.ipp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/impl/error.ipp	2017-04-03 11:06:20.612115700 -0500
 @@ -25,7 +25,7 @@ namespace boost {
  namespace asio {
  namespace error {
@@ -1656,8 +1656,8 @@
  
  namespace detail {
  
---- origsrc/boost_1_60_0/boost/asio/impl/serial_port_base.ipp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/impl/serial_port_base.ipp	2016-07-27 11:27:35.676174000 -0500
+--- origsrc/boost_1_63_0/boost/asio/impl/serial_port_base.ipp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/impl/serial_port_base.ipp	2017-04-03 11:06:20.612115700 -0500
 @@ -27,7 +27,7 @@
  
  #if defined(GENERATING_DOCUMENTATION)
@@ -1757,8 +1757,8 @@
    value_ = storage.ByteSize;
  #else
    if ((storage.c_cflag & CSIZE) == CS5) { value_ = 5; }
---- origsrc/boost_1_60_0/boost/asio/io_service.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/io_service.hpp	2016-07-27 11:27:47.189787500 -0500
+--- origsrc/boost_1_63_0/boost/asio/io_service.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/io_service.hpp	2017-04-03 11:06:20.612115700 -0500
 @@ -24,7 +24,7 @@
  #include <boost/asio/detail/wrapped_handler.hpp>
  #include <boost/system/error_code.hpp>
@@ -1777,8 +1777,8 @@
    detail::winsock_init<> init_;
  #elif defined(__sun) || defined(__QNX__) || defined(__hpux) || defined(_AIX) \
    || defined(__osf__)
---- origsrc/boost_1_60_0/boost/asio/serial_port_base.hpp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/serial_port_base.hpp	2016-07-27 11:28:07.442541100 -0500
+--- origsrc/boost_1_63_0/boost/asio/serial_port_base.hpp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/serial_port_base.hpp	2017-04-03 11:06:20.627739000 -0500
 @@ -21,16 +21,16 @@
  #if defined(BOOST_ASIO_HAS_SERIAL_PORT) \
    || defined(GENERATING_DOCUMENTATION)
@@ -1799,10 +1799,10 @@
  # define BOOST_ASIO_OPTION_STORAGE DCB
  #else
  # define BOOST_ASIO_OPTION_STORAGE termios
---- origsrc/boost_1_60_0/boost/asio/ssl/detail/impl/openssl_init.ipp	2015-12-13 20:23:11.000000000 -0600
-+++ src/boost_1_60_0/boost/asio/ssl/detail/impl/openssl_init.ipp	2016-07-27 11:28:28.675472900 -0500
-@@ -89,15 +89,15 @@ public:
- private:
+--- origsrc/boost_1_63_0/boost/asio/ssl/detail/impl/openssl_init.ipp	2016-12-22 06:33:14.000000000 -0600
++++ src/boost_1_63_0/boost/asio/ssl/detail/impl/openssl_init.ipp	2017-04-03 11:06:20.627739000 -0500
+@@ -107,13 +107,13 @@ private:
+ #if (OPENSSL_VERSION_NUMBER < 0x10000000L)
    static unsigned long openssl_id_func()
    {
 -#if defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
@@ -1810,26 +1810,11 @@
      return ::GetCurrentThreadId();
 -#else // defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
 +#else // defined(BOOST_ASIO_WINDOWS)
-     void* id = instance()->thread_id_;
-     if (id == 0)
-       instance()->thread_id_ = id = &id; // Ugh.
+     void* id = &errno;
      BOOST_ASIO_ASSERT(sizeof(unsigned long) >= sizeof(void*));
      return reinterpret_cast<unsigned long>(id);
 -#endif // defined(BOOST_ASIO_WINDOWS) || defined(__CYGWIN__)
 +#endif // defined(BOOST_ASIO_WINDOWS)
    }
+ #endif // (OPENSSL_VERSION_NUMBER < 0x10000000L)
  
-   static void openssl_locking_func(int mode, int n, 
-@@ -113,10 +113,10 @@ private:
-   std::vector<boost::asio::detail::shared_ptr<
-         boost::asio::detail::mutex> > mutexes_;
- 
--#if !defined(BOOST_ASIO_WINDOWS) && !defined(__CYGWIN__)
-+#if !defined(BOOST_ASIO_WINDOWS)
-   // The thread identifiers to be used by openssl.
-   boost::asio::detail::tss_ptr<void> thread_id_;
--#endif // !defined(BOOST_ASIO_WINDOWS) && !defined(__CYGWIN__)
-+#endif // !defined(BOOST_ASIO_WINDOWS)
- 
- #if !defined(SSL_OP_NO_COMPRESSION) \
-   && (OPENSSL_VERSION_NUMBER >= 0x00908000L)

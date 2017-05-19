@@ -75,14 +75,3 @@
                          || defined(__unix)    \
                          || defined(unix)      \
                          || defined(__APPLE__) \
---- origsrc/boost_1_57_0/boost/predef/os/cygwin.h	2014-07-10 08:53:53.000000000 -0500
-+++ src/boost_1_57_0/boost/predef/os/cygwin.h	2015-05-04 17:57:31.634472500 -0500
-@@ -29,7 +29,7 @@ http://www.boost.org/LICENSE_1_0.txt)
-     defined(__CYGWIN__) \
-     )
- #   undef BOOST_OS_CYGWIN
--#   define BOOST_OS_CGYWIN BOOST_VERSION_NUMBER_AVAILABLE
-+#   define BOOST_OS_CYGWIN BOOST_VERSION_NUMBER_AVAILABLE
- #endif
- 
- #if BOOST_OS_CYGWIN

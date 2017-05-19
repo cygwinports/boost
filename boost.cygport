@@ -1,8 +1,8 @@
-inherit python python3
+inherit python2 python3
 
 NAME="boost"
-VERSION=1.60.0
-RELEASE=3
+VERSION=1.63.0
+RELEASE=1
 CATEGORY="Libs"
 SUMMARY="Boost C++ libraries"
 DESCRIPTION="Boost provides free peer-reviewed portable C++ source libraries.
@@ -17,29 +17,26 @@ PATCH_URI="
 	fedora/boost-1.50.0-fix-non-utf8-files.patch
 	fedora/boost-1.58.0-pool.patch
 	fedora/boost-1.57.0-mpl-print.patch
-	fedora/boost-1.57.0-spirit-unused_typedef.patch
 	fedora/boost-1.58.0-pool-test_linking.patch
+	fedora/boost-1.57.0-python-abi_letters.patch
 	fedora/boost-1.58.0-address-model.patch
-	fedora/boost-1.59-test-fenv.patch
-	fedora/boost-1.60-multiprecision.patch
-	fedora/boost-1.60-python-regptr.patch
 	1.40.0-cstdint-cygwin.patch
-	1.60.0-asio-cygwin.patch
+	1.63.0-asio-cygwin.patch
 	1.55.0-asio-MSG_EOR.patch
 	1.57.0-config-cygwin.patch
 	1.57.0-filesystem-cygwin.patch
 	1.55.0-interlocked-cygwin.patch
 	1.40.0-iostreams-cygwin.patch
 	1.57.0-locale-cygwin.patch
-	1.57.0-log-cygwin.patch
+	1.63.0-log-cygwin.patch
 	1.60.0-math-cygwin.patch
 	1.60.0-numeric-cygwin.patch
 	1.40.0-python-cygwin.patch
+	1.63.0-python-dual-install.patch
 	1.40.0-regex-cygwin.patch
 	1.57.0-smart_ptr-cygwin.patch
 	1.57.0-system-cygwin.patch
 	1.45.0-jam-cygwin.patch
-	1.50.0-jam-pep3149.patch
 "
 
 case ${VERSION} in
@@ -47,26 +44,79 @@ case ${VERSION} in
 	*)	dll_v=${VERSION} ;;
 esac
 
-PKG_NAMES="libboost-devel libboost_python-devel libboost_python3-devel"
+PKG_NAMES="boost-build libboost-devel libboost_mpi-devel"
+boost_build_CATEGORY="Devel"
+boost_build_CONTENTS="
+	usr/bin/bjam.exe
+	usr/share/boost-build/
+"
 libboost_devel_REQUIRES="libicu-devel"
-libboost_devel_CONTENTS='--exclude=*boost_python* usr/include/ usr/lib/ usr/share/doc/'
+libboost_devel_CONTENTS="
+	--exclude=libboost_graph_parallel*
+	--exclude=libboost_mpi*
+	--exclude=libboost_numpy*
+	--exclude=libboost_python*
+	usr/include/boost/
+	usr/lib/libboost_*
+	usr/share/doc/
+"
+libboost_mpi_devel_REQUIRES="libboost-devel libopenmpi-devel"
+libboost_mpi_devel_CONTENTS="
+	usr/lib/libboost_graph_parallel.dll.a
+	usr/lib/libboost_mpi*.dll.a
+"
+PKG_NAMES+=" libboost_python-devel libboost_python3-devel"
 libboost_python_devel_REQUIRES="libboost-devel"
-libboost_python_devel_CONTENTS="usr/lib/libboost_python.dll.a"
+libboost_python_devel_CONTENTS="
+	usr/lib/libboost_numpy.dll.a
+	usr/lib/libboost_python.dll.a
+"
 libboost_python3_devel_REQUIRES="libboost-devel"
-libboost_python3_devel_CONTENTS="usr/lib/libboost_python3.dll.a"
-for b in atomic chrono context container coroutine date_time filesystem graph iostreams \
+libboost_python3_devel_CONTENTS="
+	usr/lib/libboost_numpy3.dll.a
+	usr/lib/libboost_python3.dll.a
+"
+for b in atomic chrono context container coroutine date_time filesystem iostreams \
 	 locale log math program_options random regex serialization signals \
 	 system thread timer type_erasure wave
 do
 	PKG_NAMES+=" libboost_${b}${dll_v}"
 	declare libboost_${b}${dll_v//./_}_CONTENTS="usr/bin/cygboost_${b}*-${dll_v//./_}.dll"
 done
-PKG_NAMES+=" libboost_python${dll_v} libboost_python3_${dll_v} libboost_test${dll_v}"
+declare libboost_serialization${dll_v//./_}_CONTENTS+=" usr/bin/cygboost_wserialization-${dll_v//./_}.dll"
+PKG_NAMES+=" libboost_test${dll_v}"
+declare libboost_test${dll_v//./_}_CONTENTS="
+	usr/bin/cygboost_prg_exec_monitor-${dll_v//./_}.dll
+	usr/bin/cygboost_unit_test_framework-${dll_v//./_}.dll
+"
+PKG_NAMES+=" libboost_numpy${dll_v} libboost_numpy3_${dll_v}"
+declare libboost_numpy${dll_v//./_}_REQUIRES="python2-numpy"
+declare libboost_numpy${dll_v//./_}_CONTENTS="usr/bin/cygboost_numpy-${dll_v//./_}.dll"
+declare libboost_numpy3_${dll_v//./_}_REQUIRES="python3-numpy"
+declare libboost_numpy3_${dll_v//./_}_CONTENTS="usr/bin/cygboost_numpy3-${dll_v//./_}.dll"
+PKG_NAMES+=" libboost_python${dll_v} libboost_python3_${dll_v}"
 declare libboost_python${dll_v//./_}_CONTENTS="usr/bin/cygboost_python-${dll_v//./_}.dll"
 declare libboost_python3_${dll_v//./_}_CONTENTS="usr/bin/cygboost_python3-${dll_v//./_}.dll"
-declare libboost_serialization${dll_v//./_}_CONTENTS+=" usr/bin/cygboost_wserialization-${dll_v//./_}.dll"
-declare libboost_test${dll_v//./_}_CONTENTS="usr/bin/cygboost_prg_exec_monitor-${dll_v//./_}.dll
-					     usr/bin/cygboost_unit_test_framework-${dll_v//./_}.dll"
+PKG_NAMES+=" libboost_graph${dll_v} libboost_graph_parallel${dll_v}"
+declare libboost_graph${dll_v//./_}_CONTENTS="usr/bin/cygboost_graph-${dll_v//./_}.dll"
+declare libboost_graph_parallel${dll_v//./_}_CONTENTS="usr/bin/cygboost_graph_parallel-${dll_v//./_}.dll"
+PKG_NAMES+=" libboost_mpi${dll_v} libboost_mpi_python${dll_v} libboost_mpi_python3_${dll_v}"
+declare libboost_mpi${dll_v//./_}_CONTENTS="usr/bin/cygboost_mpi-${dll_v//./_}.dll"
+declare libboost_mpi_python${dll_v//./_}_CONTENTS="usr/bin/cygboost_mpi_python-${dll_v//./_}.dll"
+declare libboost_mpi_python3_${dll_v//./_}_CONTENTS="usr/bin/cygboost_mpi_python3-${dll_v//./_}.dll"
+
+PKG_NAMES+=" python2-boost.mpi python3-boost.mpi"
+python2_boost_mpi_CATEGORY="Python"
+python2_boost_mpi_CONTENTS="
+	${PYTHON2_SITELIB#/}/boost/__init__.py*
+	${PYTHON2_SITELIB#/}/boost/mpi.dll
+"
+python3_boost_mpi_CATEGORY="Python"
+python3_boost_mpi_CONTENTS="
+	${PYTHON3_SITELIB#/}/boost/__init__.py
+	${PYTHON3_SITELIB#/}/boost/__pycache__/__init__.*
+	${PYTHON3_SITELIB#/}/boost/mpi.dll
+"
 
 DIFF_EXCLUDES="boostbook html *.test"
 
@@ -79,35 +129,81 @@ src_compile() {
 	rm -f tools/build/src/user-config.jam
 	cat > tools/build/src/user-config.jam <<_EOF
 using gcc : : $(which ${CXX}) : <compileflags>"${CXXFLAGS}" ;
-using python : ${PYTHON3_VERSION}${PYTHON3_ABIFLAGS} : ${PYTHON3} : ${PYTHON3_INCLUDEDIR} ;
-using python : ${PYTHON_VERSION} : /usr ;
+using mpi ;
+using python : ${PYTHON2_VERSION} : ${PYTHON2} : ${PYTHON2_INCLUDEDIR} ;
 _EOF
 
-	${B}/bootstrap.sh \
-		--prefix=/usr \
-		--without-libraries=python \
+	cat > python3-config.jam <<_EOF
+using gcc : : $(which ${CXX}) : <compileflags>"${CXXFLAGS}" ;
+using mpi ;
+using python : ${PYTHON3_VERSION} : ${PYTHON3} : ${PYTHON3_INCLUDEDIR} ;
+_EOF
+
+	./bootstrap.sh \
 		--with-icu=/usr \
 		--with-toolset=gcc \
 		|| error "configure failed"
 
-	./bjam.exe \
-		--prefix=/usr \
-		--layout=system \
+	./bjam.exe -d+2 -q \
+		--build-dir=python3 \
 		--buildid=${dll_v} \
-		--without-mpi \
-		release \
-		python=${PYTHON_VERSION} \
-		threading=multi link=shared pch=off \
-		${MAKEOPTS}
+		--user-config=./python3-config.jam \
+		--with-mpi --with-python \
+		python=${PYTHON3_VERSION} \
+		release threading=multi link=shared pch=off \
+		${MAKEOPTS} stage
+
+	# do not conflict with Boost.MPI Python 2 bindings
+	rm -f stage/lib/libmpi-*
+	mkdir -p stage/lib/py3
+	mv stage/lib/mpi.dll stage/lib/py3/
+
+	./bjam.exe -d+2 -q \
+		--buildid=${dll_v} \
+		python=${PYTHON2_VERSION} \
+		release threading=multi link=shared pch=off \
+		${MAKEOPTS} stage
+
+	> stage/lib/__init__.py
+
+	cd ${B}/tools/build
+	./bootstrap.sh --with-toolset=gcc
 }
 
 src_install() {
 	cd ${B}
-	dobin stage/lib/*.dll
-	dolib stage/lib/*.a
+	./bjam.exe -d+2 -q \
+		--prefix=${D}/usr \
+		--build-dir=python3 \
+		--buildid=${dll_v} \
+		--user-config=./python3-config.jam \
+		--with-mpi --with-python \
+		python=${PYTHON3_VERSION} \
+		release threading=multi link=shared pch=off \
+		${MAKEOPTS} install
 
-	dodir /usr/include
-	cp -pr ${S}/boost ${D}/usr/include/
+	# do not conflict with Boost.MPI Python 2 bindings
+	rm ${D}/usr/bin/mpi.dll ${D}/usr/lib/libmpi-*.a
+
+	./bjam.exe -d+2 -q \
+		--prefix=${D}/usr \
+		--buildid=${dll_v} \
+		python=${PYTHON2_VERSION} \
+		release threading=multi link=shared pch=off \
+		${MAKEOPTS} install
+
+	rm ${D}/usr/bin/mpi.dll ${D}/usr/lib/libmpi-*.a
+
+	python2into boost
+	dopython2 stage/lib/__init__.py stage/lib/mpi.dll
+	python3into boost
+	dopython3 stage/lib/__init__.py stage/lib/py3/mpi.dll
+
+	pushd ${B}/tools/build
+	./bjam.exe -d+2 -q --prefix=${D}/usr install
+	rm ${D}/usr/bin/b2.exe
+#	doman v2/doc/bjam.1
+	popd
 
 	pushd ${D}/usr/lib
 	for lib in libboost_*
@@ -116,6 +212,6 @@ src_install() {
 		mv ${lib} ${lib/-${vext}}
 	done
 	popd
-
-	dodoc README LICENSE_1_0.txt
 }
+
+DOCS="LICENSE_1_0.txt"
