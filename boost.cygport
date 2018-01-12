@@ -1,7 +1,7 @@
 inherit python2 python3
 
 NAME="boost"
-VERSION=1.63.0
+VERSION=1.64.0
 RELEASE=1
 CATEGORY="Libs"
 SUMMARY="Boost C++ libraries"
@@ -20,10 +20,16 @@ PATCH_URI="
 	fedora/boost-1.58.0-pool-test_linking.patch
 	fedora/boost-1.57.0-python-abi_letters.patch
 	fedora/boost-1.58.0-address-model.patch
+	fedora/boost-1.63.0-dual-python-build-v2.patch
+	fedora/boost-1.64.0-mpi-get_data.patch
+	fedora/boost-1.64.0-serialization-make_array.patch
+	fedora/boost-1.64.0-icl-ttp-matching.patch
+	fedora/boost-1.64.0-icl-undefined-shift.patch
 	1.40.0-cstdint-cygwin.patch
 	1.63.0-asio-cygwin.patch
 	1.55.0-asio-MSG_EOR.patch
 	1.57.0-config-cygwin.patch
+	1.64.0-context-asm.patch
 	1.57.0-filesystem-cygwin.patch
 	1.55.0-interlocked-cygwin.patch
 	1.40.0-iostreams-cygwin.patch
@@ -32,7 +38,6 @@ PATCH_URI="
 	1.60.0-math-cygwin.patch
 	1.60.0-numeric-cygwin.patch
 	1.40.0-python-cygwin.patch
-	1.63.0-python-dual-install.patch
 	1.40.0-regex-cygwin.patch
 	1.57.0-smart_ptr-cygwin.patch
 	1.57.0-system-cygwin.patch
@@ -76,9 +81,9 @@ libboost_python3_devel_CONTENTS="
 	usr/lib/libboost_numpy3.dll.a
 	usr/lib/libboost_python3.dll.a
 "
-for b in atomic chrono context container coroutine date_time filesystem iostreams \
-	 locale log math program_options random regex serialization signals \
-	 system thread timer type_erasure wave
+for b in atomic chrono context container coroutine date_time fiber filesystem \
+	 iostreams locale log math program_options random regex serialization \
+	 signals system thread timer type_erasure wave
 do
 	PKG_NAMES+=" libboost_${b}${dll_v}"
 	declare libboost_${b}${dll_v//./_}_CONTENTS="usr/bin/cygboost_${b}*-${dll_v//./_}.dll"
@@ -124,6 +129,7 @@ src_compile() {
 	lndirs
 
 	export BOOST_ROOT=${B}
+	CXXFLAGS+=" -Wno-deprecated-declarations"
 
 	cd ${B}
 	rm -f tools/build/src/user-config.jam

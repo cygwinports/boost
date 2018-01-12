@@ -1,0 +1,51 @@
+These prevent boost::context::stack_traits from being exported.  The
+dllexport declarations are sufficient for both.
+
+--- origsrc/boost_1_64_0/libs/context/src/asm/jump_i386_ms_pe_gas.asm	2017-04-16 21:22:19.000000000 -0500
++++ src/boost_1_64_0/libs/context/src/asm/jump_i386_ms_pe_gas.asm	2018-01-07 05:12:32.010420400 -0600
+@@ -109,5 +109,3 @@
+     /* jump to context */
+     jmp *%ecx
+ 
+-.section .drectve
+-.ascii " -export:\"jump_fcontext\""
+--- origsrc/boost_1_64_0/libs/context/src/asm/jump_x86_64_ms_pe_gas.asm	2017-04-16 21:22:19.000000000 -0500
++++ src/boost_1_64_0/libs/context/src/asm/jump_x86_64_ms_pe_gas.asm	2018-01-07 05:10:23.763585500 -0600
+@@ -199,5 +199,3 @@
+     jmp  *%r10
+ .seh_endproc
+ 
+-.section .drectve
+-.ascii " -export:\"jump_fcontext\""
+--- origsrc/boost_1_64_0/libs/context/src/asm/make_i386_ms_pe_gas.asm	2017-04-16 21:22:19.000000000 -0500
++++ src/boost_1_64_0/libs/context/src/asm/make_i386_ms_pe_gas.asm	2018-01-07 05:12:38.499941800 -0600
+@@ -143,5 +143,3 @@
+ 
+ .def	__exit;	.scl	2;	.type	32;	.endef  /* standard C library function */
+ 
+-.section .drectve
+-.ascii " -export:\"make_fcontext\""
+--- origsrc/boost_1_64_0/libs/context/src/asm/make_x86_64_ms_pe_gas.asm	2017-04-16 21:22:19.000000000 -0500
++++ src/boost_1_64_0/libs/context/src/asm/make_x86_64_ms_pe_gas.asm	2018-01-07 05:10:28.391485500 -0600
+@@ -165,5 +165,3 @@
+ 
+ .def	_exit;	.scl	2;	.type	32;	.endef  /* standard C library function */
+ 
+-.section .drectve
+-.ascii " -export:\"make_fcontext\""
+--- origsrc/boost_1_64_0/libs/context/src/asm/ontop_i386_ms_pe_gas.asm	2017-04-16 21:22:19.000000000 -0500
++++ src/boost_1_64_0/libs/context/src/asm/ontop_i386_ms_pe_gas.asm	2018-01-07 05:12:43.604545000 -0600
+@@ -117,5 +117,3 @@
+     /* jump to context */
+     jmp  *%ecx
+ 
+-.section .drectve
+-.ascii " -export:\"ontop_fcontext\""
+--- origsrc/boost_1_64_0/libs/context/src/asm/ontop_x86_64_ms_pe_gas.asm	2017-04-16 21:22:19.000000000 -0500
++++ src/boost_1_64_0/libs/context/src/asm/ontop_x86_64_ms_pe_gas.asm	2018-01-07 05:10:33.699386300 -0600
+@@ -201,5 +201,3 @@
+     jmp  *%r9
+ .seh_endproc
+ 
+-.section .drectve
+-.ascii " -export:\"ontop_fcontext\""

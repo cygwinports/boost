@@ -28,7 +28,7 @@
 -#ifdef BOOST_HAS_NL_TYPES_H
 -#  undef BOOST_HAS_NL_TYPES_H
 -#endif
-  
+ 
  
  
 --- origsrc/boost_1_57_0/boost/config/stdlib/libstdcpp3.hpp	2014-10-26 07:36:42.000000000 -0500
