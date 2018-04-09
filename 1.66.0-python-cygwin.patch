@@ -1,0 +1,13 @@
+--- origsrc/boost_1_66_0/boost/python/detail/wrap_python.hpp	2017-12-13 17:56:47.000000000 -0600
++++ src/boost_1_66_0/boost/python/detail/wrap_python.hpp	2018-04-09 01:04:23.310930900 -0500
+@@ -82,8 +82,8 @@
+ // Some things we need in order to get Python.h to work with compilers other
+ // than MSVC on Win32
+ //
+-#if defined(_WIN32) || defined(__CYGWIN__)
+-# if defined(__GNUC__) && defined(__CYGWIN__)
++#if defined(_WIN32)
++# if defined(__GNUC__)
+ 
+ #  if defined(__LP64__)
+ #   define SIZEOF_LONG 8

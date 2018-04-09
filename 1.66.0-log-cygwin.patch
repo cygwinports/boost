@@ -1,0 +1,57 @@
+--- origsrc/boost_1_66_0/boost/log/detail/config.hpp	2017-12-13 17:56:44.000000000 -0600
++++ src/boost_1_66_0/boost/log/detail/config.hpp	2018-04-08 23:20:57.458141300 -0500
+@@ -111,11 +111,6 @@
+ #   define BOOST_LOG_NO_CXX11_CODECVT_FACETS
+ #endif
+ 
+-#if defined(__CYGWIN__)
+-    // Boost.ASIO is broken on Cygwin
+-#   define BOOST_LOG_NO_ASIO
+-#endif
+-
+ #if !defined(BOOST_LOG_USE_NATIVE_SYSLOG) && defined(BOOST_LOG_NO_ASIO)
+ #   ifndef BOOST_LOG_WITHOUT_SYSLOG
+ #       define BOOST_LOG_WITHOUT_SYSLOG
+--- origsrc/boost_1_66_0/libs/log/build/Jamfile.v2	2017-12-13 17:56:44.000000000 -0600
++++ src/boost_1_66_0/libs/log/build/Jamfile.v2	2018-04-08 23:21:25.992882400 -0500
+@@ -239,10 +239,6 @@ project boost/log
+         <target-os>windows:<library>mswsock
+         <target-os>windows:<library>advapi32
+ 
+-        <target-os>cygwin:<library>ws2_32
+-        <target-os>cygwin:<library>mswsock
+-        <target-os>cygwin:<library>advapi32
+-
+         <target-os>linux:<library>rt
+ 
+         <target-os>solaris:<library>socket
+--- origsrc/boost_1_66_0/libs/log/build/log-platform-config.jam	2017-12-13 17:56:44.000000000 -0600
++++ src/boost_1_66_0/libs/log/build/log-platform-config.jam	2018-04-09 01:38:28.882062000 -0500
+@@ -22,17 +22,13 @@ rule set-platform-defines ( properties *
+ {
+     local result = ;
+ 
+-    if ( <target-os>windows in $(properties) ) || ( <target-os>cygwin in $(properties) )
++    if ( <target-os>windows in $(properties) )
+     {
+         result += <define>NOMINMAX ;
+         result += <define>WIN32_LEAN_AND_MEAN ;
+         result += <define>SECURITY_WIN32 ;
+         result += <define>BOOST_USE_WINDOWS_H ;
+ 
+-        if <target-os>cygwin in $(properties)
+-        {
+-            result += <define>__USE_W32_SOCKETS ;
+-        }
+     }
+     else if <target-os>solaris in $(properties)
+     {
+@@ -49,7 +45,7 @@ rule set-platform-defines ( properties *
+ 
+         result += <define>__EXTENSIONS__ ;
+     }
+-    else if ( <target-os>linux in $(properties) ) || ( <target-os>hpux in $(properties) )
++    else if ( <target-os>linux in $(properties) ) || ( <target-os>hpux in $(properties) ) || ( <target-os>cygwin in $(properties) )
+     {
+         result += <define>_XOPEN_SOURCE=600 ;
+     }

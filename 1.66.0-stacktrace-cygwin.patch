@@ -1,0 +1,29 @@
+--- origsrc/boost_1_66_0/boost/stacktrace/detail/location_from_symbol.hpp	2017-12-13 17:56:48.000000000 -0600
++++ src/boost_1_66_0/boost/stacktrace/detail/location_from_symbol.hpp	2018-04-09 02:12:24.358383900 -0500
+@@ -12,7 +12,7 @@
+ #   pragma once
+ #endif
+ 
+-#if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#if !defined(BOOST_WINDOWS)
+ #   include <dlfcn.h>
+ #else
+ #   include <boost/detail/winapi/dll.hpp>
+@@ -20,7 +20,7 @@
+ 
+ namespace boost { namespace stacktrace { namespace detail {
+ 
+-#if !defined(BOOST_WINDOWS) && !defined(__CYGWIN__)
++#if !defined(BOOST_WINDOWS)
+ class location_from_symbol {
+     ::Dl_info dli_;
+ 
+@@ -29,7 +29,7 @@ public:
+         : dli_()
+     {
+         if (!::dladdr(addr, &dli_)) {
+-            dli_.dli_fname = 0;
++            dli_.dli_fname[0] = '\0';
+         }
+     }
+ 

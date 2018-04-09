@@ -1,5 +1,5 @@
---- origsrc/boost_1_57_0/boost/config/platform/cygwin.hpp	2015-05-04 18:02:21.742811600 -0500
-+++ src/boost_1_57_0/boost/config/platform/cygwin.hpp	2015-05-04 17:16:30.183407900 -0500
+--- origsrc/boost_1_66_0/boost/config/platform/cygwin.hpp	2017-12-13 17:56:42.000000000 -0600
++++ src/boost_1_66_0/boost/config/platform/cygwin.hpp	2018-04-08 23:15:15.142501100 -0500
 @@ -11,6 +11,7 @@
  #define BOOST_HAS_DIRENT_H
  #define BOOST_HAS_LOG1P
@@ -8,7 +8,7 @@
  
  //
  // Threading API:
-@@ -35,22 +36,10 @@
+@@ -35,23 +36,7 @@
  // find out if we have a stdint.h, there should be a better way to do this:
  //
  #include <sys/types.h>
@@ -20,7 +20,7 @@
 -#define BOOST_NO_FENV_H
  
  // boilerplate code:
- #include <boost/config/posix_features.hpp>
+ #include <boost/config/detail/posix_features.hpp>
 -
 -//
 -// Cygwin lies about XSI conformance, there is no nl_types.h:
@@ -28,12 +28,13 @@
 -#ifdef BOOST_HAS_NL_TYPES_H
 -#  undef BOOST_HAS_NL_TYPES_H
 -#endif
- 
- 
- 
---- origsrc/boost_1_57_0/boost/config/stdlib/libstdcpp3.hpp	2014-10-26 07:36:42.000000000 -0500
-+++ src/boost_1_57_0/boost/config/stdlib/libstdcpp3.hpp	2015-05-04 17:54:44.835791700 -0500
-@@ -68,7 +68,7 @@
+-
+-
+-
+-
+--- origsrc/boost_1_66_0/boost/config/stdlib/libstdcpp3.hpp	2017-12-13 17:56:42.000000000 -0600
++++ src/boost_1_66_0/boost/config/stdlib/libstdcpp3.hpp	2018-04-08 23:17:32.897392500 -0500
+@@ -69,7 +69,7 @@
  #endif
  
  // Apple doesn't seem to reliably defined a *unix* macro
@@ -42,8 +43,8 @@
                          || defined(__unix)    \
                          || defined(unix)      \
                          || defined(__APPLE__) \
---- origsrc/boost_1_57_0/boost/config/stdlib/sgi.hpp	2014-10-26 07:36:42.000000000 -0500
-+++ src/boost_1_57_0/boost/config/stdlib/sgi.hpp	2015-05-04 17:54:52.911817300 -0500
+--- origsrc/boost_1_66_0/boost/config/stdlib/sgi.hpp	2017-12-13 17:56:42.000000000 -0600
++++ src/boost_1_66_0/boost/config/stdlib/sgi.hpp	2018-04-08 23:17:39.931560700 -0500
 @@ -41,7 +41,7 @@
  #endif
  
@@ -53,8 +54,8 @@
                          || defined(__unix)    \
                          || defined(unix)      \
                          || defined(__APPLE__) \
---- origsrc/boost_1_57_0/boost/config/stdlib/stlport.hpp	2014-10-26 07:36:42.000000000 -0500
-+++ src/boost_1_57_0/boost/config/stdlib/stlport.hpp	2015-05-04 17:55:00.621796300 -0500
+--- origsrc/boost_1_66_0/boost/config/stdlib/stlport.hpp	2017-12-13 17:56:42.000000000 -0600
++++ src/boost_1_66_0/boost/config/stdlib/stlport.hpp	2018-04-08 23:17:45.811794400 -0500
 @@ -17,7 +17,7 @@
  #endif
  
@@ -64,8 +65,8 @@
                          || defined(__unix)    \
                          || defined(unix)      \
                          || defined(__APPLE__) \
---- origsrc/boost_1_57_0/boost/config/stdlib/vacpp.hpp	2014-10-26 07:36:42.000000000 -0500
-+++ src/boost_1_57_0/boost/config/stdlib/vacpp.hpp	2015-05-04 17:55:07.424660200 -0500
+--- origsrc/boost_1_66_0/boost/config/stdlib/vacpp.hpp	2017-12-13 17:56:42.000000000 -0600
++++ src/boost_1_66_0/boost/config/stdlib/vacpp.hpp	2018-04-08 23:17:53.448192900 -0500
 @@ -13,7 +13,7 @@
  #define BOOST_NO_STD_MESSAGES
  
